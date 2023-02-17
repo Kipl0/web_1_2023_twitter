@@ -1,0 +1,73 @@
+  <!-- search -->
+  <div class="sticky top-0 w-full py-4 bg-black">
+    <form class="flex items-center ">
+      <svg width="26" height="26" viewBox="0 0 24 24" class="absolute top-6 left-2 text-gray-400">
+        <path fill="currentColor"
+          d="m18.9 20.3l-5.6-5.6q-.75.6-1.725.95Q10.6 16 9.5 16q-2.725 0-4.612-1.887Q3 12.225 3 9.5q0-2.725 1.888-4.613Q6.775 3 9.5 3t4.613 1.887Q16 6.775 16 9.5q0 1.1-.35 2.075q-.35.975-.95 1.725l5.625 5.625q.275.275.275.675t-.3.7q-.275.275-.7.275q-.425 0-.7-.275ZM9.5 14q1.875 0 3.188-1.312Q14 11.375 14 9.5q0-1.875-1.312-3.188Q11.375 5 9.5 5Q7.625 5 6.312 6.312Q5 7.625 5 9.5q0 1.875 1.312 3.188Q7.625 14 9.5 14Z" />
+      </svg>
+      <input type="text" placeholder="Search Twitter" class="w-full h-12 pl-12 bg-zinc-900 rounded-full">
+    </form>
+  </div>
+  
+  <!-- trending -->
+ <div class="flex flex-col gap-4 w-full bg-zinc-900 rounded-2xl">
+    <div class="text-2xl font-bold p-4">
+      Trends for you
+    </div>
+
+    <!-- trends -->
+    % for trend in trends:
+    <div class="text-sm py-2 pl-4 hover:bg-zinc-800">
+      <div class="flex pr-4">
+        <div class="text-white font-bold">
+          {{trend["title"]}}
+        </div>
+        <svg width="25" height="25" viewBox="0 0 24 24" class="ml-auto text-gray-500">
+          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Z" />
+        </svg>
+      </div>
+      <div class="text-zinc-400 font-semibold">
+        {{trend["total_hash"]}} Tweets
+      </div>
+    </div>
+    % end    
+
+    <a href="" class="text-sky-500 py-2 pl-4">
+      Show more
+    </a>
+  </div>
+  <!-- end trending -->
+
+  <!-- who to follow -->
+  <div class="sticky top-20 flex flex-col gap-4 w-full  py-2 px-4 mt-4 bg-zinc-900 rounded-2xl">
+    <div class="text-2xl font-bold">
+      Who to follow
+
+    </div>
+
+    <!-- Who to follow -->
+    % for user_suggested_follow in user_suggested_follows:
+      <a href="/{{user_suggested_follow['username']}}" class="flex items-center gap-4">
+        % if "avatar" in user_suggested_follow:  
+        <img src="images/{{user_suggested_follow['avatar']}}" class="w-12 h-12 rounded-full">
+        % end
+        <div class="">
+          <div class="text-gray-200 font-bold">
+            {{user_suggested_follow["username"]}} 
+          </div>
+          <div class="text-zinc-500">
+            <strong>@</strong>{{user_suggested_follow["username"]}}
+          </div>
+        </div>
+        <button class="ml-auto px-4 py-2 text-black text-base font-medium bg-gray-200 rounded-full">
+          Follow
+        </button>
+      </a>
+    % end
+    <a href="/" class="text-sky-500">
+      Show more
+    </a>
+
+  </div>
+  <!-- end who to follow  -->
