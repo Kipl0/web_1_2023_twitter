@@ -15,23 +15,15 @@ def dict_factory(cursor, row):
 
 # This data will come from the database
 # For now, we just hard coded the data
-tweets = [
-  { "verified":1, "image_name":"1.jpg", "fullname":"Santiago Donoso", "username":"santiagodonoso","message":"My first tweet","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
-  { "verified":0, "image_name":"2.jpg", "fullname":"Joe Biden", "username":"joebiden","message":"I am THE president","message_image":"1.png","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
-  { "verified":1, "image_name":"1.jpg", "fullname":"Santiago Donoso", "username":"santiagodonoso","message":"My first tweet","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
-  { "verified":0, "image_name":"1.jpg", "fullname":"Santiago Donoso", "username":"santiagodonoso","message":"My first tweet","message_image":"1.png","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
-  { "verified":1, "image_name":"1.jpg", "fullname":"Santiago Donoso", "username":"santiagodonoso","message":"My first tweet","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
-  { "verified":0, "image_name":"1.jpg", "fullname":"Santiago Donoso", "username":"santiagodonoso","message":"My first tweet","message_image":"1.png","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
-]
+# tweets = [
+#   { "verified":1, "image_name":"1.jpg", "fullname":"Santiago Donoso", "username":"santiagodonoso","message":"My first tweet","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
+#   { "verified":0, "image_name":"2.jpg", "fullname":"Joe Biden", "username":"joebiden","message":"I am THE president","message_image":"1.png","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
+#   { "verified":1, "image_name":"1.jpg", "fullname":"Santiago Donoso", "username":"santiagodonoso","message":"My first tweet","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
+#   { "verified":0, "image_name":"1.jpg", "fullname":"Santiago Donoso", "username":"santiagodonoso","message":"My first tweet","message_image":"1.png","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
+#   { "verified":1, "image_name":"1.jpg", "fullname":"Santiago Donoso", "username":"santiagodonoso","message":"My first tweet","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
+#   { "verified":0, "image_name":"1.jpg", "fullname":"Santiago Donoso", "username":"santiagodonoso","message":"My first tweet","message_image":"1.png","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
+# ]
 
-my_tweets = [
-  { "verified":1, "image_name":"1.jpg", "fullname":"Santiago Donoso", "username":"santiagodonoso","message":"My first tweet","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
-  { "verified":0, "image_name":"2.jpg", "fullname":"Joe Biden", "username":"joebiden","message":"I am THE president","message_image":"1.png","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
-  { "verified":1, "image_name":"1.jpg", "fullname":"Santiago Donoso", "username":"santiagodonoso","message":"My first tweet","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
-  { "verified":0, "image_name":"1.jpg", "fullname":"Santiago Donoso", "username":"santiagodonoso","message":"My first tweet","message_image":"1.png","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
-  { "verified":1, "image_name":"1.jpg", "fullname":"Santiago Donoso", "username":"santiagodonoso","message":"My first tweet","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
-  { "verified":0, "image_name":"1.jpg", "fullname":"Santiago Donoso", "username":"santiagodonoso","message":"My first tweet","message_image":"1.png","total_messages":"1","total_retweets":"2","total_likes":"3","total_dislikes":"4",},
-]
 
 trends = [
   {"title":"LGBTQ", "total_hash":58.5},
@@ -40,18 +32,6 @@ trends = [
   {"title":"Politics", "total_hash":17.3},
   {"title":"Bilka", "total_hash":10.8}
 ]
-
-# follows = [
-#   {"profile_pic":"1.jpg","fullname":"Elon Musk", "username":"elonmusk", "route":"/elonmusk"},
-#   {"profile_pic":"2.jpg","fullname":"Joe Biden", "username":"katyperry", "route":"/katyperry"},
-#   {"profile_pic":"3.jpg","fullname":"Shakira", "username":"rihanna", "route":"/rihanna"}
-# ]
-
-# follows = [
-  # {"id":"uuid", user_fk:uuid4, route:varchar}
-  # {id:uuid4, user_fk:uuid4, route:varchar}
-# ]
-
 
 
 profiles = [
@@ -84,14 +64,14 @@ def _(filename):
   return static_file(filename, root="./images")
 
 ##############################
-@get("/thumbnails/<filename:re:.*\.png>")
+@get("/avatar/<filename:re:.*\.png>")
 def _(filename):
-  return static_file(filename, root="./thumbnails")
+  return static_file(filename, root="./avatar")
 
 ##############################
-@get("/thumbnails/<filename:re:.*\.jpg>")
+@get("/avatar/<filename:re:.*\.jpg>")
 def _(filename):
-  return static_file(filename, root="./thumbnails")
+  return static_file(filename, root="./avatar")
 
 
 
@@ -111,6 +91,8 @@ def render_index():
     db = sqlite3.connect("twitter.db")
     db.row_factory = dict_factory
     user_suggested_follows = db.execute("SELECT * FROM users WHERE username!=?",("majs503",)).fetchall()
+    # tweets = db.execute("SELECT * FROM tweets")
+    tweets = db.execute("SELECT * FROM tweets,users WHERE tweets.user_fk = users.id")
     return template("index", title="Twitter", tweets=tweets, trends=trends, user_suggested_follows=user_suggested_follows)
     
   except Exception as ex:
@@ -142,7 +124,7 @@ def _(username):
     #with that id look up the respectives tweets
     #pass the tweets to the view. Template it
     tweets = db.execute("SELECT * FROM tweets WHERE user_fk=?",(user_id,)).fetchall()
-    return template("profile", user=user, tweets=tweets, my_tweets=my_tweets, trends=trends, user_suggested_follows=user_suggested_follows)
+    return template("profile", user=user, tweets=tweets, trends=trends, user_suggested_follows=user_suggested_follows)
 
   except Exception as ex:
     print(ex)
