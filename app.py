@@ -153,7 +153,7 @@ except Exception as ex:
 #Continously interation from Github to python anywhere
 @post('/secret_url_for_git_hook')
 def git_update():
-  repo = git.Repo('./mysite')
+  repo = git.Repo('./web_1_2023_twitter')
   origin = repo.remotes.origin
   repo.create_head('main', origin.refs.main).set_tracking_branch(origin.refs.main).checkout()
   origin.pull()
