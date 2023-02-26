@@ -1,7 +1,8 @@
 
-from bottle import default_app, get, template, run, static_file, view, response
+from bottle import default_app, get, post, response, run, static_file, template, view
 import sqlite3
 import os
+import git
 
 ##############################
 def dict_factory(cursor, row):
@@ -9,7 +10,9 @@ def dict_factory(cursor, row):
   return {key: value for key, value in zip(col_names, row)}
 
 
+#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
 
+# https://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@github.com/Kipl0/web_1_2023_twitter.git
 
 
 
