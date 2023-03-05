@@ -12,41 +12,93 @@
             <a href="/" class="w-1/2 text-center p-4 hover:bg-zinc-900 text-zinc-500 font-semibold">Following</a>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- What's up? make a new tweet -->
+    <div>
+      <form method="POST" onsubmit="validate(tweet); return false"> <!-- prevents reload -->
+        <input name="message" type="text" data-validate="str" data-min="{{TWEET_MIN_LEN}}" data-max="{{TWEET_MAX_LEN}}">
+        <button>
+            Tweet
+        </button>
+      </form>
+
+      <script src="/js/validate.js"></script>
+
+      <script>
+          async function tweet() {
+              const frm = event.target //the event is where - target is the form
+              const conn = await fetch("/tweet", {
+                  method: "POST",
+                  body: new FormData(frm)
+              })
+              const data = await conn.text()
+              console.log(data)
+              const message = frm.querySelector("input[name='message']").value
+              console.log(message)
+          }
+      </script>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     % for tweet in tweets:
     <!-- tweet -->
     <div class="flex gap-4 p-4 border-t border-gray-600">
       <div class="">
-        <img src="/avatar/{{tweet['avatar']}}" class="w-12 h-12 rounded-full">
+        <img src="/avatar/{{tweet['user_avatar']}}" class="w-12 rounded-full">
       </div>
       <!-- right of tweet -->
       <div class="w-full">
         <div class="flex">
-          <div class="flex">
+          <a href="/{{tweet['user_username']}}" class="flex">
             <span class="flex items-center font-bold">
-                {{tweet["first_name"]}}
-                %if tweet["verified"] == "1":
+                {{tweet["user_first_name"]}}
+                %if tweet["user_verified"] == "1":
                 <svg width="20" height="20" viewBox="0 0 24 24" class="text-sky-500"><path fill="currentColor" d="m8.6 22.5l-1.9-3.2l-3.6-.8l.35-3.7L1 12l2.45-2.8l-.35-3.7l3.6-.8l1.9-3.2L12 2.95l3.4-1.45l1.9 3.2l3.6.8l-.35 3.7L23 12l-2.45 2.8l.35 3.7l-3.6.8l-1.9 3.2l-3.4-1.45Zm2.35-6.95L16.6 9.9l-1.4-1.45l-4.25 4.25l-2.15-2.1L7.4 12Z"/></svg>
                 %end
             </span>
             <span class="ml-4">
-              <strong>@</strong>{{tweet["username"]}}
+              <strong>@</strong>{{tweet["user_username"]}}
             </span>
-          </div>
+          </a>
           <svg width="32" height="32" viewBox="0 0 24 24" class="ml-auto text-gray-500">
             <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
               d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Z" />
           </svg>
         </div>
         <div class="mt-4">
-          {{tweet["message"]}}
+          {{tweet["tweet_message"]}}
 
-
-            <!-- En måde hvor man kan have default value -->
-            <!-- %if tweet.get("message_image"): -->
-
-            <!-- En anden måde at gøre det på der er simpel-->
-            %if tweet["image"] != "" :  
-            <img src="/images/{{tweet['image']}}" class="w-full mt-4 max-h-96 rounded-lg object-contain">
+            %if tweet["tweet_image"] != "" :  
+            <img src="/images/{{tweet['tweet_image']}}" class="w-full mt-4 max-h-96 rounded-lg object-contain">
             %end
         </div>
         <div class="flex justify-between mt-2">      
@@ -58,7 +110,7 @@
               </svg>
             </span>
             <span class="pl-1 text-sm text-gray-500 group-hover:text-[#1D9BF0] transition ease-in-out">
-              {{tweet["total_replies"]}}
+              {{tweet["tweet_total_replies"]}}
             </span>
           </div>
           <!-- Total retweet -->
@@ -69,7 +121,7 @@
               </svg>
             </span>
             <span class="pl-1 text-sm text-gray-500 group-hover:text-emerald-500 transition ease-in-out">
-              {{tweet["total_retweets"]}}
+              {{tweet["tweet_total_retweets"]}}
             </span>
           </div>
           <!-- Total likes -->
@@ -80,7 +132,7 @@
               </svg>
             </span>
             <span class="pl-1 text-sm text-gray-500 group-hover:text-pink-600 transition ease-in-out">
-              {{tweet["total_likes"]}}
+              {{tweet["tweet_total_likes"]}}
             </span>
           </div>                 
           <!-- Total views -->
@@ -91,7 +143,7 @@
               </svg>
             </span>
             <span class="pl-1 text-sm text-gray-500 group-hover:text-[#1D9BF0] transition ease-in-out">
-              {{tweet["total_views"]}}
+              {{tweet["tweet_total_views"]}}
             </span>
           </div>
           <div class="flex gap-2 items-center group cursor-pointer">
@@ -117,7 +169,7 @@
 
 
   <!-- right -->
-  <div class="hidden lg:block w-full px-8 pb-8 ">
+  <div class="hidden w-11/12  lg:block px-8 pb-8 ">
    <!-- TRENDS -->
    <!-- WHO TO FOLLOW -->
    % include("trends")

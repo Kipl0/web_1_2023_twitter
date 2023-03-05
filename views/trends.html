@@ -20,7 +20,7 @@
     <div class="text-sm py-2 pl-4 hover:bg-zinc-800">
       <div class="flex pr-4">
         <div class="text-white font-bold">
-          {{trend["title"]}}
+          {{trend["trend_title"]}}
         </div>
         <svg width="25" height="25" viewBox="0 0 24 24" class="ml-auto text-gray-500">
           <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -28,7 +28,7 @@
         </svg>
       </div>
       <div class="text-zinc-400 font-semibold">
-        {{trend["total_hash"]}} Tweets
+        {{trend["trend_total_tweets"]}} Tweets
       </div>
     </div>
     % end    
@@ -48,16 +48,16 @@
 
     <!-- Who to follow -->
     % for user_suggested_follow in user_suggested_follows:
-      <a href="/{{user_suggested_follow['username']}}" class="flex items-center gap-4">
-        % if "avatar" in user_suggested_follow:  
-        <img src="/avatar/{{user_suggested_follow['avatar']}}" class="w-12 h-12 rounded-full">
+      <a href="/{{user_suggested_follow['user_username']}}" class="flex items-center gap-4">
+        % if "user_avatar" in user_suggested_follow:  
+        <img src="/avatar/{{user_suggested_follow['user_avatar']}}" class="w-12 h-12 rounded-full">
         % end
         <div class="">
           <div class="text-gray-200 font-bold">
-            {{user_suggested_follow["username"]}} 
+            {{user_suggested_follow["user_username"]}} 
           </div>
           <div class="text-zinc-500">
-            <strong>@</strong>{{user_suggested_follow["username"]}}
+            <strong>@</strong>{{user_suggested_follow["user_username"]}}
           </div>
         </div>
         <button class="ml-auto px-4 py-2 text-black text-base font-medium bg-gray-200 rounded-full">

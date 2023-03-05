@@ -6,39 +6,39 @@
       <a href="/" class="flex items-center gap-9" >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
         <div>
-          <span class="text-xl font-bold">{{user["first_name"]}} {{user["last_name"]}}</span>
-          <p class="text-sm text-zinc-500 font-semibold">{{user["total_tweets"]}} Tweets</p>
+          <span class="text-xl font-bold">{{user["user_first_name"]}} {{user["user_last_name"]}}</span>
+          <p class="text-sm text-zinc-500 font-semibold">{{user["user_total_tweets"]}} Tweets</p>
         </div>
       </a>
     </div>
     <div class="flex flex-col w-full pb-20"> <!--image section-->
       <div class="relative">
-          <img src="/avatar/{{user['banner']}}" >
-          <img src="/avatar/{{user['avatar']}}" class="absolute w-36 top-32 left-4 rounded-full border-4 border-black">
+          <img src="/avatar/{{user['user_banner']}}" >
+          <img src="/avatar/{{user['user_avatar']}}" class="absolute w-36 top-32 left-4 rounded-full border-4 border-black">
       </div>
     </div>
 
     <!-- Logged info -->
     <div class="p-4 flex flex-col gap-2">
       <div class="flex flex-col">
-        <h2 class="font-bold text-2xl">{{user["first_name"]}} {{user["last_name"]}}</h2>
-        <p class="text-zinc-500 text-sm font-normal">@{{user["username"]}}</p>
+        <h2 class="font-bold text-2xl">{{user["user_first_name"]}} {{user["user_last_name"]}}</h2>
+        <p class="text-zinc-500 text-sm font-normal">@{{user["user_username"]}}</p>
       </div>
       <p class="flex text-zinc-500 items-center gap-2 text-sm font-normal">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-2V3a1 1 0 0 0-2 0v1H9V3a1 1 0 0 0-2 0v1H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm1 15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7h16Zm0-9H4V7a1 1 0 0 1 1-1h2v1a1 1 0 0 0 2 0V6h6v1a1 1 0 0 0 2 0V6h2a1 1 0 0 1 1 1Z"/></svg>
-        {{user["first_name"]}} {{user["last_name"]}}
+        {{user["user_first_name"]}} {{user["user_last_name"]}}
       </p>
       <div class="flex gap-4"> <!--Follows and followers-->
-        <p class="font-bold text-sm">{{user["total_following"]}} <span class="text-zinc-500 font-normal">Follows</span></p>
-        <p class="font-bold text-sm">{{user["total_followers"]}} <span class="text-zinc-500 font-normal">Followers</span></p>
+        <p class="font-bold text-sm">{{user["user_total_following"]}} <span class="text-zinc-500 font-normal">Follows</span></p>
+        <p class="font-bold text-sm">{{user["user_total_followers"]}} <span class="text-zinc-500 font-normal">Followers</span></p>
       </div>
     </div>
     <!--Logged in Navbar-->
-    <div class="flex w-full"> 
+    <div class="flex w-full font-semibold"> 
       <a href="#" class="w-3/12 text-center py-4 hover:bg-zinc-900 "><span class="pb-4 border-b-4 border-[#4A99E9] font-bold">Tweets</span></a>
-      <a href="#" class="w-4/12 text-center py-4 hover:bg-zinc-900">Tweets and answers</a>
-      <a href="#" class="w-3/12 text-center py-4 hover:bg-zinc-900">Media</a>
-      <a href="#" class="w-3/12 text-center py-4 hover:bg-zinc-900">Likes</a>
+      <a href="#" class="w-4/12 text-center py-4 hover:bg-zinc-900"><span class="text-zinc-500">Tweets and answers</span></a>
+      <a href="#" class="w-3/12 text-center py-4 hover:bg-zinc-900"><span class="text-zinc-500">Media</span></a>
+      <a href="#" class="w-3/12 text-center py-4 hover:bg-zinc-900"><span class="text-zinc-500">Likes</span></a>
     </div>
 
 
@@ -47,20 +47,20 @@
     <!-- tweet -->
     <div class="flex gap-4 p-4 border-t border-gray-600">
       <div class="">
-        <img src="/avatar/{{user['avatar']}}" class="w-12 rounded-full">
+        <img src="/avatar/{{user['user_avatar']}}" class="w-12 rounded-full">
       </div>
       <!-- right of tweet -->
       <div class="w-full">
         <div class="flex">
           <div class="flex items-center">
             <span class="flex items-center text-sm font-bold pr-1">
-                {{user["first_name"]}} {{user["last_name"]}}
+                {{user["user_first_name"]}} {{user["user_last_name"]}}
             </span>
-            %if user["verified"] == "1":
+            %if user["user_verified"] == "1":
               <svg width="20" height="20" viewBox="0 0 24 24" class="text-sky-500"><path fill="currentColor" d="m8.6 22.5l-1.9-3.2l-3.6-.8l.35-3.7L1 12l2.45-2.8l-.35-3.7l3.6-.8l1.9-3.2L12 2.95l3.4-1.45l1.9 3.2l3.6.8l-.35 3.7L23 12l-2.45 2.8l.35 3.7l-3.6.8l-1.9 3.2l-3.4-1.45Zm2.35-6.95L16.6 9.9l-1.4-1.45l-4.25 4.25l-2.15-2.1L7.4 12Z"/></svg>
             %end
             <span class="ml-4 text-sm text-zinc-500">
-              <strong>@</strong>{{user["username"]}}
+              <strong>@</strong>{{user["user_username"]}}
             </span>
           </div>
           <svg width="32" height="32" viewBox="0 0 24 24" class="ml-auto text-gray-500">
@@ -69,13 +69,13 @@
           </svg>
         </div>
         <div class="mt-4">
-          {{tweet["message"]}}
+          {{tweet["tweet_message"]}}
             <!-- En måde hvor man kan have default value -->
             <!-- %if tweet.get("image"): -->
 
             <!-- En anden måde at gøre det på der er simpel-->
-            %if tweet["image"] != "":  
-              <img src="/images/{{tweet['image']}}" class="w-full mt-4 max-h-96 rounded-lg object-contain">
+            %if tweet["tweet_image"] != "":  
+              <img src="/images/{{tweet['tweet_image']}}" class="w-full mt-4 max-h-96 rounded-lg object-contain">
             %end
         </div>
         <div class="flex justify-between mt-2">    
@@ -87,7 +87,7 @@
               </svg>
             </span>
             <span class="pl-1 text-sm text-gray-500 group-hover:text-[#1D9BF0] transition ease-in-out">
-              {{tweet["total_replies"]}}
+              {{tweet["tweet_total_replies"]}}
             </span>
           </div>
           <!-- Total retweet -->
@@ -98,7 +98,7 @@
               </svg>
             </span>
             <span class="pl-1 text-sm text-gray-500 group-hover:text-emerald-500 transition ease-in-out">
-              {{tweet["total_retweets"]}}
+              {{tweet["tweet_total_retweets"]}}
             </span>
           </div>
           <!-- Total likes -->
@@ -109,7 +109,7 @@
               </svg>
             </span>
             <span class="pl-1 text-sm text-gray-500 group-hover:text-pink-600 transition ease-in-out">
-              {{tweet["total_likes"]}}
+              {{tweet["tweet_total_likes"]}}
             </span>
           </div>                 
           <!-- Total views -->
@@ -120,7 +120,7 @@
               </svg>
             </span>
             <span class="pl-1 text-sm text-gray-500 group-hover:text-[#1D9BF0] transition ease-in-out">
-              {{tweet["total_views"]}}
+              {{tweet["tweet_total_views"]}}
             </span>
           </div>
           <div class="flex gap-2 items-center group cursor-pointer">
@@ -139,7 +139,7 @@
   </div>
 
   <!-- right -->
-  <div class="hidden lg:block w-full px-8 pb-8 ">
+  <div class="hidden w-11/12 lg:block px-8 pb-8 ">
     <!-- end search -->
     <!-- TRENDS -->
     <!-- WHO TO FOLLOW -->
@@ -147,3 +147,21 @@
   </div>
 
 % include("footer")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<blockquote class="twitter-tweet">
+  <p lang="en" dir="ltr">We can thank Big Bang Theory for the normalization (and destruction) of nerd culture. With it&#39;s popularity came an invasion of normies and ideologists that perverted and tainted just about everything we love. It wasn&#39;t even a good show. 
+    <a href="https://t.co/napzVA5jK8">pic.twitter.com/napzVA5jK8</a></p>&mdash; Geekdaddy (@Geekdaddy75) <a href="https://twitter.com/Geekdaddy75/status/1630229795291160579?ref_src=twsrc%5Etfw">February 27, 2023</a></blockquote> 
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
