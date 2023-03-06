@@ -13,7 +13,8 @@ def _():
     # the redirected page
     try:
         # db = sqlite3.connect(str(pathlib.Path(__file__).parent.resolve())+"/twitter.db") 
-        db = sqlite3.connect("twitter.db") 
+        # db = sqlite3.connect("twitter.db") 
+        db = sqlite3.connect(str(pathlib.Path(__file__).parent.resolve())+"/twitter.db") 
         db.row_factory = dict_factory
 
         # Eksisterer brugeren
