@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users(
   user_id                     TEXT UNIQUE NOT NULL,
   user_username               TEXT UNIQUE NOT NULL,
+  user_password               TEXT NOT NULL,
   user_first_name             TEXT NOT NULL,
   user_last_name              TEXT DEFAULT "",
   user_avatar                 TEXT DEFAULT "", 
@@ -16,10 +17,12 @@ CREATE TABLE users(
   PRIMARY KEY(user_id)
 ) WITHOUT ROWID;
 
-INSERT INTO users VALUES("51602a9f7d82472b90ed1091248f6cb1","HarryMemes","Harry Potter", "Memes", "51602a9f7d82472b90ed1091248f6cb1.jpeg", "ad1bfe9ce6e44a009b57a1a183ccb202.jpg", "1", "0", "0", "0");
-INSERT INTO users VALUES("a22da1effb3d4f03a0f77f9aa8320203","geekdaddy75","GeekDaddy", "", "a22da1effb3d4f03a0f77f9aa8320203.jpg", "e130fd8b81d049a1b2fafbca9c5a15e3.png", "1", "0", "0", "0");
-INSERT INTO users VALUES("6268331d012247539998d7664bd05cc1","katyperry","Katy", "Perry", "6268331d012247539998d7664bd05cc1.jpg", "494e6a7fdadb4b3cae58d37a4fad879c.jpg", "1", "0", "0", "0");
-INSERT INTO users VALUES("07578f6c49d84b7c94ce80e96c64ccc0","majs503","Maja", "Larsen", "07578f6c49d84b7c94ce80e96c64ccc0.jpg", "dd5582fff3ca4f7f9f97a911f3e77b22.jpg", "0", "0", "0", "0");
+INSERT INTO users VALUES("51602a9f7d82472b90ed1091248f6cb1","HarryMemes","123","Harry Potter", "Memes", "51602a9f7d82472b90ed1091248f6cb1.jpeg", "ad1bfe9ce6e44a009b57a1a183ccb202.jpg", "1", "0", "0", "0");
+INSERT INTO users VALUES("a22da1effb3d4f03a0f77f9aa8320203","geekdaddy75","123","GeekDaddy", "", "a22da1effb3d4f03a0f77f9aa8320203.jpg", "e130fd8b81d049a1b2fafbca9c5a15e3.png", "1", "0", "0", "0");
+INSERT INTO users VALUES("6268331d012247539998d7664bd05cc1","katyperry","123","Katy", "Perry", "6268331d012247539998d7664bd05cc1.jpg", "494e6a7fdadb4b3cae58d37a4fad879c.jpg", "1", "0", "0", "0");
+INSERT INTO users VALUES("07578f6c49d84b7c94ce80e96c64ccc0","majs503","123","Maja", "Larsen", "07578f6c49d84b7c94ce80e96c64ccc0.jpg", "dd5582fff3ca4f7f9f97a911f3e77b22.jpg", "0", "0", "0", "0");
+
+
 
 
 
