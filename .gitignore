@@ -3,3 +3,4 @@ Lib
 Scripts
 pyvenv.cfg
 __pycache__
+bridges/__pycache__/login.cpython-310.pyc
