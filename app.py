@@ -152,7 +152,9 @@ def _(user_username):
 
     trends = db.execute("SELECT * FROM trends")
 
-    user_suggested_follows = db.execute("SELECT * FROM users WHERE user_username!=?",(login["user_username"],))
+    user_suggested_follows = []
+    if login != None:
+      user_suggested_follows = db.execute("SELECT * FROM users WHERE user_username!=?",(login["user_username"],))
 
     #with that id look up the respectives tweets
     #pass the tweets to the view. Template it
