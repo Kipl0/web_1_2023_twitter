@@ -113,8 +113,10 @@ def render_frontpage():
 
     login = request.get_cookie("login", secret="my-secret") #vi vil gerne have fat i en cookie fra browseren der hedder "login" det har vi defineret i login.py
 
-    user_suggested_follows = db.execute("SELECT * FROM users WHERE user_username!=?",(login["user_username"],))
-    
+    user_suggested_follows = []
+    if login != None:
+      user_suggested_follows = db.execute("SELECT * FROM users WHERE user_username!=?",(login["user_username"],))
+
     trends = db.execute("SELECT * FROM trends")
 
     tweets = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id")
