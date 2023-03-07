@@ -17,7 +17,7 @@
 
       <div class="flex gap-4 p-4 border-t border-gray-600">
         <div class="">
-          % if login:
+          % if login != None:
             <img src="/avatar/{{login['user_avatar']}}" class="w-12 rounded-full">
           % end
         </div>

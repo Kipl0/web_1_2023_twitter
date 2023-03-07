@@ -90,7 +90,7 @@
 
         <!-- Logout/profile -->
         <div class="flex justify-center items-center text-lg mt-auto hover:bg-zinc-900 p-3 rounded-full">
-            % if login:
+            % if login != None:
                 <img src="/avatar/{{login['user_avatar']}}" class="rounded-full w-10 h-10">
                 <div class="pl-3 pr-16 hidden lg:flex lg:flex-col">
                     
