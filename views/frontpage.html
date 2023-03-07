@@ -17,7 +17,9 @@
 
       <div class="flex gap-4 p-4 border-t border-gray-600">
         <div class="">
-          <img src="/avatar/{{login['user_avatar']}}" class="w-12 rounded-full">
+          % if login:
+            <img src="/avatar/{{login['user_avatar']}}" class="w-12 rounded-full">
+          % end
         </div>
         <!-- right of tweet -->
         <div class="w-full">
