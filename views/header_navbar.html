@@ -98,13 +98,11 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                 </svg>        
             % else:
-                <a href="/login">Log in</a>
+                <a class="bg-black border border-gray-600 rounded-full px-4 py-2 text-center" href="/login">Log in</a>
             % end       
         </div>
         % if login:
-            <button>
-                <a href="/logout" class="py-4 px-8">Log ud</a>
-            </button>
+            <a class="bg-black border border-gray-600 rounded-full px-4 py-2 text-center" href="/logout">Log ud</a>
         % end
     </div>
 
