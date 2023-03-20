@@ -13,8 +13,7 @@ def _():
     # the redirected page
     try:
         # db = sqlite3.connect(str(pathlib.Path(__file__).parent.resolve())+"/twitter.db") 
-        db = sqlite3.connect("twitter.db") 
-        # db = sqlite3.connect(str(pathlib.Path(__file__).parent.resolve())+"/twitter.db") 
+        db = sqlite3.connect("twitter.db")  
         db.row_factory = dict_factory
 
         # Eksisterer brugeren
@@ -23,14 +22,14 @@ def _():
         login_password = request.forms.get("login-password")
 
         if not login_username: #is there any data in the requested input field
-            raise Exception("Please insert username")
+            raise Exception("Please insert username") #pass også en 400 error
 
         if not login_password:
-            raise Exception("Please insert password")
+            raise Exception("Please insert password") #pass også en 400 error
 
         does_user_exist = db.execute("SELECT * FROM users WHERE user_username = ? AND user_password = ?",(login_username,login_password,)).fetchall()[0]
         if not does_user_exist:
-            raise Exception("User doesn't exist")
+            raise Exception("User doesn't exist") #pass også en 400 error
 
         response.set_cookie("login", does_user_exist, secret="my-secret", httponly=True)
 

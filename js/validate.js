@@ -3,11 +3,9 @@
 // ##############################
 function validate(callback){
     const form = event.target
-    // const validate_error = "rgba(240, 130, 240, 0.2)"
     const validate_error = "rgba(253, 63, 100, 1)"
     form.querySelectorAll("[data-validate]").forEach(function(element){ 
       element.classList.remove("validate_error")
-      // element.style.backgroundColor = "rgba(60, 80, 100, 1)"
       element.style.backgroundColor = "white"
     })
     form.querySelectorAll("[data-validate]").forEach( function(element){

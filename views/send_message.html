@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form>
+        <input name="sms_message" type="text">
+        <input name="phone_number" type="text">
+
+        <button onclick="test()" type="button">Test</button>
+    </form>
+
+
+    <script>
+        async function test() {
+            const frm = event.target.form //give the form where the button is placed
+            const conn = await fetch("api-send-message", {
+                method : "POST",
+                body : new FormData()
+            }) 
+            // vi får nu formen, det returneres i json
+            const data = await conn.json()
+            console.log(data)
+        }
+
+    </script>
+
+
+</body>
+</html>

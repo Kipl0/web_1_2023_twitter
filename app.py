@@ -7,6 +7,7 @@ import uuid
 import x
 import git
 import bridges.login
+# import magic
 
 ##############################
 def dict_factory(cursor, row):
@@ -16,13 +17,14 @@ def dict_factory(cursor, row):
 
 ##############################
 #         API's 
-import views.tweet
+import views.send_message
 
 ##############################
 #         API's 
 import apis.api_tweet 
-
-
+import apis.api_sign_up
+import apis.api_follow
+import apis.api_send_message
 
 ##############################
 #         JS
@@ -87,14 +89,37 @@ def _():
     return template("login", ex="")
 
 
-
-
 @get("/logout")
 def _():
     response.set_cookie("login", "", expires=0) #det virker, men klikker man tilbage i browseren, kommer man tilbage til index siden bare uden en cookie- Derfor indsætter vi cache control ovenover i /index
     response.status = 303
     response.set_header("Location", "/login")
     return
+
+
+@post("/upload-picture")
+def _():
+  try:
+    the_picture = request.files.get("picture")
+    name, ext = os.path.splitext(the_picture.filename)
+
+    tes
+
+    if ext not in(".jpg", ".jpeg", ".png"):
+      response.status = 400
+      return "Picture not allowed"
+
+    print("#"*30)
+    picture_name = str(uuid.uuid4().hex)
+    picture_name = picture_name + ext
+    the_picture.save(f"pictures/{picture_name}")
+    return "Picture uploaded"
+
+  except Exception as e:
+    print(e)
+
+  finally:
+    pass
 
 
 
@@ -119,8 +144,8 @@ def render_frontpage():
 
     trends = db.execute("SELECT * FROM trends")
 
-    tweets = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id")
-    return template("frontpage", title="Twitter", tweets=tweets, login=login, trends=trends, user_suggested_follows=user_suggested_follows, TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
+    tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id").fetchall()
+    return template("frontpage", title="Twitter", tweets_and_user_data=tweets_and_user_data, login=login, trends=trends, user_suggested_follows=user_suggested_follows, TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
     
 
   except Exception as ex:
@@ -147,19 +172,22 @@ def _(user_username):
 
     login = request.get_cookie("login", secret="my-secret") #vi vil gerne have fat i en cookie fra browseren der hedder "login" det har vi defineret i login.py
     
+    
     user = db.execute("SELECT * FROM users WHERE user_username=? COLLATE NOCASE",(user_username,)).fetchall()[0]
     user_id = user["user_id"]    
+
+    # Den matcher user_id med tweet_user_fk, så den filtrer hvem der har tweetet hvad - så hp user sidder sammen med hp tweets AND der hvor user_username er lige url'en
+    tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id AND user_username=? COLLATE NOCASE",(user_username,)).fetchall()
+
+
+
 
     trends = db.execute("SELECT * FROM trends")
 
     user_suggested_follows = []
-    if login != None:
-      user_suggested_follows = db.execute("SELECT * FROM users WHERE user_username!=?",(login["user_username"],))
+    user_suggested_follows = db.execute("SELECT * FROM users WHERE user_username!=?",(user_username,))
 
-    #with that id look up the respectives tweets
-    #pass the tweets to the view. Template it
-    tweets = db.execute("SELECT * FROM tweets WHERE tweet_user_fk=?",(user_id,)).fetchall()
-    return template("profile", user=user, tweets=tweets, trends=trends, login=login, user_suggested_follows=user_suggested_follows)
+    return template("profile", user=user, tweets_and_user_data=tweets_and_user_data, trends=trends, login=login, user_suggested_follows=user_suggested_follows)
 
   except Exception as ex:
     print(ex)
@@ -192,3 +220,4 @@ def git_update():
   repo.create_head('main', origin.refs.main).set_tracking_branch(origin.refs.main).checkout()
   origin.pull()
   return ""
+
