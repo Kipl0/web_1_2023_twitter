@@ -7,3 +7,5 @@ api/__pycache__
 views/__pycache__
 bridges/__pycache__/login.cpython-310.pyc
 production.py
+tailwindcss/node_modules
+Scripts

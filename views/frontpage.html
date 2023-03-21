@@ -1,8 +1,11 @@
+
 <!---------------------- 
          Left 
 ----------------------->
 % include("comp_header_navbar", title="Forside", contact_active='class="active"')
 
+<!-- Center and right container -->
+<div class="grid min-h-screen h-full grid-cols-[190fr_0fr] lg:grid-cols-[110fr_90fr] xl:grid-cols-[110fr_90fr] 2xl:grid-cols-[130fr_70fr]">
 <!------------------------
           center 
 ------------------------->
@@ -28,7 +31,7 @@
       % include("comp_tweets")
 
     % else :
-      % include("trends", show_latest_tweets="False")
+      % include("comp_trends", show_latest_tweets="False")
 
     % end
   </div>
@@ -37,14 +40,18 @@
 
 
 
-<!----------------------
-         right 
------------------------>
-  <div class="hidden w-11/12  lg:block px-8 pb-8 ">
+  <!----------------------
+          right 
+  ----------------------->
+  <div class="hidden lg:block pl-8 pb-8 ">
    <!-- TRENDS -->
    <!-- WHO TO FOLLOW -->
-   % include("trends", show_latest_tweets="False")
+   % include("comp_trends", show_latest_tweets="False")
   </div>
   <!-- end right -->
+
+
+</div>
+
 
   % include("comp_footer")
