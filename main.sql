@@ -46,7 +46,6 @@ INSERT INTO users VALUES("07578f6c49d84b7c94ce80e96c64ccc0","majs503","maalmaja@
 
 -- SELECT name FROM sqlite_master WHERE type = 'index';
 -- SELECT name FROM sqlite_master WHERE type = 'trigger';
-
 -- ##############################
 
 --#################################
