@@ -22,7 +22,7 @@ import views.send_message
 ##############################
 #         API's 
 import apis.api_tweet 
-import apis.api_sign_up
+import apis.api_register
 import apis.api_follow
 import apis.api_send_message
 
@@ -87,6 +87,11 @@ def _():
 @get("/login")
 def _():
     return template("login", ex="")
+
+
+@get("/register")
+def _():
+    return template("register")
 
 
 @get("/logout")
@@ -172,15 +177,11 @@ def _(user_username):
 
     login = request.get_cookie("login", secret="my-secret") #vi vil gerne have fat i en cookie fra browseren der hedder "login" det har vi defineret i login.py
     
-    
     user = db.execute("SELECT * FROM users WHERE user_username=? COLLATE NOCASE",(user_username,)).fetchall()[0]
     user_id = user["user_id"]    
 
     # Den matcher user_id med tweet_user_fk, så den filtrer hvem der har tweetet hvad - så hp user sidder sammen med hp tweets AND der hvor user_username er lige url'en
     tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id AND user_username=? COLLATE NOCASE",(user_username,)).fetchall()
-
-
-
 
     trends = db.execute("SELECT * FROM trends")
 
