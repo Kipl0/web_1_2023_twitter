@@ -10,10 +10,6 @@
   </div>
   
 
-
-
-
-
   % if show_latest_tweets == "True":
     <div class="grid grid-cols-3 grid-rows-[100px_minmax(100px,100px)] gap-0.5 rounded-xl overflow-hidden my-6">
       % for tweet in [i for i in tweets_and_user_data if i['tweet_image']][:6]:
@@ -25,9 +21,6 @@
       %end
     </div>
   % end
-
-
-
 
 
 

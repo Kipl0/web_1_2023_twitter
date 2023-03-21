@@ -5,32 +5,23 @@
 % include("comp_header_navbar", title="Forside", contact_active='class="active"')
 
 <!-- Center and right container -->
-<div class="grid min-h-screen h-full grid-cols-[190fr_0fr] lg:grid-cols-[110fr_90fr] xl:grid-cols-[110fr_90fr] 2xl:grid-cols-[130fr_70fr]">
+<div class="grid min-h-screen h-full grid-cols-[190fr_0fr] lg:grid-cols-[110fr_90fr] xl:grid-cols-[110fr_90fr] 2xl:grid-cols-[100fr_70fr] 2xl:px-8">
 <!------------------------
           center 
 ------------------------->
   <div class="min-h-screen h-full border-x border-gray-600">
-    <!-- Home-top section -->
-    <div class="sticky w-full top-0 z-0 border-b border-zinc-600 bg-black/[.80] backdrop-blur-sm ">
-        <h1 class="pt-3 pl-4 pb-3 font-bold text-xl">Home</h1>
-        <div class="flex">
-            <a href="/" class="w-1/2 text-center p-4 hover:bg-zinc-900">
-                <span class="pb-4 border-b-4 border-[#4A99E9] font-bold">For you</span>
-            </a>
-            <a href="/" class="w-1/2 text-center p-4 hover:bg-zinc-900 text-zinc-500 font-semibold">Following</a>
-        </div>
-    </div>
-
-
     %if login != None :
+      <!-- Home-top section -->
+      % include("comp_home_navbar")
+
       <!-- Create new tweet -->
       % include("comp_create_tweet")
-
 
       <!-- TWEETS-->
       % include("comp_tweets")
 
     % else :
+      <!-- TRENDS -->
       % include("comp_trends", show_latest_tweets="False")
 
     % end
@@ -44,12 +35,16 @@
           right 
   ----------------------->
   <div class="hidden lg:block pl-8 pb-8 ">
-   <!-- TRENDS -->
-   % include("comp_trends", show_latest_tweets="False")
+  % if login != None :
+      <!-- TRENDS -->
+    % include("comp_trends", show_latest_tweets="False")
 
-   <!-- WHO TO FOLLOW -->
-   % include("comp_follows")
+    <!-- WHO TO FOLLOW -->
+    % include("comp_follows")
 
+  % else :
+    <!-- Login box -->
+    % include("comp_login_box")
   </div>
   <!-- end right -->
 
