@@ -599,9 +599,23 @@ video {
   grid-row: span 1 / span 1;
 }
 
+.m-4 {
+  margin: 1rem;
+}
+
 .my-6 {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+}
+
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .ml-4 {
@@ -777,6 +791,10 @@ video {
   flex-direction: column;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .items-center {
   align-items: center;
 }
@@ -903,6 +921,11 @@ video {
   border-color: rgb(82 82 91 / var(--tw-border-opacity));
 }
 
+.border-zinc-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(161 161 170 / var(--tw-border-opacity));
+}
+
 .bg-\[\#4A99E9\] {
   --tw-bg-opacity: 1;
   background-color: rgb(74 153 233 / var(--tw-bg-opacity));
@@ -940,6 +963,11 @@ video {
 .bg-zinc-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(24 24 27 / var(--tw-bg-opacity));
+}
+
+.bg-violet-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(91 33 182 / var(--tw-bg-opacity));
 }
 
 .fill-gray-500 {
@@ -1156,6 +1184,31 @@ video {
   color: rgb(113 113 122 / var(--tw-text-opacity));
 }
 
+.text-sky-700 {
+  --tw-text-opacity: 1;
+  color: rgb(3 105 161 / var(--tw-text-opacity));
+}
+
+.text-sky-300 {
+  --tw-text-opacity: 1;
+  color: rgb(125 211 252 / var(--tw-text-opacity));
+}
+
+.text-sky-400 {
+  --tw-text-opacity: 1;
+  color: rgb(56 189 248 / var(--tw-text-opacity));
+}
+
+.text-blue-400 {
+  --tw-text-opacity: 1;
+  color: rgb(96 165 250 / var(--tw-text-opacity));
+}
+
+.text-blue-300 {
+  --tw-text-opacity: 1;
+  color: rgb(147 197 253 / var(--tw-text-opacity));
+}
+
 .outline-none {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -1205,6 +1258,10 @@ video {
 
 .hover\:fill-\[\#1D9BF0\]:hover {
   fill: #1D9BF0;
+}
+
+.hover\:underline:hover {
+  text-decoration-line: underline;
 }
 
 .group:hover .group-hover\:bg-\[\#1D9BF0\]\/\[0\.20\] {
@@ -1300,5 +1357,18 @@ video {
 
   .\32xl\:grid-cols-\[130fr_70fr\] {
     grid-template-columns: 130fr 70fr;
+  }
+
+  .\32xl\:grid-cols-\[120fr_60fr\] {
+    grid-template-columns: 120fr 60fr;
+  }
+
+  .\32xl\:grid-cols-\[100fr_70fr\] {
+    grid-template-columns: 100fr 70fr;
+  }
+
+  .\32xl\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
