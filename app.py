@@ -6,7 +6,7 @@ import pathlib
 import uuid
 import x
 import git
-import bridges.login
+# import bridges.login
 # import magic
 
 ##############################
@@ -25,6 +25,7 @@ import apis.api_tweet
 import apis.api_register
 import apis.api_follow
 import apis.api_send_message
+import apis.api_login
 
 ##############################
 #         JS
@@ -107,8 +108,6 @@ def _():
   try:
     the_picture = request.files.get("picture")
     name, ext = os.path.splitext(the_picture.filename)
-
-    tes
 
     if ext not in(".jpg", ".jpeg", ".png"):
       response.status = 400
