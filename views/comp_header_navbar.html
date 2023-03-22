@@ -15,11 +15,6 @@
 
 
 
-
-
-
-
-
 <body class="grid grid-cols-[60fr_200fr] xl:px-36 w-full h-full text-gray-200 text-lg bg-black font-light overflow-hidden overflow-y-scroll">
 
     <!-- left -->
@@ -94,24 +89,20 @@
 
         <!-- Logout/profile -->
         <div class="flex justify-center items-center text-lg mt-auto hover:bg-zinc-900 p-3 rounded-full">
-            % if login != None:
-                <img src="/avatar/{{login['user_avatar']}}" class="rounded-full w-10 h-10">
-                <div class="pl-3 pr-16 hidden lg:flex lg:flex-col">
-                    
-                    <p>{{login["user_first_name"]}} {{login["user_last_name"]}}</p>
-                    
-                    <p class="text-sm text-zinc-500">@{{login["user_username"]}}</p>
-                    
-                </div>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-200 hidden lg:flex">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                </svg>        
-            % else:
-                <a class="bg-black border border-gray-600 rounded-full px-4 py-2 text-center" href="/login">Log in</a>
-            % end       
+        % if login != None:
+            <img src="/avatar/{{login['user_avatar']}}" class="rounded-full w-10 h-10">
+            <div class="pl-3 pr-16 hidden lg:flex lg:flex-col">
+                
+                <p>{{login["user_first_name"]}} {{login["user_last_name"]}}</p>
+                
+                <p class="text-sm text-zinc-500">@{{login["user_username"]}}</p>
+                
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-200 hidden lg:flex">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+            </svg> 
         </div>
-        % if login:
-            <a class="bg-black border border-gray-600 rounded-full px-4 py-2 text-center" href="/logout">Log ud</a>
+        <a class="bg-black border border-gray-600 rounded-full px-4 py-2 text-center" href="/logout">Log ud</a>
         % end
     </div>
 
