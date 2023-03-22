@@ -50,10 +50,6 @@ def validate_user_email():
 
 
 
-
-
-
-
 #######################
 # the name user_name comes from the username variable for logging in. 
 # capitalize it to show this is a constant and should not be changed
