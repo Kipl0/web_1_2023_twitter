@@ -16,9 +16,10 @@ def dict_factory(cursor, row):
 
 
 ##############################
-#         API's 
-import views.send_message
-import views.login
+#         Routes 
+import routes.send_message
+import routes.login
+# import routes.login
 
 ##############################
 #         API's 
@@ -209,7 +210,7 @@ try:
 # Run in local computer
 except Exception as ex:    
     print("Server running locally")
-    run(host="127.0.0.1", port=1220, debug=True, reloader=True) #If it cant run it will run locally
+    run(host="127.0.0.1", port=1222, debug=True, reloader=True) #If it cant run it will run locally
 
 
 ###################################
