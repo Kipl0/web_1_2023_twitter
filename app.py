@@ -26,7 +26,6 @@ import routes.login
 import routes.frontpage
 import routes.profile
 import routes.static_files
-import routes.upload_files
 
 ##############################
 #         API's 
@@ -34,6 +33,7 @@ import apis.api_tweet
 import apis.api_register
 import apis.api_follow
 import apis.api_send_message
+import apis.upload_files
 
 
 ##############################
@@ -61,12 +61,6 @@ def _():
     return template("register")
 
 
-@get("/logout")
-def _():
-    response.set_cookie("user_cookie", "", expires=0) #det virker, men klikker man tilbage i browseren, kommer man tilbage til index siden bare uden en cookie- Derfor indsætter vi cache control ovenover i /index
-    response.status = 303
-    response.set_header("Location", "/login")
-    return
 
 
 
