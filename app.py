@@ -23,7 +23,7 @@ import bridges.login
 ##############################
 #         Routes 
 import routes.send_message
-# import routes.login
+import routes.login
 
 ##############################
 #         API's 
@@ -31,7 +31,7 @@ import apis.api_tweet
 import apis.api_register
 import apis.api_follow
 import apis.api_send_message
-import apis.api_login
+# import apis.api_login
 
 ##############################
 #         JS
@@ -79,6 +79,11 @@ def _(filename):
 def _(filename):
   return static_file(filename, root="./images")
 
+##############################
+@get("/favicon.png")
+def _():
+  return static_file("favicon.png", root=".")
+
 
 
 
@@ -91,9 +96,9 @@ def _():
   return static_file("app.css", root=".")
 
 
-@get("/login")
-def _():
-    return template("login", ex="")
+# @get("/login")
+# def _():
+#     return template("login", ex="")
 
 
 @get("/register")
