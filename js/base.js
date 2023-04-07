@@ -19,7 +19,7 @@ async function login(){
     btn.disabled = true
     btn.innerText = btn.getAttribute("data-await")
     const frm = event.target.form
-    const conn = await fetch("/api-login", {
+    const conn = await fetch("/login", {
         method : "POST",
         body : new FormData(frm)
     })
@@ -30,7 +30,9 @@ async function login(){
         showTip()        
         return
     }
-    const data = await conn.json()
     // Success
-    location.href = `/${data.user_name}`
+    location.href = `/`
+
+    // const data = await conn.json() //bruges til at få fat i username - for at kunne logge ind på profile   -->   /username
+    // location.href = `/${data.login_username}`  --> hænger sammen med linje 34
 }

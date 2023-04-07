@@ -17,8 +17,12 @@
     </div>
     <div class="flex flex-col w-full pb-20"> <!--image section-->
       <div class="relative">
-          <img src="/avatar/{{user['user_banner']}}" >
-          <img src="/avatar/{{user['user_avatar']}}" class="absolute w-36 top-32 left-4 rounded-full border-4 border-black">
+          <img src="/banner/{{user['user_banner']}}">
+          <div class="absolute border-2 border-red-400 top-0 w-full h-full flex align-baseline">
+            <img src="/avatar/{{user['user_avatar']}}" class="w-20 rounded-full border-4 border-black">
+          </div>
+          <!-- <img src="/avatar/{{user['user_avatar']}}" class="absolute w-20 top-1/2 left-4 rounded-full border-4 border-black md:w-36"> -->
+          <!-- <img src="/avatar/{{user['user_avatar']}}" class="absolute w-36 top-1/2 left-4 rounded-full border-4 border-black"> -->
       </div>
     </div>
 

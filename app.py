@@ -75,9 +75,11 @@ def _(filename):
   return static_file(filename, root="./avatar")
 
 ##############################
-@get("/images/<filename:re:.*\.gif>")
+@get("/banner/<filename:re:.*\.jpg>")
 def _(filename):
-  return static_file(filename, root="./images")
+  return static_file(filename, root="./banner")
+
+
 
 ##############################
 @get("/favicon.png")
