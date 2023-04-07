@@ -17,8 +17,12 @@ def dict_factory(cursor, row):
 
 ##############################
 #         Routes 
+import bridges.login
+
+
+##############################
+#         Routes 
 import routes.send_message
-import routes.login
 # import routes.login
 
 ##############################
