@@ -23,6 +23,10 @@ import bridges.login
 #         Routes 
 import routes.send_message
 import routes.login
+import routes.frontpage
+import routes.profile
+import routes.static_files
+import routes.upload_files
 
 ##############################
 #         API's 
@@ -38,52 +42,6 @@ import apis.api_send_message
 def _(filename):
   return static_file(filename, "js")
 
-
-
-##############################
-#         IMAGES
-@get("/images/<filename:re:.*\.png>")
-def _(filename):
-  return static_file(filename, root="./images")
-
-@get("/images/<filename:re:.*\.jpg>")
-def _(filename):
-  return static_file(filename, root="./images")
-
-@get("/images/<filename:re:.*\.jpeg>")
-def _(filename):
-  return static_file(filename, root="./images")
-
-@get("/images/<filename:re:.*\.PNG>")
-def _(filename):
-  return static_file(filename, root="./images")
-
-##############################
-@get("/avatar/<filename:re:.*\.png>")
-def _(filename):
-  return static_file(filename, root="./avatar")
-
-##############################
-@get("/avatar/<filename:re:.*\.jpg>")
-def _(filename):
-  return static_file(filename, root="./avatar")
-
-##############################
-@get("/avatar/<filename:re:.*\.jpeg>")
-def _(filename):
-  return static_file(filename, root="./avatar")
-
-##############################
-@get("/banner/<filename:re:.*\.jpg>")
-def _(filename):
-  return static_file(filename, root="./banner")
-
-
-
-##############################
-@get("/favicon.png")
-def _():
-  return static_file("favicon.png", root=".")
 
 
 
@@ -111,99 +69,13 @@ def _():
     return
 
 
-@post("/upload-picture")
-def _():
-  try:
-    the_picture = request.files.get("picture")
-    name, ext = os.path.splitext(the_picture.filename)
-
-    if ext not in(".jpg", ".jpeg", ".png"):
-      response.status = 400
-      return "Picture not allowed"
-
-    print("#"*30)
-    picture_name = str(uuid.uuid4().hex)
-    picture_name = picture_name + ext
-    the_picture.save(f"pictures/{picture_name}")
-    return "Picture uploaded"
-
-  except Exception as e:
-    print(e)
-
-  finally:
-    pass
 
 
 
 
 
-############################## you want to display the index page, you want to pass the title, tweets and trends
-@get("/")
-def render_frontpage():
-  try:
-    db = sqlite3.connect(str(pathlib.Path(__file__).parent.resolve())+"/twitter.db") 
-    db.row_factory = dict_factory
-
-    response.add_header("Cache-control", "no-store, no-cache, must-revalidate, max-age=0")
-    response.add_header("Pragma", "no-cache")
-    response.add_header("Expires",0)
-
-    user_cookie = request.get_cookie("user_cookie", secret="my-secret") #vi vil gerne have fat i en cookie fra browseren der hedder "user_cookie" det har vi defineret i login.py
-
-    user_suggested_follows = []
-    if user_cookie != None:
-      user_suggested_follows = db.execute("SELECT * FROM users WHERE user_username!=?",(user_cookie["user_username"],))
-
-    trends = db.execute("SELECT * FROM trends")
-
-    tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id").fetchall()
-    return template("frontpage", title="Twitter", tweets_and_user_data=tweets_and_user_data, user_cookie=user_cookie, trends=trends, user_suggested_follows=user_suggested_follows, TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
-    
-
-  except Exception as ex:
-    print(ex)
-    response.status = 400
-    return {"error": str(ex)}
-
-  finally:
-    if "db" in locals(): db.close()
 
 
-
-##############################
-@get("/<user_username>")
-# @view("profile")
-def _(user_username):
-  try:
-    db = sqlite3.connect(str(pathlib.Path(__file__).parent.resolve())+"/twitter.db") 
-    db.row_factory = dict_factory
-
-    response.add_header("Cache-control", "no-store, no-cache, must-revalidate, max-age=0")
-    response.add_header("Pragma", "no-cache")
-    response.add_header("Expires",0)
-
-    user_cookie = request.get_cookie("user_cookie", secret="my-secret") #vi vil gerne have fat i en cookie fra browseren der hedder "login" det har vi defineret i login.py
-    
-    user = db.execute("SELECT * FROM users WHERE user_username=? COLLATE NOCASE",(user_username,)).fetchall()[0]
-    user_id = user["user_id"]    
-
-    # Den matcher user_id med tweet_user_fk, så den filtrer hvem der har tweetet hvad - så hp user sidder sammen med hp tweets AND der hvor user_username er lige url'en
-    tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id AND user_username=? COLLATE NOCASE",(user_username,)).fetchall()
-
-    trends = db.execute("SELECT * FROM trends")
-
-    user_suggested_follows = []
-    user_suggested_follows = db.execute("SELECT * FROM users WHERE user_username!=?",(user_username,))
-
-    return template("profile", user=user, tweets_and_user_data=tweets_and_user_data, trends=trends, user_cookie=user_cookie, user_suggested_follows=user_suggested_follows)
-
-  except Exception as ex:
-    print(ex)
-    response.status = 400
-    return {"error": str(ex)}
-
-  finally:
-    if "db" in locals(): db.close()
 
 
 
