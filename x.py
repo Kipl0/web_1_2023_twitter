@@ -69,7 +69,7 @@ def validate_user_name():
   if not re.match(USER_NAME_REGEX, request.forms.user_name): raise Exception(error)
   return request.forms.user_name
 
-PASSWORD_MIN = 4
+PASSWORD_MIN = 3
 PASSWORD_MAX = 15
 PASSWORD_REGEX = ""
 

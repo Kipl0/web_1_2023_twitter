@@ -6,8 +6,7 @@ import pathlib
 import uuid
 import x
 import git
-# import bridges.login
-# import magic
+
 
 ##############################
 def dict_factory(cursor, row):
@@ -31,7 +30,7 @@ import apis.api_tweet
 import apis.api_register
 import apis.api_follow
 import apis.api_send_message
-# import apis.api_login
+
 
 ##############################
 #         JS
@@ -98,10 +97,6 @@ def _():
   return static_file("app.css", root=".")
 
 
-# @get("/login")
-# def _():
-#     return template("login", ex="")
-
 
 @get("/register")
 def _():
@@ -110,7 +105,7 @@ def _():
 
 @get("/logout")
 def _():
-    response.set_cookie("login", "", expires=0) #det virker, men klikker man tilbage i browseren, kommer man tilbage til index siden bare uden en cookie- Derfor indsætter vi cache control ovenover i /index
+    response.set_cookie("user_cookie", "", expires=0) #det virker, men klikker man tilbage i browseren, kommer man tilbage til index siden bare uden en cookie- Derfor indsætter vi cache control ovenover i /index
     response.status = 303
     response.set_header("Location", "/login")
     return
@@ -153,16 +148,16 @@ def render_frontpage():
     response.add_header("Pragma", "no-cache")
     response.add_header("Expires",0)
 
-    login = request.get_cookie("login", secret="my-secret") #vi vil gerne have fat i en cookie fra browseren der hedder "login" det har vi defineret i login.py
+    user_cookie = request.get_cookie("user_cookie", secret="my-secret") #vi vil gerne have fat i en cookie fra browseren der hedder "user_cookie" det har vi defineret i login.py
 
     user_suggested_follows = []
-    if login != None:
-      user_suggested_follows = db.execute("SELECT * FROM users WHERE user_username!=?",(login["user_username"],))
+    if user_cookie != None:
+      user_suggested_follows = db.execute("SELECT * FROM users WHERE user_username!=?",(user_cookie["user_username"],))
 
     trends = db.execute("SELECT * FROM trends")
 
     tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id").fetchall()
-    return template("frontpage", title="Twitter", tweets_and_user_data=tweets_and_user_data, login=login, trends=trends, user_suggested_follows=user_suggested_follows, TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
+    return template("frontpage", title="Twitter", tweets_and_user_data=tweets_and_user_data, user_cookie=user_cookie, trends=trends, user_suggested_follows=user_suggested_follows, TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
     
 
   except Exception as ex:
@@ -187,7 +182,7 @@ def _(user_username):
     response.add_header("Pragma", "no-cache")
     response.add_header("Expires",0)
 
-    login = request.get_cookie("login", secret="my-secret") #vi vil gerne have fat i en cookie fra browseren der hedder "login" det har vi defineret i login.py
+    user_cookie = request.get_cookie("user_cookie", secret="my-secret") #vi vil gerne have fat i en cookie fra browseren der hedder "login" det har vi defineret i login.py
     
     user = db.execute("SELECT * FROM users WHERE user_username=? COLLATE NOCASE",(user_username,)).fetchall()[0]
     user_id = user["user_id"]    
@@ -200,7 +195,7 @@ def _(user_username):
     user_suggested_follows = []
     user_suggested_follows = db.execute("SELECT * FROM users WHERE user_username!=?",(user_username,))
 
-    return template("profile", user=user, tweets_and_user_data=tweets_and_user_data, trends=trends, login=login, user_suggested_follows=user_suggested_follows)
+    return template("profile", user=user, tweets_and_user_data=tweets_and_user_data, trends=trends, user_cookie=user_cookie, user_suggested_follows=user_suggested_follows)
 
   except Exception as ex:
     print(ex)

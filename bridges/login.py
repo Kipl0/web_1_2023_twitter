@@ -16,7 +16,7 @@ def _():
 
         does_user_exist = db.execute("SELECT * FROM users WHERE user_username = ? AND user_password = ?",(login_username,login_password,)).fetchall()[0]
 
-        response.set_cookie("login", does_user_exist, secret=x.COOKIE_SECRET, httponly=True)
+        response.set_cookie("user_cookie", does_user_exist, secret=x.COOKIE_SECRET, httponly=True)
 
         cookie_expiration_date = int(time.time()) + 7200
 

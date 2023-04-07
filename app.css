@@ -1375,9 +1375,23 @@ video {
     grid-template-columns: 130fr 100fr;
   }
 
+  .xl\:grid-cols-\[40fr_200fr\] {
+    grid-template-columns: 40fr 200fr;
+  }
+
+  .xl\:bg-red-400 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(248 113 113 / var(--tw-bg-opacity));
+  }
+
   .xl\:px-36 {
     padding-left: 9rem;
     padding-right: 9rem;
+  }
+
+  .xl\:px-16 {
+    padding-left: 4rem;
+    padding-right: 4rem;
   }
 }
 
@@ -1393,5 +1407,10 @@ video {
   .\32xl\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .\32xl\:px-28 {
+    padding-left: 7rem;
+    padding-right: 7rem;
   }
 }

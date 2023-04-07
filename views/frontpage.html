@@ -5,12 +5,12 @@
 % include("comp_header_navbar", title="Forside", contact_active='class="active"')
 
 <!-- Center and right container -->
-<div class="grid min-h-screen h-full grid-cols-[190fr_0fr] lg:grid-cols-[120fr_100fr] xl:grid-cols-[130fr_100fr] 2xl:grid-cols-[100fr_100fr] 2xl:px-8">
+<div class="grid min-h-screen h-full grid-cols-[190fr_0fr] lg:grid-cols-[120fr_100fr] xl:grid-cols-[130fr_100fr] 2xl:px-8">
 <!------------------------
           center 
 ------------------------->
   <div class="min-h-screen h-full border-x border-gray-600">
-    %if login != None :
+    %if user_cookie != None :
       <!-- Home-top section -->
       % include("comp_home_navbar")
 
@@ -35,7 +35,7 @@
           right 
   ----------------------->
   <div class="hidden lg:block pl-8 pb-8 ">
-  % if login != None :
+  % if user_cookie != None :
       <!-- TRENDS -->
     % include("comp_trends", show_latest_tweets="False")
 
