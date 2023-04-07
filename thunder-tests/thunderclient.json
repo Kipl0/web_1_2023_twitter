@@ -283,5 +283,29 @@
       ]
     },
     "tests": []
+  },
+  {
+    "_id": "747479e7-3a38-4541-82c7-cbb139afb6ba",
+    "colId": "a2608687-c927-453f-9b0e-7c04116255fc",
+    "containerId": "",
+    "name": "api tweet",
+    "url": "127.0.0.1:1222/tweet",
+    "method": "POST",
+    "sortNum": 90000,
+    "created": "2023-03-30T11:51:32.789Z",
+    "modified": "2023-03-30T12:00:47.458Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "formdata",
+      "raw": "",
+      "form": [
+        {
+          "name": "message",
+          "value": "one"
+        }
+      ]
+    },
+    "tests": []
   }
 ]

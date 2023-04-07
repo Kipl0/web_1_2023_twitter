@@ -1,3 +1,12 @@
+-- change internal structure and respect the linking between PK and FK
+PRAGMA foreign_keys;
+PRAGMA foreign_keys = ON;
+PRAGMA foreign_keys;
+
+-- Uden den linje, virker nedenstående link ikke
+-- FOREIGN KEY(tweet_user_fk) REFERENCES users(user_id)
+
+
 -- ###########################
 --          Users
 
@@ -17,13 +26,13 @@ CREATE TABLE users(
   user_location               TEXT DEFAULT "",
   user_created_at             TEXT NOT NULL,
   user_verified               TEXT DEFAULT 0, 
-  user_total_tweets           TEXT DEFAULT 0,
-  user_total_followers        TEXT DEFAULT 0,
-  user_total_following        TEXT DEFAULT 0,
-  user_total_retweets         TEXT DEFAULT 0,
-  user_total_comments         TEXT DEFAULT 0,
-  user_total_likes            TEXT DEFAULT 0,
-  user_total_dislikes         TEXT DEFAULT 0,
+  user_total_tweets           INTEGER DEFAULT 0,
+  user_total_followers        INTEGER DEFAULT 0,
+  user_total_following        INTEGER DEFAULT 0,
+  user_total_retweets         INTEGER DEFAULT 0,
+  user_total_comments         INTEGER DEFAULT 0,
+  user_total_likes            INTEGER DEFAULT 0,
+  user_total_dislikes         INTEGER DEFAULT 0,
   PRIMARY KEY(user_id)
 ) WITHOUT ROWID;
 
@@ -63,9 +72,16 @@ CREATE TABLE tweets(
   tweet_total_retweets      TEXT,
   tweet_total_likes         TEXT,
   tweet_total_views         TEXT,
-  PRIMARY KEY(tweet_id)
+  PRIMARY KEY(tweet_id),
+  FOREIGN KEY(tweet_user_fk) REFERENCES users(user_id) -- sammenhæng mellem PK og FK
 ) WITHOUT ROWID;
 -- -- Majs503
+-- I db browser kan man ikke indsætte en linje med en tweet_user_fk som ikke eksisterer som PK i users
+-- Herinde kan man godt, men det skal man ikke kunne
+-- INSERT INTO tweets VALUES("729ac281ba654300bd3e5994e167eaaa", "a", "1676283564", "a", "", "", "0", "0", "0", "0");
+
+
+
 INSERT INTO tweets VALUES("729ac281ba654300b23e5994e167ea6a", "07578f6c49d84b7c94ce80e96c64ccc0", "1676283564", "Majas tweet 1", "", "", "0", "0", "0", "0");
 INSERT INTO tweets VALUES("6847c48ca5f94332af3640c38efe83fe", "07578f6c49d84b7c94ce80e96c64ccc0", "1676283564", "Majas tweet 2", "", "", "0", "0", "0", "0");
 INSERT INTO tweets VALUES("7cf79d3612c249f4ab6d535aa8bb861d", "07578f6c49d84b7c94ce80e96c64ccc0", "1676283564", "Majas tweet 3", "", "", "0", "0", "0", "0");
@@ -118,7 +134,7 @@ INSERT INTO tweets VALUES("793d655c7f334ad0858cfe2fdf182966", "a22da1effb3d4f03a
 
 
 
-
+-- HVAD GØR DENNE LINJE?
 -- CREATE INDEX idx_tweets_tweet_image ON tweets(tweet_image);
 
 
