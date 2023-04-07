@@ -2,11 +2,14 @@
 
 // ##############################
 function validate(callback){
-    const form = event.target
+    // const form = event.target
+    const form = document.getElementById("testertest")
+
     const validate_error = "rgba(253, 63, 100, 1)"
     form.querySelectorAll("[data-validate]").forEach(function(element){ 
       element.classList.remove("validate_error")
       element.style.backgroundColor = "white"
+      console.log("ok")
     })
     form.querySelectorAll("[data-validate]").forEach( function(element){
       switch(element.getAttribute("data-validate")){

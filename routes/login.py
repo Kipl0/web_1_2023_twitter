@@ -5,9 +5,9 @@ import x
 def _():
 	# x.disable_cache()
 	# if user is logged, go to the profile page of that user
-	user = request.get_cookie("user", secret=x.COOKIE_SECRET)
-	if user:
+	login = request.get_cookie("login", secret=x.COOKIE_SECRET)
+	if login:
 		response.status = 303
-		response.set_header("Location", f"/{user['user_name']}")
+		response.set_header("Location", f"/{login['user_username']}")
 		return
 	return template("login")
