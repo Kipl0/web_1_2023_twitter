@@ -11,3 +11,5 @@ def _():
 		response.set_header("Location", f"/{user_cookie['user_username']}")
 		return
 	return template("login")
+
+# Hvis login er succesfuldt skal man redirectes til en ny side frem for return template. Man bliver redirected når brugeren har udført en handling succesfuldt såsom en form

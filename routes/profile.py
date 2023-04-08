@@ -20,7 +20,8 @@ def _(user_username):
     user_id = user["user_id"]    
 
     # Den matcher user_id med tweet_user_fk, så den filtrer hvem der har tweetet hvad - så hp user sidder sammen med hp tweets AND der hvor user_username er lige url'en
-    tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id AND user_username=? COLLATE NOCASE",(user_username,)).fetchall()
+    user_id = user["user_id"]    
+    tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id AND user_username=? COLLATE NOCASE ORDER BY tweet_created_at DESC LIMIT 10",(user_username,)).fetchall()
 
     trends = db.execute("SELECT * FROM trends")
 

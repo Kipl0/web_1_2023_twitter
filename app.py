@@ -23,6 +23,7 @@ import bridges.login
 #         Routes 
 import routes.send_message
 import routes.login
+import routes.logout
 import routes.frontpage
 import routes.profile
 import routes.static_files

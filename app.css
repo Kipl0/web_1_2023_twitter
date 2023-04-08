@@ -575,12 +575,12 @@ video {
   top: 0px;
 }
 
-.top-20 {
-  top: 5rem;
+.top-1\/2 {
+  top: 50%;
 }
 
-.top-32 {
-  top: 8rem;
+.top-20 {
+  top: 5rem;
 }
 
 .top-4 {
@@ -589,10 +589,6 @@ video {
 
 .top-6 {
   top: 1.5rem;
-}
-
-.top-1\/2 {
-  top: 50%;
 }
 
 .z-0 {
@@ -647,10 +643,6 @@ video {
 
 .mt-auto {
   margin-top: auto;
-}
-
-.-mt-2 {
-  margin-top: -0.5rem;
 }
 
 .flex {
@@ -764,10 +756,6 @@ video {
 .w-min {
   width: -moz-min-content;
   width: min-content;
-}
-
-.w-24 {
-  width: 6rem;
 }
 
 .max-w-md {
@@ -890,12 +878,12 @@ video {
   border-width: 1px;
 }
 
-.border-4 {
-  border-width: 4px;
-}
-
 .border-2 {
   border-width: 2px;
+}
+
+.border-4 {
+  border-width: 4px;
 }
 
 .border-x {
@@ -935,6 +923,11 @@ video {
   border-color: rgb(75 85 99 / var(--tw-border-opacity));
 }
 
+.border-red-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(248 113 113 / var(--tw-border-opacity));
+}
+
 .border-zinc-400 {
   --tw-border-opacity: 1;
   border-color: rgb(161 161 170 / var(--tw-border-opacity));
@@ -943,16 +936,6 @@ video {
 .border-zinc-600 {
   --tw-border-opacity: 1;
   border-color: rgb(82 82 91 / var(--tw-border-opacity));
-}
-
-.border-red-400 {
-  --tw-border-opacity: 1;
-  border-color: rgb(248 113 113 / var(--tw-border-opacity));
-}
-
-.border-red-600 {
-  --tw-border-opacity: 1;
-  border-color: rgb(220 38 38 / var(--tw-border-opacity));
 }
 
 .bg-\[\#4A99E9\] {
@@ -1048,11 +1031,6 @@ video {
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
-}
-
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
 }
 
 .pb-20 {
@@ -1335,10 +1313,6 @@ video {
     width: 12rem;
   }
 
-  .lg\:w-36 {
-    width: 9rem;
-  }
-
   .lg\:max-w-md {
     max-width: 28rem;
   }
@@ -1379,16 +1353,6 @@ video {
     grid-template-columns: 40fr 200fr;
   }
 
-  .xl\:bg-red-400 {
-    --tw-bg-opacity: 1;
-    background-color: rgb(248 113 113 / var(--tw-bg-opacity));
-  }
-
-  .xl\:px-36 {
-    padding-left: 9rem;
-    padding-right: 9rem;
-  }
-
   .xl\:px-16 {
     padding-left: 4rem;
     padding-right: 4rem;
@@ -1396,21 +1360,17 @@ video {
 }
 
 @media (min-width: 1536px) {
-  .\32xl\:grid-cols-\[100fr_100fr\] {
-    grid-template-columns: 100fr 100fr;
-  }
-
   .\32xl\:grid-cols-\[120fr_80fr\] {
     grid-template-columns: 120fr 80fr;
-  }
-
-  .\32xl\:px-8 {
-    padding-left: 2rem;
-    padding-right: 2rem;
   }
 
   .\32xl\:px-28 {
     padding-left: 7rem;
     padding-right: 7rem;
+  }
+
+  .\32xl\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
