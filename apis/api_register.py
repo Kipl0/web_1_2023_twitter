@@ -2,6 +2,7 @@ from bottle import post, response, request, time, template
 import x
 import uuid
 import time
+import bcrypt
 
 @post("/register")
 def _():
@@ -11,12 +12,18 @@ def _():
         user_password = x.validate_user_password()
         x.validate_user_confirm_password()
         
+        user_input_password = user_password.encode('utf-8')
+        
+        salt = bcrypt.gensalt()
+
+        hashed_password = bcrypt.hashpw(user_input_password, salt)
+
         user_id = str(uuid.uuid4()).replace("-","")
         user = {
             "user_id" : user_id,
             "user_username" : user_username,
             "user_email" : user_email,
-            "user_password" : user_password,
+            "user_password" : hashed_password,
             "user_verification_key" : str(uuid.uuid4()).replace("-", ""),
             "user_first_name" : "",
             "user_last_name" : "",
@@ -36,6 +43,8 @@ def _():
             "user_total_following" : 0
         }
 
+
+
         values = ""
         for key in user:
             values += f':{key},'
@@ -43,7 +52,7 @@ def _():
 
         db = x.db()
         total_rows_inserted = db.execute(f"INSERT INTO users VALUES({values})", user).rowcount
-
+        print(user_password)
         db.commit()
 
         if total_rows_inserted != 1 : raise Exception("Please try again")
