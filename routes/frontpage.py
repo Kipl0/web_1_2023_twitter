@@ -18,7 +18,7 @@ def render_frontpage():
 
     user_suggested_follows = []
     if user_cookie != None:
-      user_suggested_follows = db.execute("SELECT * FROM users WHERE user_username!=?",(user_cookie["user_username"],))
+      user_suggested_follows = db.execute("SELECT * FROM users WHERE user_username!=? LIMIT 3",(user_cookie["user_username"],))
 
     trends = db.execute("SELECT * FROM trends")
 

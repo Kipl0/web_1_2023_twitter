@@ -46,6 +46,12 @@ def _(filename):
   return static_file(filename, root="./banner")
 
 
+##############################
+@get("/icons/<filename:re:.*\.svg>")
+def _(filename):
+  return static_file(filename, root="./icons")
+
+
 
 ##############################
 @get("/favicon.png")
