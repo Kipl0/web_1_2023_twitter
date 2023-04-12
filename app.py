@@ -27,6 +27,9 @@ import routes.logout
 import routes.frontpage
 import routes.profile
 import routes.static_files
+import routes.upload_picture
+import routes.register
+
 
 ##############################
 #         API's 
@@ -57,9 +60,7 @@ def _():
 
 
 
-@get("/register")
-def _():
-    return template("register")
+
 
 
 

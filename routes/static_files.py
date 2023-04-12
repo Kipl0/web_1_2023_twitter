@@ -40,6 +40,11 @@ def _(filename):
 def _(filename):
   return static_file(filename, root="./banner")
 
+##############################
+@get("/banner/<filename:re:.*\.png>")
+def _(filename):
+  return static_file(filename, root="./banner")
+
 
 
 ##############################

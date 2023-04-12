@@ -1,3 +1,4 @@
+
 -- change internal structure and respect the linking between PK and FK
 -- PRAGMA foreign_keys;
 -- PRAGMA foreign_keys = ON;
@@ -19,8 +20,8 @@ CREATE TABLE users(
   user_verification_key       TEXT DEFAULT "",
   user_first_name             TEXT NOT NULL,
   user_last_name              TEXT DEFAULT "",
-  user_avatar                 TEXT DEFAULT "", 
-  user_banner                 TEXT DEFAULT "", 
+  user_avatar                 TEXT, 
+  user_banner                 TEXT, 
   user_link                   TEXT DEFAULT "",
   user_caption                TEXT DEFAULT "",
   user_location               TEXT DEFAULT "",
