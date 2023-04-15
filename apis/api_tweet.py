@@ -6,13 +6,14 @@ import time
 @post("/tweet")
 def _():
   try: # SUCCESS
-    login = request.get_cookie("login", secret="my-secret") #vi vil gerne have fat i en cookie fra browseren der hedder "login" det har vi defineret i login.py
+    # login = request.get_cookie("login", secret="my-secret") #vi vil gerne have fat i en cookie fra browseren der hedder "login" det har vi defineret i login.py
+    user_cookie = request.get_cookie("user_cookie", secret="my-secret") #vi vil gerne have fat i en cookie fra browseren der hedder "user_cookie" det har vi defineret i user_cookie.py
      
     x.validate_tweet()
     db = x.db() #a function that gives access to db
     
     tweet_id = str(uuid.uuid4().hex) #hex removes everything but numbers and letter - To get a UUID4 without dashess
-    tweet_user_fk = login["user_id"] #meningen er at det skal være den logged in bruger - senere
+    tweet_user_fk = user_cookie["user_id"] #meningen er at det skal være den logged in bruger - senere
     tweet_created_at = int(time.time())
     tweet_message = request.forms.get("message")
     tweet_image = ""
