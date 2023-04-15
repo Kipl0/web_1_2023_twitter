@@ -2,25 +2,25 @@ from bottle import get, static_file
 
 ##############################
 #         IMAGES
-@get("/images/<filename:re:.*\.png>")
+@get("/tweet_images/<filename:re:.*\.png>")
 def _(filename):
-  return static_file(filename, root="./images")
+  return static_file(filename, root="./tweet_images")
 
-@get("/images/<filename:re:.*\.jpg>")
+@get("/tweet_images/<filename:re:.*\.jpg>")
 def _(filename):
-  return static_file(filename, root="./images")
+  return static_file(filename, root="./tweet_images")
 
-@get("/images/<filename:re:.*\.jpeg>")
+@get("/tweet_images/<filename:re:.*\.jpeg>")
 def _(filename):
-  return static_file(filename, root="./images")
+  return static_file(filename, root="./tweet_images")
 
-@get("/images/<filename:re:.*\.PNG>")
+@get("/tweet_images/<filename:re:.*\.PNG>")
 def _(filename):
-  return static_file(filename, root="./images")
+  return static_file(filename, root="./tweet_images")
 
-@get("/images/<filename:re:.*\.gif>")
+@get("/tweet_images/<filename:re:.*\.gif>")
 def _(filename):
-  return static_file(filename, root="./images")
+  return static_file(filename, root="./tweet_images")
 
 
 
