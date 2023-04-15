@@ -1,0 +1,65 @@
+[
+  {
+    "_id": "ee0b568e-c1ce-4b22-ad24-b878bf979476",
+    "colId": "c2a9d83f-df69-4cc9-9b07-e18f25e20c93",
+    "containerId": "",
+    "name": "delete user",
+    "url": "127.0.0.1:1220/user/123",
+    "method": "DELETE",
+    "sortNum": 10000,
+    "created": "2023-03-27T07:48:01.729Z",
+    "modified": "2023-03-27T10:26:35.916Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "formdata",
+      "raw": "",
+      "form": [
+        {
+          "name": "user_id",
+          "value": "123"
+        }
+      ]
+    },
+    "tests": [
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      },
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "isjson",
+        "value": ""
+      },
+      {
+        "type": "Content-Type",
+        "custom": "",
+        "action": "equal",
+        "value": "application/json"
+      },
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "contains",
+        "value": "info"
+      }
+    ]
+  },
+  {
+    "_id": "aa4c8432-cab6-4bdd-901b-11f85c0ceaaa",
+    "colId": "c2a9d83f-df69-4cc9-9b07-e18f25e20c93",
+    "containerId": "",
+    "name": "get latest tweets",
+    "url": "127.0.0.1:1220/api-get-latest-tweets",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2023-03-27T11:34:14.889Z",
+    "modified": "2023-03-27T11:35:13.177Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  }
+]

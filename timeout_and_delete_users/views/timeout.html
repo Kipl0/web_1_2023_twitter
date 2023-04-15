@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <script>
+        //set timeout - virker kun 1 gang
+        // setTimeout(show_subscribe, 10000)
+
+        // function show_subscribe() {
+        //     alert()
+        // }
+
+        //set interval - virker i intervaller
+        //kan bruges til at opdaterer, så man hele tiden kan se de nyeste tweets
+        //Hvordan tjekker man så hvilke tweets der er nye og hvilke der er gamle - se næste linjer 
+        let tweet_id = 0
+
+        setInterval(get_latest_tweets, 1000) //intervallet
+
+        async function get_latest_tweets() {
+            const conn = await fetch("api-get-latest-tweets", {
+                method : "POST"
+            })
+            const data = await conn.text()
+            console.log(data)
+
+        }
+
+    </script>
+    
+</body>
+</html>
