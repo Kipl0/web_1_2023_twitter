@@ -8,7 +8,7 @@
     <!-- right of tweet -->
     <div class="w-full">
       <!-- What's up? make a new tweet -->
-        <form method="POST" action=""> <!-- prevents reload -->
+        <form method="POST" action="" enctype="multipart/form-data" > <!-- prevents reload -->
           <input class="h-16 bg-black outline-none placeholder:text-zinc-400 text-white text-xl " name="tweet_message" placeholder="What's happening?" type="text" data-validate="str" data-min="{{TWEET_MIN_LEN}}" data-max="{{TWEET_MAX_LEN}}">
           <div class="flex w-full ">
             <div class="flex text-[#1D9BF0] gap-3">
@@ -18,7 +18,8 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"><path fill="currentColor" d="M128 24a104 104 0 1 0 104 104A104.2 104.2 0 0 0 128 24Zm0 192a88 88 0 1 1 88-88a88.1 88.1 0 0 1-88 88ZM80 108a12 12 0 1 1 12 12a12 12 0 0 1-12-12Zm72 0a12 12 0 1 1 12 12a12 12 0 0 1-12-12Zm24.5 48a56 56 0 0 1-97 0a8 8 0 1 1 13.8-8a40.1 40.1 0 0 0 69.4 0a8 8 0 0 1 13.8 8Z"/></svg>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-2V3a1 1 0 0 0-2 0v1H9V3a1 1 0 0 0-2 0v1H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm1 15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7h16Zm0-9H4V7a1 1 0 0 1 1-1h2v1a1 1 0 0 0 2 0V6h6v1a1 1 0 0 0 2 0V6h2a1 1 0 0 1 1 1Z"/></svg>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"><path d="M256 48c34.19 0 66.334 13.314 90.51 37.49S384 141.81 384 176c0 42.92-24.092 107.127-69.67 185.68-22.279 38.396-44.771 71.634-58.332 90.931-13.518-19.232-35.912-52.327-58.161-90.645C152.149 283.281 128 218.976 128 176c0-34.19 13.314-66.334 37.49-90.51S221.81 48 256 48m0-16c-79.529 0-144 64.471-144 144 0 112 144 304 144 304s144-192 144-304c0-79.529-64.471-144-144-144z" fill="currentColor"/><path d="M256 112c-35.3 0-64 28.7-64 64s28.7 64 64 64 64-28.7 64-64-28.7-64-64-64zm0 110.9c-25.9 0-46.9-21-46.9-46.9s21-46.9 46.9-46.9 46.9 21 46.9 46.9-21 46.9-46.9 46.9z" fill="currentColor"/></svg>
-            </div>
+            </div>  
+            <input type="file" name="uploaded_tweet_image">
             <button type="button" onclick="validate(tweet); return false" data-default="Tweet" data-await="Please wait ..." class="px-4 py-2 ml-auto bg-[#4A99E9] rounded-full font-semibold">
               Tweet
             </button>

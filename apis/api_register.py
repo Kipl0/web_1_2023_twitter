@@ -20,7 +20,6 @@ def _():
         hashed_password = bcrypt.hashpw(user_input_password, salt)
 
 
-
         #Upload avatar
         uploaded_avatar = request.files.get("uploaded_avatar") #files i formen
         name, ext = os.path.splitext(uploaded_avatar.filename)
