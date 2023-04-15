@@ -8,6 +8,7 @@
 -- FOREIGN KEY(tweet_user_fk) REFERENCES users(user_id)
 
 
+
 -- ###########################
 --          Users
 
@@ -122,9 +123,8 @@ INSERT INTO tweets VALUES("6ec9ac9f6f534756a012cda5f4a66a92", "51602a9f7d82472b9
 INSERT INTO tweets VALUES("9448f2538bf84e97a8f6a46af0628d5d", "51602a9f7d82472b90ed1091248f6cb1", "1680953002", "Who's Hogwarts Is It Anyway?", "19d1769a621d40e69d6080721b84bf7f.png", "", "0", "0", "0", "0"); 
 INSERT INTO tweets VALUES("9448f2538bf84e97a8f6a46af0628aas", "51602a9f7d82472b90ed1091248f6cb1", "1680953001", "tweet nr. 11", "19d1769a621d40e69d6080721b84bf7f.png", "", "0", "0", "0", "0"); -- nr. 11
     
-
 -- GeekDaddy
-INSERT INTO tweets VALUES("ec587e199157450283994e0ad11577cb", "a22da1effb3d4f03a0f77f9aa8320203", "1680950011", "We can thank Big Bang Theory for the normalization (and destruction) of nerd culture. With it's popularity came an invasion of normies and ideologists that perverted and tainted just about everything we love. It wasn't even a good show.", "5ed951f9-e733-4518-a2bf-8004ad740bf6.gif", "", "0", "0", "0", "0");
+INSERT INTO tweets VALUES("ec587e199157450283994e0ad11577cb", "a22da1effb3d4f03a0f77f9aa8320203", "1680953011", "We can thank Big Bang Theory for the normalization (and destruction) of nerd culture. With it's popularity came an invasion of normies and ideologists that perverted and tainted just about everything we love. It wasn't even a good show.", "997107696a3b4736abf133bf23d3b97a.gif", "", "0", "0", "0", "0");
 INSERT INTO tweets VALUES("d5b9aae388a04690867c9e20935784a8", "a22da1effb3d4f03a0f77f9aa8320203", "1680953010", "ITS FINALLY HAPPENING!", "", "", "0", "0", "0", "0");
 INSERT INTO tweets VALUES("6246e4b661be46be80ede8147659ad0f", "a22da1effb3d4f03a0f77f9aa8320203", "1680953009", "The tv screen adds 20 pounds.", "07ba02aad839419cb8118c121cd4ed58.png", "", "0", "0", "0", "0");
 INSERT INTO tweets VALUES("af500e967dfb4cda80cd23ea627625be", "a22da1effb3d4f03a0f77f9aa8320203", "1680953008", "If you create a game and design a quest where I need to follow a NPC that moves slower than I run but faster than I walk, you should be tied to a chair with with headphones on and made to listen to Justin Bieber for 24 hours straight.", "", "", "0", "0", "0", "0");

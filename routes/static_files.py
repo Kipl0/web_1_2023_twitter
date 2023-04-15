@@ -1,6 +1,4 @@
-
 from bottle import get, static_file
-
 
 ##############################
 #         IMAGES
@@ -20,6 +18,12 @@ def _(filename):
 def _(filename):
   return static_file(filename, root="./images")
 
+@get("/images/<filename:re:.*\.gif>")
+def _(filename):
+  return static_file(filename, root="./images")
+
+
+
 ##############################
 @get("/avatar/<filename:re:.*\.png>")
 def _(filename):
@@ -34,6 +38,8 @@ def _(filename):
 @get("/avatar/<filename:re:.*\.jpeg>")
 def _(filename):
   return static_file(filename, root="./avatar")
+
+
 
 ##############################
 @get("/banner/<filename:re:.*\.jpg>")
