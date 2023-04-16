@@ -29,7 +29,6 @@ import routes.profile
 import routes.static_files
 import routes.upload_picture
 import routes.register
-import routes.timeout
 
 
 ##############################
@@ -50,27 +49,12 @@ def _(filename):
 
 
 
-
-
-
 ##############################
-#           Routes
+#           CSS
 ##############################
 @get("/app.css")
 def _():
   return static_file("app.css", root=".")
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
