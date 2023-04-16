@@ -10,7 +10,6 @@
 ------------------------->
 <!-- <div class="grid w-full lg:w-60 min-h-screen h-full 2xl:px-8"> -->
 <div class="border-x border-twitter-line w-full lg:w-6/12">
-<!-- <div class="grid min-h-screen h-full grid-cols-[5fr_0fr] lg:grid-cols-[110fr_90fr] xl:grid-cols-[100fr_80fr] 2xl:grid-cols-[100fr_100fr] 2xl:px-8"> -->
   <div class="min-h-screen h-full border-x border-gray-600">
     %if user_cookie != None :
       <!-- Home-top section -->
@@ -39,9 +38,9 @@
   <!----------------------
           right 
   ----------------------->
-  <div class="col-span-1 hidden lg:block pl-6 pt-1">
+  <div class="col-span-1 hidden lg:block pl-6 pt-1 ">
     <div class="w-full sticky top-1">
-      <!-- <div class="hidden lg:block lg:w-full pl-8 pb-8 "> -->
+      <!-- <div class="hidden lg:block lg:w-3/12 pl-8 pb-8 "> -->
       % if user_cookie != None :
           <!-- TRENDS -->
         % include("comp_trends", show_latest_tweets="False")
@@ -52,10 +51,10 @@
       % else :
         <!-- Login box -->
         % include("comp_login_box")
-      </div>
-      <!-- end right -->
-
     </div>
-      </div>  
+  </div>
+    <!-- end right -->
+
+      <!-- </div>   -->
   </div>
   % include("comp_footer")
