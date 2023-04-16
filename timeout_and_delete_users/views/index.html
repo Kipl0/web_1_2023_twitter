@@ -14,7 +14,7 @@
             <form id="{{user['user_id']}}" autocomplete="off" >
                 <div>{{user["user_id"]}}</div>
                 <div>{{user["user_name"]}}</div>
-                <button type="button" onclick="delete_user('{{user["user_id"]}}')">🗑️</button>
+                <button type="button" onclick="delete_user()">🗑️</button>
             </form>
         % end
         </section>
@@ -23,31 +23,18 @@
     <script>
         async function delete_user() {
 
-            console.log(event.target.form.id)
+            console.log(event.target.form.id) //the event is where - target is id in the form
             const user_id = event.target.form.id
             const conn = await fetch(`user/${user_id}`, {
                 method : "DELETE"
             })
-            const data = await conn.text()
+            const data = await conn.json()
+            document.getElementById(`${data.user_id}`).style.display="none"
         }
 
 
-                //     console.log(event.target.form)
-        //     const frm = event.target.form //the event is where - target is the form
-        //     console.log("test")
-        //     const resp = await fetch("/user", {
-        //         method: "DELETE",
-        //         body: new FormData(frm)
-        //     })
-        //     const data = await resp.json()
-            
-        //     console.log(data)
-        //     document.getElementById(`${data.user_id}`).style.display="none"
 
-        //     console.log(event.target.form.id)
-        // }
 
-        // sync function delete_user() {
 
     </script>
 </body>
