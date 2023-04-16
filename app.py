@@ -29,6 +29,7 @@ import routes.profile
 import routes.static_files
 import routes.upload_picture
 import routes.register
+import routes.timeout
 
 
 ##############################
@@ -38,6 +39,7 @@ import apis.api_register
 import apis.api_follow
 import apis.api_send_message
 import apis.upload_files
+import apis.api_get_latest_tweets
 
 
 ##############################
