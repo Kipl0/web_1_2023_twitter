@@ -29,6 +29,7 @@ import routes.profile
 import routes.static_files
 import routes.upload_picture
 import routes.register
+import routes.jwt_test
 
 
 ##############################
