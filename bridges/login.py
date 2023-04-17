@@ -5,7 +5,6 @@ import bcrypt
 import sqlite3
 
 
-
 @post("/login")
 def _():
     # Redirection, status code, the redirected page
