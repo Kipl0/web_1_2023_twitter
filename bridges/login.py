@@ -17,7 +17,8 @@ def _():
 
         does_user_exist = db.execute("SELECT * FROM users WHERE user_username = ? LIMIT 1",(login_username,)).fetchone()
 
-        if not does_user_exist: raise Exception(400, "Cannot login")
+        if does_user_exist == None: raise Exception(400, "Cannot login")
+        # if not does_user_exist: raise Exception(400, "Cannot login")
         if not bcrypt.checkpw(login_password, does_user_exist["user_password"]) :
             raise Exception(400, "cannot login")
 
