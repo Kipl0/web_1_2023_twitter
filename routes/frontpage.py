@@ -27,7 +27,7 @@ def render_frontpage():
     tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id ORDER BY tweet_created_at DESC").fetchall()
 
 
-
+    # Hvis kun hvilke tweets man har liket, hvis man er logget ind -- lav evt. en ny forside?
     if user_cookie != None : 
       for tweet in tweets_and_user_data :
         tweet_liked_by_user_record = db.execute("SELECT * FROM tweets_liked_by_users WHERE user_id = ? AND tweet_id = ?",(user_cookie["user_id"], tweet["tweet_id"])).fetchone()
