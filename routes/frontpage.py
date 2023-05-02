@@ -23,6 +23,34 @@ def render_frontpage():
     trends = db.execute("SELECT * FROM trends")
 
     tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id ORDER BY tweet_created_at DESC").fetchall()
+
+
+
+    # tweets = db.execute("SELECT * FROM tweets").fetchall()
+
+    # user = x.user
+
+
+    for tweet in tweets_and_user_data :
+      tweet_liked_by_user_record = db.execute("SELECT * FROM tweets_liked_by_users WHERE user_id = ? AND tweet_id = ?",(user_cookie["user_id"], tweet["tweet_id"])).fetchone()
+        # Hvis den er lig 1 betyder det at user har liket tweet
+      if tweet_liked_by_user_record == None : 
+        tweet["liked"] = 0
+        continue
+
+      if tweet_liked_by_user_record["liked"] == 1 :
+        # Add the key "liked" to the dict so that it will be:
+        # {'tweet_id': '1', 'tweet_text': 'mit tweet', 'total_likes': '11', 'liked': 1}
+        tweet["liked"] = 1
+        continue
+      tweet["liked"] = 0
+    # print(tweets_and_user_data[0])
+
+
+
+
+
+
     return template("frontpage", title="Twitter", tweets_and_user_data=tweets_and_user_data, user_cookie=user_cookie, trends=trends, user_suggested_follows=user_suggested_follows, TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
     
 

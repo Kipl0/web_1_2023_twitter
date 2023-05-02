@@ -140,6 +140,24 @@ INSERT INTO tweets VALUES("793d655c7f334ad0858cfe2fdf182967", "a22da1effb3d4f03a
 
 
 
+
+DROP TABLE IF EXISTS tweets_liked_by_users;
+CREATE TABLE tweets_liked_by_users (
+    user_id TEXT NOT NULL,
+    tweet_id TEXT NOT NULL,
+    liked BOOLEAN,
+    PRIMARY KEY (user_id, tweet_id)
+    -- FOREIGN KEY (user_id) REFERENCES users(user_id),
+    -- FOREIGN KEY (tweet_id) REFERENCES tweets(tweet_id)
+)WITHOUT ROWID;
+
+
+
+
+
+
+
+
 -- HVAD GØR DENNE LINJE?
 -- CREATE INDEX idx_tweets_tweet_image ON tweets(tweet_image);
 
