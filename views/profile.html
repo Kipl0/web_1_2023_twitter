@@ -16,12 +16,10 @@
       </a>
     </div>
     <div class="flex flex-col w-full pb-20"> <!--image section-->
-      <div class="relative">
-          <img src="/banner/{{user['user_banner']}}">
-          <div class="absolute border-2 border-red-400 top-0 w-full h-full flex align-baseline">
-            <img src="/avatar/{{user['user_avatar']}}" class="w-20 rounded-full border-4 border-black">
-          </div>
-      </div>
+        <img src="/banner/{{user['user_banner']}}">
+        <div class="relative flex justify-end px-4"> <!--container under banner-->
+          <img src="/avatar/{{user['user_avatar']}}" class="flex absolute max-w-[25%] h-auto left-4 z-9 translate-y-[-50%] rounded-full border-2 border-black">
+        </div>
     </div>
 
     <!-- Logged info -->
@@ -69,11 +67,6 @@
 </div>
 
 % include("comp_footer")
-
-
-
-
-
 
 
 

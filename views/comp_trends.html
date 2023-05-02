@@ -1,5 +1,6 @@
   <!-- search -->
   <div class="sticky top-0 w-full py-4 bg-black">
+
     <form class="flex items-center ">
       <svg width="26" height="26" viewBox="0 0 24 24" class="absolute top-6 left-2 text-gray-400">
         <path fill="currentColor"
@@ -20,13 +21,14 @@
   </script>
   
 
-
-  % if show_latest_tweets == "True":
+<!--kun True på profil sider - ikke på forsiden -->
+  % if show_latest_tweets == "True": 
+    <!-- If tweet_image in latest tweet --> 
     <div class="grid grid-cols-3 grid-rows-[100px_minmax(100px,100px)] gap-0.5 rounded-xl overflow-hidden my-6">
       % for tweet in [i for i in tweets_and_user_data if i['tweet_image']][:6]:
         %if tweet["tweet_image"] != "":  
           <a href="" class="flex col-span-1 row-span-1">
-            <img class="w-full object-cover" src="/images/{{tweet['tweet_image']}}">
+            <img class="w-full object-cover" src="/tweet_images/{{tweet['tweet_image']}}">
           </a>
         %end
       %end
