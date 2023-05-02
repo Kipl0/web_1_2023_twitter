@@ -8,8 +8,6 @@ import x
 @get("/")
 def render_frontpage():
   try:
-
-
     db = x.db()
 
     response.add_header("Cache-control", "no-store, no-cache, must-revalidate, max-age=0")
@@ -28,6 +26,7 @@ def render_frontpage():
 
 
     # Hvis kun hvilke tweets man har liket, hvis man er logget ind -- lav evt. en ny forside?
+    # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
     if user_cookie != None : 
       for tweet in tweets_and_user_data :
         tweet_liked_by_user_record = db.execute("SELECT * FROM tweets_liked_by_users WHERE user_id = ? AND tweet_id = ?",(user_cookie["user_id"], tweet["tweet_id"])).fetchone()

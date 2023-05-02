@@ -27,13 +27,11 @@ def _():
             db.commit()
 
             tweet_to_like = db.execute("SELECT * FROM tweets WHERE tweet_id = ?",(tweet_id,)).fetchone()
-            print(tweet_to_like)
             tweet_total_likes = tweet_to_like["tweet_total_likes"]
-            print(tweet_total_likes)
 
             db.execute("UPDATE tweets SET tweet_total_likes = tweet_total_likes + 1 WHERE tweet_id = ?",(tweet_id,))
             db.commit()
-            print("done")
+
             return {"info" : "ok", "tweet_id" : tweet_id, "liked" : 1, "tweet_total_likes" : int(tweet_total_likes) + 1}
 
 
