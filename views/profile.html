@@ -1,11 +1,18 @@
+
+
+<!---------------------- 
+         Left 
+----------------------->
 % include("comp_header_navbar", title="Profile", contact_active='class="active"')
 
+
+<!------------------------
+          center 
+------------------------->
 <!-- Center and right container -->
-<div class="grid min-h-screen h-full grid-cols-[190fr_0fr] lg:grid-cols-[110fr_90fr] xl:grid-cols-[110fr_90fr] 2xl:grid-cols-[120fr_80fr]">
-  <!------------------------
-            center 
-  ------------------------->
+<div class="w-full lg:w-6/12" >
   <div class="min-h-screen h-full border-x border-gray-600">
+
     <div class="sticky w-full top-0 pl-4 py-2 z-10 border-b border-zinc-600 bg-black/[.80] backdrop-blur-sm "> <!--top - go back -->
       <a href="/" class="flex items-center gap-9" >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
@@ -45,29 +52,24 @@
       <a href="#" class="w-3/12 text-center py-4 hover:bg-zinc-900"><span class="text-zinc-500">Likes</span></a>
     </div>
 
-
-
     % include("comp_tweets")
-
-
-
   </div>
-
-
-  <!----------------------
-          right 
-  ----------------------->
-  <div class="hidden w-11/12 lg:block px-8 pb-8 ">
-    <!-- end search -->
-    <!-- TRENDS -->
-    <!-- WHO TO FOLLOW -->
-    % include("comp_trends", show_latest_tweets="True", tweets_and_user_data=tweets_and_user_data)
-  </div>
+  <!-- end center -->
 
 </div>
+<!----------------------
+        right 
+----------------------->
+<div class="col-span-1 hidden lg:block pl-10 pt-1">
+  <div class="min-w-sm max-w-sm sticky top-1">
+    % include("comp_trends", show_latest_tweets="True", tweets_and_user_data=tweets_and_user_data)
 
-% include("comp_footer")
+  </div>
+</div>
+<!-- end right -->
 
+
+  % include("comp_footer")
 
 
 
