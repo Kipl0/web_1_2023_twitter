@@ -43,6 +43,7 @@ import apis.upload_files
 import apis.api_get_latest_tweets
 import apis.api_search
 import apis.api_like_unlike_tweet
+import apis.api_follow_unfollow
 
 
 ##############################
@@ -74,7 +75,7 @@ try:
 # Run in local computer
 except Exception as ex:    
     print("Server running locally")
-    run(host="127.0.0.1", port=1222, debug=True, reloader=True) #If it cant run it will run locally
+    run(host="127.0.0.1", port=1220, debug=True, reloader=True) #If it cant run it will run locally
 
 
 ###################################

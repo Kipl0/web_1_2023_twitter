@@ -143,9 +143,9 @@ INSERT INTO tweets VALUES("793d655c7f334ad0858cfe2fdf182967", "a22da1effb3d4f03a
 
 DROP TABLE IF EXISTS tweets_liked_by_users;
 CREATE TABLE tweets_liked_by_users (
-    user_id TEXT NOT NULL,
-    tweet_id TEXT NOT NULL,
-    liked BOOLEAN,
+    user_id         TEXT NOT NULL,
+    tweet_id        TEXT NOT NULL,
+    liked           BOOLEAN,
     PRIMARY KEY (user_id, tweet_id)
     -- FOREIGN KEY (user_id) REFERENCES users(user_id),
     -- FOREIGN KEY (tweet_id) REFERENCES tweets(tweet_id)
@@ -154,6 +154,14 @@ CREATE TABLE tweets_liked_by_users (
 
 
 
+
+
+DROP TABLE IF EXISTS follower_following;
+CREATE TABLE follower_following(
+  follower_id       TEXT,
+  following_id      TEXT,
+  PRIMARY KEY(follower_id,following_id)
+) Without ROWID;
 
 
 

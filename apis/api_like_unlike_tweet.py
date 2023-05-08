@@ -6,8 +6,6 @@ import x
 @post("/like-tweet")
 def _():
     try:
-
-
         # user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET) #vi vil gerne have fat i en cookie fra browseren der hedder "user_cookie" det har vi defineret i login.py
         user_cookie = request.get_cookie("user_cookie", secret="my-secret") #vi vil gerne have fat i en cookie fra browseren der hedder "user_cookie" det har vi defineret i login.py
 
@@ -17,10 +15,10 @@ def _():
         db = x.db()
         tweet_id = request.forms.get("tweet_id")
         
-
-
         # User likes tweet --- and therefor view
         tweet_liked_by_user_record = db.execute("SELECT * FROM tweets_liked_by_users WHERE user_id = ? AND tweet_id = ?",(user_cookie["user_id"], tweet_id)).fetchone()
+
+
 
         if tweet_liked_by_user_record == None :
             db.execute("INSERT INTO tweets_liked_by_users VALUES(?,?,?)",(user_cookie["user_id"], tweet_id, 1))

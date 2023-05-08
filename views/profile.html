@@ -44,6 +44,18 @@
         <p class="font-bold text-sm">{{user["user_total_followers"]}} <span class="text-zinc-500 font-normal">Followers</span></p>
       </div>
     </div>
+    <!-- Så man ikke kan follow sig selv -->
+    % if user_cookie["user_id"] != user["user_id"] :
+      <form onsubmit="follow_unfollow(); return false">
+        <p id="{{user['user_id']}}">{{user["user_total_followers"]}}</p>
+        <input type="text" name="user_id" value="{{user['user_id']}}" class="hidden">
+        % if user["follows"] == 0 :
+            <button id="follow_btn_{{user['user_id']}}" type="submit" class="bg-gray-500 py-2 px-4 mb-6">Follow</button>
+        % else :
+            <button id="follow_btn_{{user['user_id']}}" type="submit" class="bg-green-500 py-2 px-4 mb-6">Unfollow</button>
+        % end
+      </form>
+    % end
     <!--Logged in Navbar-->
     <div class="flex w-full font-semibold"> 
       <a href="#" class="w-3/12 text-center py-4 hover:bg-zinc-900 "><span class="pb-4 border-b-4 border-[#4A99E9] font-bold">Tweets</span></a>
@@ -57,6 +69,9 @@
   <!-- end center -->
 
 </div>
+
+<script src="/js/follow_unfollow.js"></script>
+
 <!----------------------
         right 
 ----------------------->
@@ -70,6 +85,7 @@
 
 
   % include("comp_footer")
+
 
 
 
