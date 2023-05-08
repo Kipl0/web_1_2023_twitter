@@ -13,10 +13,13 @@ async function follow_unfollow() {
 
         let follow_unfollow_btn = document.getElementById(`follow_btn_${data.user_id}`)
         if(data.follows == 1) {
-            follow_unfollow_btn.style.backgroundColor = "green"
+            follow_unfollow_btn.style.backgroundColor = "black"
+            follow_unfollow_btn.style.border = "2px solid white"
+            follow_unfollow_btn.style.color = "white"
             follow_unfollow_btn.innerHTML = "Unfollow"
         } else {
-            follow_unfollow_btn.style.backgroundColor = "gray"
+            follow_unfollow_btn.style.backgroundColor = "white"
+            follow_unfollow_btn.style.color = "black"
             follow_unfollow_btn.innerHTML = "Follow"
         }
 

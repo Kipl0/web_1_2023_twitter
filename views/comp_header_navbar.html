@@ -12,8 +12,6 @@
 </head>
 
 <body class="bg-black text-gray-200 overflow-hidden overflow-y-scroll ">
-<!-- <body class="flex justify-center w-full h-full bg-black text-gray-200 text-lg font-light overflow-hidden overflow-y-scroll"> -->
-<!-- <body class="grid grid-cols-[50fr_190fr] xl:grid-cols-[40fr_200fr] xl:px-16 2xl:px-28 w-full h-full bg-black text-gray-200 text-lg  font-light overflow-hidden overflow-y-scroll"> -->
     <div class="flex justify-center md:max-w-3xl lg:max-w-screen-xl mx-auto ">
         <!-- left -->
         <div class="w-20 lg:w-3/12 sticky top-0 lg:top-0.5 md:justify-end lg:justify-start flex flex-col h-screen justify-center items-center ">
@@ -86,7 +84,6 @@
                 </button>
             </div>
             <!-- Logout/profile -->
-            <!-- <div class="flex justify-center items-center text-lg mt-auto hover:bg-zinc-900 p-3 rounded-full"> -->
             <div class="flex flex-wrap bottom-0 mt-auto pb-3 w-full">
             % if user_cookie != None:
                 <img src="/avatar/{{user_cookie['user_avatar']}}" class="rounded-full w-10 h-10">
@@ -97,13 +94,18 @@
                     <p class="text-sm text-zinc-500">@{{user_cookie["user_username"]}}</p>
                     
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-200 hidden lg:flex">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                </svg> 
+                <!-- Profile options  -- log ud -->
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-200 hidden lg:flex">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                    </svg> 
+                </button>
                 <a class="bg-black border border-gray-600 rounded-full px-4 py-2 text-center" href="/logout">Log ud</a>
             % end
             </div>
         </div>
+
+    <script src="/js/profile_options_popup.js"></script>
 
   <!-- end left -->
 
