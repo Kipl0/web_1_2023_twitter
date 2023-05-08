@@ -40,6 +40,7 @@ import apis.api_follow
 import apis.api_send_message
 import apis.upload_files
 import apis.api_get_latest_tweets
+import apis.api_search
 
 
 ##############################
