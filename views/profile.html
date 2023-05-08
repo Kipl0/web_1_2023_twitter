@@ -33,9 +33,9 @@
           <form class="ml-auto" onsubmit="follow_unfollow(); return false">
             <input type="text" name="user_id" value="{{user['user_id']}}" class="hidden">
             % if user["follows"] == 0 :
-                <button id="follow_btn_{{user['user_id']}}" type="submit" class="bg-white py-2 px-2 rounded-full text-sm text-black">Follow</button>
+                <button id="follow_btn_{{user['user_id']}}" type="submit" class="bg-white py-2 px-4 rounded-full text-sm text-black">Follow</button>
             % else :
-                <button id="follow_btn_{{user['user_id']}}" type="submit" class="bg-black border-2 border-white text-white py-2 px-2 rounded-full text-sm">Unfollow</button>
+                <button id="follow_btn_{{user['user_id']}}" type="submit" class="bg-black border-2 border-white text-white py-2 px-4 rounded-full text-sm">Unfollow</button>
             % end
           </form>
         % end

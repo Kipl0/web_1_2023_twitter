@@ -84,24 +84,31 @@
                 </button>
             </div>
             <!-- Logout/profile -->
-            <div class="flex flex-wrap bottom-0 mt-auto pb-3 w-full">
-            % if user_cookie != None:
-                <img src="/avatar/{{user_cookie['user_avatar']}}" class="rounded-full w-10 h-10">
-                <div class="pl-3 pr-16 hidden lg:flex lg:flex-col">
-                    
-                    <p>{{user_cookie["user_first_name"]}} {{user_cookie["user_last_name"]}}</p>
-                    
-                    <p class="text-sm text-zinc-500">@{{user_cookie["user_username"]}}</p>
-                    
+            <div class="flex h-full w-full ">
+                <div class="flex flex-wrap bottom-0 mt-auto pb-3 w-full ">
+                % if user_cookie != None:
+                    <div id="profile_option_popup" class="hidden flex-col ml-auto w-1/2 min-w-32 border border-gray-600 rounded-md justify-center">
+                        <a class="flex w-full hover:bg-zinc-900 py-4 h-full justify-center items-center" href="/{{user_cookie['user_username']}}">Edit profile</a>            
+                        <a class="flex w-full hover:bg-zinc-900 py-4 h-full justify-center items-center" href="/logout">Log ud</a>            
+                    </div>
+                    <section class="flex py-2 flex-wrap hover:bg-zinc-900 justify-center rounded-full bottom-0 mt-auto pb-3 w-full">
+                        <img src="/avatar/{{user_cookie['user_avatar']}}" class="rounded-full w-10 h-10">
+                        <div class="pl-3 pr-16 hidden lg:flex lg:flex-col">
+                            
+                            <p>{{user_cookie["user_first_name"]}} {{user_cookie["user_last_name"]}}</p>
+                            
+                            <p class="text-sm text-zinc-500">@{{user_cookie["user_username"]}}</p>
+                            
+                        </div>
+                        <!-- Profile options  -- log ud -->
+                        <button id="profile_option_btn" onclick="open_profile_option_btn(); return false ">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-200 hidden lg:flex">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                            </svg> 
+                        </button>
+                    </section>
+                    % end
                 </div>
-                <!-- Profile options  -- log ud -->
-                <button>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-200 hidden lg:flex">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                    </svg> 
-                </button>
-                <a class="bg-black border border-gray-600 rounded-full px-4 py-2 text-center" href="/logout">Log ud</a>
-            % end
             </div>
         </div>
 

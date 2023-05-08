@@ -35,10 +35,10 @@ def _():
     tweet_message = x.validate_tweet_message()
     tweet_image = uploaded_tweet_image_name
     tweet_updated_at = ""
-    tweet_total_replies = ""
-    tweet_total_retweets = ""
-    tweet_total_likes = ""
-    tweet_total_views = ""
+    tweet_total_replies = 0
+    tweet_total_retweets = 0
+    tweet_total_likes = 0
+    tweet_total_views = 0
     db.execute("INSERT INTO tweets VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
                (tweet_id, tweet_user_fk, tweet_created_at, tweet_message, tweet_image, tweet_updated_at, tweet_total_replies, tweet_total_retweets, tweet_total_likes, tweet_total_views))
     db.commit()
