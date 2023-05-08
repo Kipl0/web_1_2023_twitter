@@ -27,9 +27,6 @@ def _():
         # return "Picture uploaded"
 
 
-
-
-    
     db = x.db() #a function that gives access to db
     
     tweet_id = str(uuid.uuid4().hex) #hex removes everything but numbers and letter - To get a UUID4 without dashess

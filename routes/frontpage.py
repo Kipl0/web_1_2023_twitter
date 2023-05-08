@@ -4,7 +4,7 @@ import pathlib
 import x
 
 
-############################## you want to display the index page, you want to pass the title, tweets and trends
+# I want to display the index page, I want to pass the title, tweets and trends
 @get("/")
 def render_frontpage():
   try:
