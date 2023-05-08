@@ -28,6 +28,8 @@ def _(user_username):
     user_suggested_follows = db.execute("SELECT * FROM users WHERE user_username!=?",(user_username,))
 
 
+    ##########################
+    #  Like tweet
     # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
     for tweet in tweets_and_user_data :
       tweet_liked_by_user_record = db.execute("SELECT * FROM tweets_liked_by_users WHERE user_id = ? AND tweet_id = ?",(user_cookie["user_id"], tweet["tweet_id"])).fetchone()
@@ -45,15 +47,14 @@ def _(user_username):
       tweet["liked"] = 0
 
 
-
-
-
-      if user_cookie != None :
-        follower_following_record = db.execute("SELECT * FROM follower_following WHERE follower_id = ? AND following_id = ?",(user_cookie["user_id"], user_id)).fetchone()
-        
-        user["follows"] = 1
-        if follower_following_record == None :
-          user["follows"] = 0
+    ##########################
+    #  Follower following
+    if user_cookie != None :
+      follower_following_record = db.execute("SELECT * FROM follower_following WHERE follower_id = ? AND following_id = ?",(user_cookie["user_id"], user_id)).fetchone()
+      
+      user["follows"] = 1
+      if follower_following_record == None :
+        user["follows"] = 0
 
 
     return template("profile", user=user, tweets_and_user_data=tweets_and_user_data, trends=trends, user_cookie=user_cookie, user_suggested_follows=user_suggested_follows)
