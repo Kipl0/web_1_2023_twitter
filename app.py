@@ -30,6 +30,7 @@ import routes.static_files
 import routes.upload_picture
 import routes.register
 import routes.jwt_test
+# import routes.tester_create_hashpw #Hash password, når main.sql opdateres manuelt...
 
 
 ##############################
@@ -41,6 +42,7 @@ import apis.api_send_message
 import apis.upload_files
 import apis.api_get_latest_tweets
 import apis.api_search
+import apis.api_like_unlike_tweet
 
 
 ##############################

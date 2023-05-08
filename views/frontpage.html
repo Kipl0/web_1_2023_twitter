@@ -8,8 +8,7 @@
 <!------------------------
           center 
 ------------------------->
-<!-- <div class="grid w-full lg:w-60 min-h-screen h-full 2xl:px-8"> -->
-<div class="border-x border-twitter-line w-full lg:w-6/12">
+<div class="w-full lg:w-5/12">
   <div class="min-h-screen h-full border-x border-gray-600">
     %if user_cookie != None :
       <!-- Home-top section -->
@@ -30,17 +29,12 @@
   <!-- end center -->
 
 
-
-
-
-
-</div>
+  </div>
   <!----------------------
           right 
   ----------------------->
-  <div class="col-span-1 hidden lg:block pl-6 pt-1 ">
-    <div class="w-full sticky top-1">
-      <!-- <div class="hidden lg:block lg:w-3/12 pl-8 pb-8 "> -->
+  <div class="min-w-sm max-w-sm lg:block pl-10 pt-1 ">
+    <div class="w-full  sticky top-1">
       % if user_cookie != None :
           <!-- TRENDS -->
         % include("comp_trends", show_latest_tweets="False")
@@ -51,10 +45,10 @@
       % else :
         <!-- Login box -->
         % include("comp_login_box")
+      %end
     </div>
   </div>
     <!-- end right -->
 
-      <!-- </div>   -->
-  </div>
+</div>
   % include("comp_footer")
