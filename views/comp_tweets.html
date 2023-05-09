@@ -7,7 +7,7 @@
     <img src="/avatar/{{tweet['user_avatar']}}" class="w-12 rounded-full">
   </div>
   <!-- right of tweet -->
-  <div class="w-full">
+  <div class="w-full relative">
     <div class="flex">
       <a href="/{{tweet['user_username']}}" class="flex">
         <span class="flex items-center font-bold">
@@ -20,11 +20,25 @@
           <strong>@</strong>{{tweet["user_username"]}}
         </span>
       </a>
-      <svg width="32" height="32" viewBox="0 0 24 24" class="ml-auto text-gray-500">
-        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-          d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Z" />
-      </svg>
+      <!-- 3 prikker ... options -->
+      <button onclick="tweet_options_popup(); return false" class="ml-auto text-gray-500">
+        <div class="flex items-center group cursor-pointer"> <!--group container-->
+          <span class="p-1 rounded-full group-hover:bg-sky-500/[0.20] transition ease-in-out"> <!-- Circle -->
+            <svg width="26" height="26" viewBox="0 0 24 24" >
+              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Z" />
+            </svg>
+          </span>
+        </div>
+      </button>
     </div>
+      
+    <form method="" id="tweet_option_popup_{{tweet['tweet_id']}}" class="absolute flex flex-col bg-black border border-gray-600 rounded-md w-fit right-0">
+      <input type="text" name="tweet_id" value="{{tweet['tweet_id']}}" class="hidden">
+      <button class="flex w-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 h-full rounded-t-md justify-center items-center">Edit</button>
+      <button class="flex w-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 h-full rounded-b-md justify-center items-center">Delete</button>
+    </form>
+
     <div class="mt-4">
       {{tweet["tweet_message"]}}
 
@@ -114,5 +128,6 @@
 
 <!-- end tweet -->
 % end
+<script src="/js/delete_tweet.js"></script>
 <script src="/js/like_unline_tweet.js"></script>
 <script src="/js/get_newest_tweets.js"></script>

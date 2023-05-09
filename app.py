@@ -36,6 +36,7 @@ import routes.jwt_test
 ##############################
 #         API's 
 import apis.api_create_tweet 
+import apis.api_delete_tweet
 import apis.api_register
 import apis.api_follow
 import apis.api_send_message
