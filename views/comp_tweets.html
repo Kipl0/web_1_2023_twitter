@@ -20,8 +20,10 @@
           <strong>@</strong>{{tweet["user_username"]}}
         </span>
       </a>
+
+
       <!-- 3 prikker ... options -->
-      <button onclick="tweet_options_popup(); return false" class="ml-auto text-gray-500">
+      <button onclick="tweet_options_popup(this); return false" id="tweet_option_btn_{{tweet['tweet_id']}}" class="ml-auto text-gray-500">
         <div class="flex items-center group cursor-pointer"> <!--group container-->
           <span class="p-1 rounded-full group-hover:bg-sky-500/[0.20] transition ease-in-out"> <!-- Circle -->
             <svg width="26" height="26" viewBox="0 0 24 24" >
@@ -33,11 +35,18 @@
       </button>
     </div>
       
-    <form method="" id="tweet_option_popup_{{tweet['tweet_id']}}" class="absolute flex flex-col bg-black border border-gray-600 rounded-md w-fit right-0">
-      <input type="text" name="tweet_id" value="{{tweet['tweet_id']}}" class="hidden">
-      <button class="flex w-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 h-full rounded-t-md justify-center items-center">Edit</button>
-      <button class="flex w-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 h-full rounded-b-md justify-center items-center">Delete</button>
-    </form>
+
+    <div id="tweet_option_popup_{{tweet['tweet_id']}}" class="hidden absolute flex flex-col bg-black border border-gray-600 rounded-md w-fit right-0">
+      <form method=""><button class="flex w-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 h-full rounded-t-md justify-center items-center">Edit</button></form>
+      <form method="DELETE" onsubmit="delete_tweet(); return false">
+        <input type="text" name="tweet_id" value="{{tweet['tweet_id']}}" class="hidden">
+        <button type="submit" class="flex w-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 h-full rounded-b-md justify-center items-center">Delete</button>
+      </form>
+    </div>
+
+
+
+
 
     <div class="mt-4">
       {{tweet["tweet_message"]}}
@@ -128,6 +137,8 @@
 
 <!-- end tweet -->
 % end
-<script src="/js/delete_tweet.js"></script>
+
+
+<script src="/js/tweet_options.js"></script>
 <script src="/js/like_unline_tweet.js"></script>
 <script src="/js/get_newest_tweets.js"></script>
