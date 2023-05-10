@@ -22,7 +22,7 @@ def _():
     return{"info":"ok", "tweet_to_delete_id":tweet_to_delete_id}
 
   except Exception as ex: 
-    response.status = 401
+    response.status = 400
     return str(ex)
 
   finally: 
