@@ -1,6 +1,7 @@
 from bottle import delete, request, response
 import sqlite3
 import x
+import os
 
 
 @delete("/delete-tweet")
@@ -10,6 +11,13 @@ def _():
 
     tweet_to_delete_id = request.forms.get("tweet_id")
     tweet_to_delete = db.execute("SELECT * FROM tweets WHERE tweet_id = ?", (tweet_to_delete_id,)).fetchone()
+
+    tweet_image = tweet_to_delete["tweet_image"]
+
+    # Slet billede fra mappen, når tweet slettes
+    if tweet_to_delete["tweet_image"] != "" :  
+      myfile = f"tweet_images/{tweet_image}"
+      os.remove(myfile)
 
     user_cookie = request.get_cookie("user_cookie", secret="my-secret")
     
@@ -23,7 +31,7 @@ def _():
 
   except Exception as ex: 
     response.status = 400
-    return str(ex)
+    return {"info": str(ex)}
 
   finally: 
     if "db" in locals(): db.close()

@@ -44,6 +44,8 @@ def _():
                (tweet_id, tweet_user_fk, tweet_created_at, tweet_message, tweet_image, tweet_updated_at, tweet_total_replies, tweet_total_retweets, tweet_total_likes, tweet_total_views))
     db.commit()
     return {"info" : "ok"}
+
+
   except Exception as ex: # SOMETHING IS WRONG
     response.status = 400
     return str(ex)

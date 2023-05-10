@@ -84,13 +84,13 @@ CREATE TABLE tweets(
 
 
 
-INSERT INTO tweets VALUES("729ac281ba654300b23e5994e167ea6a", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953011", "Majas tweet 1", "", "", 0, 0, 0, 0);
-INSERT INTO tweets VALUES("6847c48ca5f94332af3640c38efe83fe", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953010", "Majas tweet 2", "", "", 0, 0, 0, 0);
+INSERT INTO tweets VALUES("729ac281ba654300b23e5994e167ea6a", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953011", "Majas tweet 1 - Cupcakes", "a153f48b0920476288ea04f02ccf5033.jpg", "", 0, 0, 0, 0);
+INSERT INTO tweets VALUES("6847c48ca5f94332af3640c38efe83fe", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953010", "Majas tweet 2", "edb4903f23c94b1abbad0aeac336bc4c.jpg", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("7cf79d3612c249f4ab6d535aa8bb861d", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953009", "Majas tweet 3", "", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("d64a86e5648648cfbc292c20b54739b8", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953008", "Majas tweet 4", "", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("d015e2553f9c4102b5658c87f784d636", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953007", "Majas tweet 5", "", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("cc1a107c5c2c41e196121d2a957a9c56", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953006", "Majas tweet 6", "", "", 0, 0, 0, 0);
-INSERT INTO tweets VALUES("0285da1ac60a42f1a097cff6c79d955e", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953005", "Majas tweet 7", "1.png", "", 0, 0, 0, 0);
+INSERT INTO tweets VALUES("0285da1ac60a42f1a097cff6c79d955e", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953005", "Majas tweet 7", "", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("51fe5821b54548b68e93854dc98b06eb", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953004", "Majas tweet 8", "", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("ee96c197a75544ac8e1ab8f25243b53e", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953003", "Majas tweet 9", "", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("6c7dd325663141158eb8edd64321b9d7", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953002", "Majas tweet 10", "", "", 0, 0, 0, 0);
