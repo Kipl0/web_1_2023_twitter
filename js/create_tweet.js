@@ -6,7 +6,9 @@ async function tweet() {
         method: "POST",
         body: new FormData(frm)
     })
-    console.log(conn)
+
+    const data = conn.json()
+    console.log(data)
     // TODO: show tip
     // const data = await conn.text()
     // console.log(data)
