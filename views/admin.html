@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/app.css">
+    <title>Document</title>
+</head>
+<body class="w-screen">
+    <div class="w-1/3 border-2 border-yellow-800 bg-black">
+        % for user in users :
+        <div class="flex gap-4 text-white p-4">
+            <div>
+                <img src="/avatar/{{user['user_avatar']}}" class="w-10">
+            </div>
+            <div>
+                <p>{{user["user_username"]}}</p>
+                <p>{{user["user_first_name"]}} {{user["user_last_name"]}}</p>
+                <p></p>
+            </div>
+            <svg class="ml-auto" width="26" height="26" viewBox="0 0 24 24" >
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Z" />
+            </svg>
+        </div>
+        % end
+
+    </div>
+</body>
+</html>

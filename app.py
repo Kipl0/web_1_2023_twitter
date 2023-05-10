@@ -30,6 +30,7 @@ import routes.static_files
 import routes.upload_picture
 import routes.register
 import routes.jwt_test
+import routes.admin
 # import routes.tester_create_hashpw #Hash password, når main.sql opdateres manuelt...
 
 

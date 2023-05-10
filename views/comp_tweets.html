@@ -36,7 +36,7 @@
     </div>
       
 
-    <div id="tweet_option_popup_{{tweet['tweet_id']}}" class="hidden absolute flex flex-col bg-black border border-gray-600 rounded-md w-fit right-0">
+    <div id="tweet_option_popup_{{tweet['tweet_id']}}" class="hidden absolute flex-col bg-black border border-gray-600 rounded-md w-fit right-0">
       <form method=""><button class="flex w-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 h-full rounded-t-md justify-center items-center">Edit</button></form>
       <form method="DELETE" onsubmit="delete_tweet(); return false">
         <input type="text" name="tweet_id" value="{{tweet['tweet_id']}}" class="hidden">
