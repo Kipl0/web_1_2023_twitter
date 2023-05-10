@@ -2,7 +2,7 @@
 % for tweet in tweets_and_user_data:
 
 <!-- tweet -->
-<div class="flex gap-4 p-4 border-t border-gray-600">
+<div id="{{tweet['tweet_id']}}" class="flex gap-4 p-4 border-t border-gray-600">
   <div class="">
     <img src="/avatar/{{tweet['user_avatar']}}" class="w-12 rounded-full">
   </div>
@@ -37,11 +37,15 @@
       
 
     <div id="tweet_option_popup_{{tweet['tweet_id']}}" class="hidden absolute flex-col bg-black border border-gray-600 rounded-md w-fit right-0">
-      <form method=""><button class="flex w-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 h-full rounded-t-md justify-center items-center">Edit</button></form>
-      <form method="DELETE" onsubmit="delete_tweet(); return false">
-        <input type="text" name="tweet_id" value="{{tweet['tweet_id']}}" class="hidden">
-        <button type="submit" class="flex w-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 h-full rounded-b-md justify-center items-center">Delete</button>
-      </form>
+      % if tweet["user_id"] == user_cookie["user_id"] :
+        <form method=""><button class="flex w-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 h-full rounded-t-md justify-center items-center">Edit tweet</button></form>
+        <form method="DELETE" onsubmit="delete_tweet(); return false">
+          <input type="text" name="tweet_id" value="{{tweet['tweet_id']}}" class="hidden">
+          <button type="submit" class="flex w-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 h-full rounded-b-md justify-center items-center">Delete tweet</button>
+        </form>
+      % else :
+        <p class="flex w-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 h-full rounded-b-md justify-center items-center">See profile</p>
+      % end 
     </div>
 
 

@@ -10,7 +10,6 @@ function init() {
          if (active_popup && e.target !== active_popup.button && !active_popup.popup.contains(e.target)  && !active_popup.button.contains(e.target)) {
             active_popup.popup.classList.remove("flex");
             active_popup.popup.classList.add("hidden");
-            console.log(e.target)
             active_popup = null
         } 
     });
@@ -46,19 +45,28 @@ function tweet_options_popup(tweet_options_btn) {
         tweet_option_popup.classList.add("hidden");
         active_popup = null;
     }
-
-    console.log(active_popup)
-
 }
 
 
 
-function delete_tweet(){
+async function delete_tweet(){
+    const frm = event.target
 
+    const conn = await fetch("/delete-tweet", {
+        method : "DELETE",
+        body : new FormData(frm),        
+    })
+
+    const data = await conn.json()
+    if( conn.ok && data.info == "ok" ) {
+        const testertester = document.getElementById(`${data.tweet_to_delete_id}`)
+        
+        testertester.style.display="none"
+
+    } else {
+        console.log("cannot delete tweet")
+    }
+
+    
 }
 
-// async function tweet_options_popup(){
-//     console.log(event.target)
-
-
-// }
