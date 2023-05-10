@@ -1,23 +1,22 @@
 // Create tweet
 
 async function tweet() {
-    const frm = event.target.form //the event is where - target is the form
+    const frm = event.target.form;
     const conn = await fetch("/tweet", {
         method: "POST",
         body: new FormData(frm)
-    })
+    });
 
-    const data = conn.json()
-    console.log(data)
-    // TODO: show tip
-    // const data = await conn.text()
-    // console.log(data)
-    // const message = frm.querySelector("input[name='message']").value
-    // console.log(message)
-    if( !conn.ok ){
-        console.log("cannot tweet")
-        // showTip()        
-        return
+    const data = await conn.json();
+
+    if (!conn.ok) {
+        const errorTip = document.getElementById("error-tip");
+        errorTip.innerText = data.error; // Assuming the server returns an 'error' field in the response
+        errorTip.style.display = "block";
+        console.log(data.error)
+        return;
     }
-    location.reload()
+
+    location.reload();
 }
+

@@ -59,7 +59,6 @@ async function delete_tweet(){
     })
 
     const data = await conn.json()
-    console.log(data)
 
     if( conn.ok && data.info == "ok" ) {
         const testertester = document.getElementById(`${data.tweet_to_delete_id}`)

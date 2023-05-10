@@ -24,7 +24,7 @@ def db():
     pass
 
 # ##############################
-TWEET_MIN_LEN = 2
+TWEET_MIN_LEN = 0
 TWEET_MAX_LEN = 280
 
 def validate_tweet_message():
