@@ -4,6 +4,7 @@ let active_popup = null;
 let tweet_options_btn_g 
 let tweet_option_popup
 
+// lav kun en eventlistener ved init, og ikke ved hvert klik
 function init() {
     // Close popup when clicked outside button and popup
     document.addEventListener("click", (e) => {
