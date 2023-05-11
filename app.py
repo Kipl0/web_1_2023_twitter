@@ -19,6 +19,8 @@ def dict_factory(cursor, row):
 import bridges.login
 
 
+
+
 ##############################
 #         Routes 
 import routes.send_message

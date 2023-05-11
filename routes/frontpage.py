@@ -25,6 +25,7 @@ def render_frontpage():
     tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id ORDER BY tweet_created_at DESC").fetchall()
 
 
+
     # Hvis kun hvilke tweets man har liket, hvis man er logget ind -- lav evt. en ny forside?
     # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
     if user_cookie != None : 

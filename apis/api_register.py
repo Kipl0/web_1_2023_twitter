@@ -14,6 +14,9 @@ def _():
         user_password = x.validate_user_password()
         x.validate_user_confirm_password()
         
+        user_first_name = request.forms.get("user_first_name")
+        user_last_name = request.forms.get("user_last_name")
+        
         #password bcrypt - hashing
         user_input_password = user_password.encode('utf-8')
         salt = bcrypt.gensalt()
@@ -60,8 +63,8 @@ def _():
             "user_email" : user_email,
             "user_password" : hashed_password,
             "user_verification_key" : str(uuid.uuid4()).replace("-", ""),
-            "user_first_name" : "",
-            "user_last_name" : "",
+            "user_first_name" : user_first_name,
+            "user_last_name" : user_last_name,
             "user_avatar" : picture_name_avatar,
             "user_banner" : picture_name_banner,
             "user_link" : "",

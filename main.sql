@@ -1,4 +1,7 @@
 
+DELETE FROM users WHERE user_username = "kage";
+
+
 -- change internal structure and respect the linking between PK and FK
 -- PRAGMA foreign_keys;
 -- PRAGMA foreign_keys = ON;
