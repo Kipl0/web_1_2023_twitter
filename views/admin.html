@@ -11,22 +11,40 @@
 <body class="w-screen">
     <div class="w-1/3 border-2 border-yellow-800 bg-black">
         % for user in users :
-        <div class="flex gap-4 text-white p-4">
+        <div class="flex  relative gap-4 text-white p-4">
             <div>
                 <img src="/avatar/{{user['user_avatar']}}" class="w-10">
             </div>
-            <div>
+            <div class="">
                 <p>{{user["user_username"]}}</p>
                 <p>{{user["user_first_name"]}} {{user["user_last_name"]}}</p>
                 <p></p>
             </div>
-            <svg class="ml-auto" width="26" height="26" viewBox="0 0 24 24" >
-                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Z" />
-            </svg>
+
+            <button onclick="open_user_options(this); return false" id="user_option_btn_{{user['user_id']}}" class="ml-auto">
+                <div class="flex items-center group cursor-pointer"> <!--group container-->
+                    <svg  width="26" height="26" viewBox="0 0 24 24" >
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Z" />
+                    </svg>
+                </div>
+            </button>
+            <div id="user_option_popup_{{user['user_id']}}" class="hidden absolute right-0 top-[60%] z-40 flex-col bg-black border border-gray-600 rounded-md w-fit ">
+                <a href="/{{user['user_username']}}" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md">Go to profile</a>
+
+                <form action="">
+                    <button id="submitBtn" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" style="position: relative;">
+                        Inactivate user
+                    </button>
+                </form>
+            </div>
+
         </div>
         % end
 
     </div>
+
+    <script src="/js/admin.js"></script>
+
 </body>
 </html>

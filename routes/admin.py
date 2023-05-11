@@ -7,7 +7,6 @@ def _():
         db = x.db()
 
         users = db.execute("SELECT * FROM users").fetchall()
-        
 
         return template("admin", users=users)
 
