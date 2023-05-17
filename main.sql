@@ -46,8 +46,7 @@ INSERT INTO users VALUES("07578f6c49d84b7c94ce80e96c64ccc0","majs503","maalmaja@
 INSERT INTO users VALUES("16edc063917a4e589c4d6e7524df39ef","Admin","admin@twitter.com","123","e8e90bcf70c94b9c982d0c6dcfb4fb65","", "", "admin.png", "default_banner.png", "1652354259","","","",0,0,0,0,0,0,0,0,1);
 
 
-
-
+-- DELETE FROM users WHERE user_username = "majs503";
 
 
 

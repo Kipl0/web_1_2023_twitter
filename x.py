@@ -3,7 +3,9 @@ import sqlite3
 import pathlib 
 import re #regular expression
 
+COOKIE_SECRET = "my-secret"
 
+images_not_to_be_deleted = ["51602a9f7d82472b90ed1091248f6cb1.jpeg","a22da1effb3d4f03a0f77f9aa8320203.jpg", "6268331d012247539998d7664bd05cc1.jpg", "07578f6c49d84b7c94ce80e96c64ccc0.jpg","admin.png","ad1bfe9ce6e44a009b57a1a183ccb202.jpg","e130fd8b81d049a1b2fafbca9c5a15e3.png", "494e6a7fdadb4b3cae58d37a4fad879c.jpg","dd5582fff3ca4f7f9f97a911f3e77b22.jpg","default_banner.png"]
 
 ##############################
 def dict_factory(cursor, row):
@@ -98,5 +100,5 @@ def validate_user_first_name():
   if len(request.forms.user_first_name) > USER_FIRST_NAME_MAX : raise Exception(error)
 
 
-COOKIE_SECRET = "my-secret"
+
 # my-secret bruges til at decypte username - så siden ved, hvem brugeren er. 
