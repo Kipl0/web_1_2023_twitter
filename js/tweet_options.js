@@ -67,8 +67,6 @@ async function delete_tweet(){
 
     } else {
         console.log("cannot delete tweet")
-    }
-
-    
+    }   
 }
 
