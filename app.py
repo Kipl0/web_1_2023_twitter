@@ -48,6 +48,7 @@ import apis.api_get_latest_tweets
 import apis.api_search
 import apis.api_like_unlike_tweet
 import apis.api_follow_unfollow
+import apis.api_update_profile
 
 
 ##############################
