@@ -34,7 +34,7 @@ def _():
                 os.remove(myfile)
 
         # Upload banner
-        uploaded_banner = request.files.get("uploaded_profile_banner")
+        uploaded_banner = request.files.get("uploaded_banner_input")
         name, ext = os.path.splitext(uploaded_banner.filename)
         if ext == "":
             # No file uploaded, set default banner

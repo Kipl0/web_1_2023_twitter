@@ -23,7 +23,9 @@
       </a>
     </div>
     <div class="flex flex-col w-full "> <!--image section-->
-        <img src="/banner/{{user['user_banner']}}">
+        <div class="relative w-full h-0" style="padding-bottom: 33.33%">
+          <img  src="/banner/{{user['user_banner']}}" class="absolute inset-0 object-cover object-center w-full h-full">
+        </div>
         <div class="relative flex justify-end px-4"> <!--container under banner-->
           <img src="/avatar/{{user['user_avatar']}}" class="flex absolute max-w-[25%] h-auto aspect-square left-4 z-9 translate-y-[-50%] rounded-full border-2 border-black">
         </div>
