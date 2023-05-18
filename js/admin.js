@@ -2,7 +2,6 @@
 
 
 async function deactivate_user() {
-    console.log("deactivate user");
     const frm = event.target.form
     const conn = await fetch("/deactivate-user", {
         method : "POST",
@@ -20,7 +19,6 @@ async function deactivate_user() {
 }
 
 async function activate_user() {
-    console.log("activate user");
     const frm = event.target.form
     const conn = await fetch("/activate-user", {
         method : "POST",
@@ -38,7 +36,6 @@ async function activate_user() {
 
 
 async function delete_user() {
-    console.log("delete");
     const frm = event.target.form
     const conn = await fetch("/delete-user", {
         method : "DELETE",

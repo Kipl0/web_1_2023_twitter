@@ -43,12 +43,6 @@
                         Deactivate user
                     </button>
                 </form>
-                <form method="DELETE" action="">
-                    <input type="text" name="delete_user_{{user['user_id']}}" class="hidden">
-                    <button onclick="delete_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" style="position: relative;">
-                        Delete user
-                    </button>
-                </form>
             </div>
 
 
@@ -80,14 +74,14 @@
                 </button>
                 <div id="user_option_popup_{{deleted_user['deleted_user_id']}}" class="hidden absolute right-0 top-[60%] z-40 flex-col bg-black border border-gray-600 rounded-md w-fit ">
 
-                    <form method="PUT" action="">
-                        <input type="text" name="activate_user_{{user['user_id']}}" class="hidden">
+                    <form method="POST" action="">
+                        <input type="text" name="activate_user_{{deleted_user['deleted_user_id']}}" class="hidden">
                         <button onclick="activate_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" style="position: relative;">
                             Activate user
                         </button>
                     </form>
                     <form method="PUT" action="">
-                        <input type="text" name="delete_user_{{user['user_id']}}" class="hidden">
+                        <input type="text" name="delete_user_{{deleted_user['deleted_user_id']}}" class="hidden">
                         <button onclick="delete_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" style="position: relative;">
                             Delete user
                         </button>
