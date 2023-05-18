@@ -2,7 +2,7 @@
 
 
 async function deactivate_user() {
-    console.log("deactivate");
+    console.log("deactivate user");
     const frm = event.target.form
     const conn = await fetch("/deactivate-user", {
         method : "POST",
@@ -12,10 +12,28 @@ async function deactivate_user() {
 
     if( conn.ok && data.info == "ok" ) {
         console.log("deactivating user")
+        location.reload()
     } else {
         console.log("cannot deactivate user")
     }
 
+}
+
+async function activate_user() {
+    console.log("activate user");
+    const frm = event.target.form
+    const conn = await fetch("/activate-user", {
+        method : "POST",
+        body : new FormData(frm),        
+    })
+    const data = await conn.json()
+
+    if( conn.ok && data.info == "ok" ) {
+        console.log("activating user")
+        location.reload()
+    } else {
+        console.log("cannot activate user")
+    }
 }
 
 
@@ -30,27 +48,13 @@ async function delete_user() {
 
     if( conn.ok && data.info == "ok" ) {
         console.log("deleting user")
+        location.reload()
     } else {
         console.log("cannot delete user")
     }
 }
 
 
-async function activate_user() {
-    console.log("activate");
-    const frm = event.target.form
-    const conn = await fetch("/activate-user", {
-        method : "PUT",
-        body : new FormData(frm),        
-    })
-    const data = await conn.json()
-
-    if( conn.ok && data.info == "ok" ) {
-        console.log("activating user")
-    } else {
-        console.log("cannot activate user")
-    }
-}
 
 
 
