@@ -6,14 +6,18 @@ def _():
     try:
         db = x.db()
 
-        users = db.execute("SELECT * FROM users").fetchall()
-
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
-        trends = db.execute("SELECT * FROM trends")
 
-        deleted_users = db.execute("SELECT * FROM deleted_users").fetchall()
+        if user_cookie["user_username"] == "Admin" :
+            users = db.execute("SELECT * FROM users WHERE user_username != ?",(user_cookie["user_username"],)).fetchall()
 
-        return template("admin", users=users, user_cookie = user_cookie, trends = trends, deleted_users = deleted_users)
+            trends = db.execute("SELECT * FROM trends")
+
+            deleted_users = db.execute("SELECT * FROM deleted_users").fetchall()
+
+            return template("admin", users=users, user_cookie = user_cookie, trends = trends, deleted_users = deleted_users)
+
+        return template("/")
 
     except Exception as ex :
         print(ex)
