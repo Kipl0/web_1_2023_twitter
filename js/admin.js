@@ -1,8 +1,57 @@
 
-// async function open_user_options() {
-    // const conn = await fetch("/admin")
-    
-// }
+
+
+async function deactivate_user() {
+    console.log("deactivate");
+    const frm = event.target.form
+    const conn = await fetch("/deactivate-user", {
+        method : "POST",
+        body : new FormData(frm),        
+    })
+    const data = await conn.json()
+
+    if( conn.ok && data.info == "ok" ) {
+        console.log("deactivating user")
+    } else {
+        console.log("cannot deactivate user")
+    }
+
+}
+
+
+async function delete_user() {
+    console.log("delete");
+    const frm = event.target.form
+    const conn = await fetch("/delete-user", {
+        method : "DELETE",
+        body : new FormData(frm),        
+    })
+    const data = await conn.json()
+
+    if( conn.ok && data.info == "ok" ) {
+        console.log("deleting user")
+    } else {
+        console.log("cannot delete user")
+    }
+}
+
+
+async function activate_user() {
+    console.log("activate");
+    const frm = event.target.form
+    const conn = await fetch("/activate-user", {
+        method : "PUT",
+        body : new FormData(frm),        
+    })
+    const data = await conn.json()
+
+    if( conn.ok && data.info == "ok" ) {
+        console.log("activating user")
+    } else {
+        console.log("cannot activate user")
+    }
+}
+
 
 
 
@@ -21,12 +70,10 @@ function init() {
             active_popup = null
         } 
     });
-    console.log("1")
 }
 init()
 
 function open_user_options(user_options_btn) {
-    console.log("2")
     user_options_btn_g = user_options_btn
     const user_option_popup_text = "user_option_popup_";
 
@@ -37,8 +84,7 @@ function open_user_options(user_options_btn) {
     const user_option_popup_and_id = user_option_popup_text + id;
 
     user_option_popup = document.getElementById(user_option_popup_and_id);
-
-
+    
     // Show and hide popup
     if (active_popup && active_popup.popup !== user_option_popup) {
         active_popup.popup.classList.remove("flex");
@@ -57,26 +103,3 @@ function open_user_options(user_options_btn) {
         active_popup = null;
     }
 }
-
-
-
-// async function delete_user(){
-//     const frm = event.target
-
-//     const conn = await fetch("/delete-user", {
-//         method : "DELETE",
-//         body : new FormData(frm),        
-//     })
-
-//     const data = await conn.json()
-
-//     if( conn.ok && data.info == "ok" ) {
-//         const testertester = document.getElementById(`${data.user_to_delete_id}`)
-        
-//         testertester.style.display="none"
-
-//     } else {
-//         console.log("cannot delete user")
-//     }
-// }
-

@@ -1,26 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/app.css">
-    <title>Document</title>
-</head>
-<body class="w-screen">
-    <div class="w-1/3 border-2 border-yellow-800 bg-black">
+
+
+<!---------------------- 
+         Left 
+----------------------->
+% include("comp_header_navbar", title="Profile", contact_active='class="active"')
+
+
+<!------------------------
+          center 
+------------------------->
+<!-- Center and right container -->
+<div class="w-full lg:w-6/12" >
+  <div class="min-h-screen h-full border-x border-gray-600">
+
+    <div class="w-full py-4 pb-4 bg-black">
+        <h1 class="py-5 text-center text-xl font-semibold">All active users</h1>
         % for user in users :
-        <div class="flex  relative gap-4 text-white p-4">
+        <div class="flex items-center relative gap-4 text-white p-4">
             <div>
-                <img src="/avatar/{{user['user_avatar']}}" class="w-10">
+
+                <img src="/avatar/{{user['user_avatar']}}" class="flex w-10 h-auto aspect-square rounded-full">
             </div>
             <div class="">
                 <p>{{user["user_username"]}}</p>
                 <p>{{user["user_first_name"]}} {{user["user_last_name"]}}</p>
                 <p></p>
             </div>
-
             <button onclick="open_user_options(this); return false" id="user_option_btn_{{user['user_id']}}" class="ml-auto">
                 <div class="flex items-center group cursor-pointer"> <!--group container-->
                     <svg  width="26" height="26" viewBox="0 0 24 24" >
@@ -32,19 +37,95 @@
             <div id="user_option_popup_{{user['user_id']}}" class="hidden absolute right-0 top-[60%] z-40 flex-col bg-black border border-gray-600 rounded-md w-fit ">
                 <a href="/{{user['user_username']}}" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md">Go to profile</a>
 
-                <form action="">
-                    <button id="submitBtn" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" style="position: relative;">
-                        Inactivate user
+                <form id="deactivate_user_form" method="POST" action="">
+                    <input id="deactivate_user_{{user['user_id']}}" type="text" name="deactivate_user_{{user['user_id']}}" class="hidden">
+                    <button onclick="deactivate_user(); return false;" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" style="position: relative;">
+                        Deactivate user
+                    </button>
+                </form>
+                <form method="DELETE" action="">
+                    <input type="text" name="delete_user_{{user['user_id']}}" class="hidden">
+                    <button onclick="delete_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" style="position: relative;">
+                        Delete user
                     </button>
                 </form>
             </div>
 
+
         </div>
         % end
 
+        <div class="w-full py-4 pb-4 gap-4 border-t border-gray-600">
+            <h1 class="py-5 w-full text-center text-xl font-semibold">All inactive users</h1>
+
+            % for deleted_user in deleted_users :
+            <div class="flex items-center relative gap-4 text-white p-4">
+
+                <div>
+                    <img src="/avatar/{{deleted_user['deleted_user_avatar']}}" class="flex w-10 h-auto aspect-square rounded-full">
+                </div>
+                <div class="">
+                    <p>{{deleted_user["deleted_user_username"]}}</p>
+                    <p>{{deleted_user["deleted_user_first_name"]}} {{deleted_user["deleted_user_last_name"]}}</p>
+                    <p></p>
+                </div>
+
+                <button onclick="open_user_options(this); return false" id="user_option_btn_{{deleted_user['deleted_user_id']}}" class="ml-auto">
+                    <div class="flex items-center group cursor-pointer"> <!--group container-->
+                        <svg  width="26" height="26" viewBox="0 0 24 24" >
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Z" />
+                        </svg>
+                    </div>
+                </button>
+                <div id="user_option_popup_{{deleted_user['deleted_user_id']}}" class="hidden absolute right-0 top-[60%] z-40 flex-col bg-black border border-gray-600 rounded-md w-fit ">
+
+                    <form method="PUT" action="">
+                        <input type="text" name="activate_user_{{user['user_id']}}" class="hidden">
+                        <button onclick="activate_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" style="position: relative;">
+                            Activate user
+                        </button>
+                    </form>
+                    <form method="PUT" action="">
+                        <input type="text" name="delete_user_{{user['user_id']}}" class="hidden">
+                        <button onclick="delete_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" style="position: relative;">
+                            Delete user
+                        </button>
+                    </form>
+                </div>
+            </div>
+            % end
+        </div>
     </div>
 
-    <script src="/js/admin.js"></script>
+  </div>
+  <!-- end center -->
 
-</body>
-</html>
+</div>
+
+
+
+
+<!----------------------
+        right 
+----------------------->
+<div class="col-span-1 hidden lg:block pl-10 pt-1">
+  <div class="min-w-sm max-w-sm sticky top-1">
+    % include("comp_trends", show_latest_tweets="False")
+
+  </div>
+</div>
+<!-- end right -->
+
+
+
+
+<script src="/js/admin.js"></script>
+
+
+
+
+<!-- footer -->
+% include("comp_footer")
+
+

@@ -49,6 +49,35 @@ INSERT INTO users VALUES("16edc063917a4e589c4d6e7524df39ef","Admin","admin@twitt
 -- DELETE FROM users WHERE user_username = "majs503";
 
 
+DROP TABLE IF EXISTS deleted_users;
+CREATE TABLE deleted_users(
+  deleted_user_id                     TEXT UNIQUE NOT NULL,
+  deleted_user_username               TEXT UNIQUE NOT NULL,
+  deleted_user_email                  TEXT UNIQUE NOT NULL,
+  deleted_user_password               TEXT NOT NULL,
+  deleted_user_verification_key       TEXT DEFAULT "",
+  deleted_user_first_name             TEXT NOT NULL,
+  deleted_user_last_name              TEXT DEFAULT "",
+  deleted_user_avatar                 TEXT, 
+  deleted_user_banner                 TEXT, 
+  deleted_user_link                   TEXT DEFAULT "",
+  deleted_user_caption                TEXT DEFAULT "",
+  deleted_user_location               TEXT DEFAULT "",
+  deleted_user_created_at             TEXT NOT NULL,
+  deleted_user_verified               TEXT DEFAULT 0, 
+  deleted_user_total_tweets           INTEGER DEFAULT 0,
+  deleted_user_total_followers        INTEGER DEFAULT 0,
+  deleted_user_total_following        INTEGER DEFAULT 0,
+  deleted_user_total_retweets         INTEGER DEFAULT 0,
+  deleted_user_total_comments         INTEGER DEFAULT 0,
+  deleted_user_total_likes            INTEGER DEFAULT 0,
+  deleted_user_total_dislikes         INTEGER DEFAULT 0,
+  deleted_user_active                 INTEGER DEFAULT 0,
+  PRIMARY KEY(deleted_user_id)
+) WITHOUT ROWID;
+
+
+INSERT INTO deleted_users VALUES("51602a9f7d82472b90ed1091248fa32b","deleted_user","deleted_user@gmail.com","123","be3a21b8186f43bf82483074d06f4222","deleted", "User", "default_avatar.jpg", "default_banner.png", "1679402790","","","",0,0,0,0,0,0,0,0,1);
 
 -- CREATE UNIQUE INDEX idx_users_ ON users(user_username);
 
