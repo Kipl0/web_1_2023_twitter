@@ -48,9 +48,17 @@
 
 
 
+    <form id="deactivate_user_form" method="POST" action="">
+        <input id="deactivate_user{{user['user_id']}}" type="text" name="deactivate_user_{{user['user_id']}}" class="hidden">
+        <button onclick="deactivate_own_profile(); return false;" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" style="position: relative;">
+            Deactivate user
+        </button>
+    </form>
+
 
   </form>
 </div>
 
 
+<script src="/js/deactivate_own_profile.js"></script>
 <script src="/js/update_profile.js"></script>
