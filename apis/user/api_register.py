@@ -83,8 +83,6 @@ def _():
         }
 
 
-
-
         values = ""
         for key in user:
             values += f':{key},'
