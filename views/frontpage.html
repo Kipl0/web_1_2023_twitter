@@ -36,6 +36,8 @@
   <div class="hidden lg:min-w-sm lg:max-w-sm lg:block pl-10 pt-1 ">
     <div class="w-full  sticky top-1">
       % if user_cookie != None :
+        % include("comp_search")
+
           <!-- TRENDS -->
         % include("comp_trends", show_latest_tweets="False")
 

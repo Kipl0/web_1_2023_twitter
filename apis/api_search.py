@@ -1,6 +1,7 @@
 from bottle import post, request, response
 # normalt ville man bruge "get" fordi man skal "get" noget fra db. Men fordi get har det med at cache, bruger vi post
 import json #bruges for at kunne returnere en list i try
+import x
 
 @post("/search")
 def _() :

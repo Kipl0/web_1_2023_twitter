@@ -27,6 +27,8 @@ function search() {
         document.querySelector("#search_results").innerHTML = ""
         data.forEach( (item)=>{
             results += `<div>${item.name}</div>`
+            // style.display.flex 
+            // set indhold til at være = resultater - istedet for at indsætte <div> som Santiago gjorde ovenstående
         })
         console.log(results)
         document.querySelector("#search_results").insertAdjacentHTML('afterbegin',results)
