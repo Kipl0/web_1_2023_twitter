@@ -10,7 +10,7 @@
           center 
 ------------------------->
 <!-- Center and right container -->
-<div class="w-full lg:w-6/12" >
+<div class="w-full lg:w-5/12">
   <div class="min-h-screen h-full border-x border-gray-600">
 
     <div class="w-full py-4 pb-4 bg-black">
@@ -39,7 +39,7 @@
 
                 <form id="deactivate_user_form" method="POST" action="">
                     <input id="deactivate_user_{{user['user_id']}}" type="text" name="deactivate_user_{{user['user_id']}}" class="hidden">
-                    <button onclick="deactivate_user(); return false;" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" style="position: relative;">
+                    <button onclick="deactivate_user(); return false;" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-b-md" >
                         Deactivate user
                     </button>
                 </form>
@@ -76,15 +76,23 @@
 
                     <form method="POST" action="">
                         <input type="text" name="activate_user_{{deleted_user['deleted_user_id']}}" class="hidden">
-                        <button onclick="activate_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" style="position: relative;">
+                        <button onclick="activate_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" >
                             Activate user
                         </button>
                     </form>
                     <form method="DELETE" action="">
                         <input type="text" name="delete_user_{{deleted_user['deleted_user_id']}}" class="hidden">
-                        <button onclick="delete_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" style="position: relative;">
+                        <button onclick="show_confirm_button(); return false" id="delete_user_button" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-b-md" >
                             Delete user
                         </button>
+                        <section id="show_confirm_buttons" class="hidden border-t-2 border-gray-600">
+                            <button type="button" id="cancel_delete_user_btn" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-bl-md" >
+                                Cancel 
+                            </button>
+                            <button onclick="delete_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-br-md" >
+                                Delete 
+                            </button>
+                        </section>
                     </form>
                 </div>
             </div>
@@ -103,14 +111,15 @@
 <!----------------------
         right 
 ----------------------->
-<div class="col-span-1 hidden lg:block pl-10 pt-1">
-  <div class="min-w-sm max-w-sm sticky top-1">
+<div class="col-span-1 hidden lg:block pl-6 pr-4 pt-1">
+  <div class="min-w-[300px] sticky pt-4">
     % include("comp_trends", show_latest_tweets="False")
 
   </div>
 </div>
 <!-- end right -->
 
+<!-- % include("comp_confirm_action") -->
 
 
 

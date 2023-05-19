@@ -15,7 +15,13 @@ async function deactivate_user() {
     } else {
         console.log("cannot deactivate user")
     }
+}
 
+function show_confirm_button() {
+    const delete_user_button = document.getElementById("delete_user_button")
+    const show_confirm_buttons = document.getElementById("show_confirm_buttons")
+    show_confirm_buttons.style.display = "flex"
+    delete_user_button.style.display = "none"
 }
 
 async function activate_user() {
@@ -61,14 +67,24 @@ let active_popup = null;
 let user_options_btn_g 
 let user_option_popup
 
+const cancel_delete_user_btn = document.getElementById("cancel_delete_user_btn")
+
 // lav kun en eventlistener ved init, og ikke ved hvert klik
 function init() {
     // Close popup when clicked outside button and popup
     document.addEventListener("click", (e) => {
-         if (active_popup && e.target !== active_popup.button && !active_popup.popup.contains(e.target)  && !active_popup.button.contains(e.target)) {
+         if (active_popup && e.target !== active_popup.button && !active_popup.popup.contains(e.target)  && !active_popup.button.contains(e.target) || e.target == cancel_delete_user_btn) {
             active_popup.popup.classList.remove("flex");
             active_popup.popup.classList.add("hidden");
             active_popup = null
+
+            console.log(e.target)
+
+            // Hvis Admin har klikket på "delete" knappen, men lukket pop-uppen ved at klikke på skærm i stedet for "cancel" knappen - det her stiller til default
+            const delete_user_button = document.getElementById("delete_user_button")
+            const show_confirm_buttons = document.getElementById("show_confirm_buttons")
+            show_confirm_buttons.style.display = "none"
+            delete_user_button.style.display = "flex"
         } 
     });
 }
