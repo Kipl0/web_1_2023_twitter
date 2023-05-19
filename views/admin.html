@@ -85,15 +85,43 @@
                         <button onclick="show_confirm_button(); return false" id="delete_user_button" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-b-md" >
                             Delete user
                         </button>
-                        <section id="show_confirm_buttons" class="hidden border-t-2 border-gray-600">
-                            <button type="button" id="cancel_delete_user_btn" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-bl-md" >
+                        <section id="show_confirm_buttons" class="hidden ">
+                            <button type="button" id="cancel_delete_user_btn" class="flex justify-center items-center w-full h-full hover:cursor-pointer py-2 px-12 rounded-bl-md  bg-red-400 hover:bg-red-500" >
                                 Cancel 
                             </button>
-                            <button onclick="delete_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-br-md" >
+                            <button onclick="delete_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:cursor-pointer py-2 px-12 rounded-br-md bg-[#49b265] hover:bg-[#159947] whitespace-nowrap" >
                                 Delete 
                             </button>
                         </section>
                     </form>
+
+
+
+
+
+
+
+
+          <section id="show_confirm_buttons" class="hidden w-full justify-center">
+              <button onclick="show_confirm_button(); return false" type="button" id="cancel_deactivate_profile_btn" class="flex justify-center items-center w-fit h-full hover:cursor-pointer py-2 px-4 mx-2 rounded-bl-md text-black bg-red-400 hover:bg-red-500" >
+                  Cancel deactivate
+              </button>
+              <button onclick="deactivate_own_profile(); return false;" type="submit" class="flex justify-center items-center w-fit h-full hover:cursor-pointer py-2 px-4 mx-2 rounded-br-md text-black bg-[#49b265] hover:bg-[#159947] whitespace-nowrap" >
+                  Deactivate profile 
+              </button>
+          </section>
+
+
+
+
+
+
+
+
+
+
+
+
                 </div>
             </div>
             % end
