@@ -1,9 +1,8 @@
 
-<!---------------------- 
+<!----------------------
          Left 
 ----------------------->
 % include("comp_header_navbar", title="Forside", contact_active='class="active"')
-
 
 <!------------------------
           center 
@@ -27,30 +26,34 @@
     % end
   </div>
   <!-- end center -->
-
-
-  </div>
-  <!----------------------
-          right 
-  ----------------------->
-  <div class="hidden lg:block pl-6 min-w-[300px] pr-4">
-    <div class="w-full  sticky top-1 pt-4">
-      % if user_cookie != None :
-        % include("comp_search")
-
-          <!-- TRENDS -->
-        % include("comp_trends", show_latest_tweets="False")
-
-        <!-- WHO TO FOLLOW -->
-        % include("comp_who_to_follow")
-
-      % else :
-        <!-- Login box -->
-        % include("comp_login_box")
-      %end
-    </div>
-  </div>
-    <!-- end right -->
-
 </div>
-  % include("comp_footer")
+
+<!----------------------
+          right 
+----------------------->
+<div class="sticky top-1 hidden lg:flex flex-col pl-6 min-w-[300px] max-w-[400px] pr-4 gap-4 pt-4 ">
+    % if user_cookie != None :
+      % include("comp_search")
+
+      <!-- TRENDS -->
+      % include("comp_trends", show_latest_tweets="False")
+
+      <!-- WHO TO FOLLOW -->
+      % include("comp_who_to_follow")
+
+    % else :
+      <!-- Login box -->
+      % include("comp_login_box")
+    %end
+    <section class="text-zinc-500 text-sm">
+      Terms of Service
+      Privacy Policy
+      Cookie Policy
+      Accessibility
+      Ads info
+      More
+      © 2023 X Corp.
+  </section>
+</div>
+<!-- end right -->
+
