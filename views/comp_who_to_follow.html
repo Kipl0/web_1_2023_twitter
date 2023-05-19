@@ -1,25 +1,25 @@
   <!-- who to follow -->
-  <div class="sticky top-20 flex flex-col gap-4 w-full  py-2 px-4 mt-4 bg-zinc-900 rounded-2xl">
-    <div class="text-2xl font-bold">
+  <div class="sticky top-20 flex flex-col gap-6 w-full  py-2 px-4 mt-4 bg-zinc-900 rounded-2xl">
+    <div class="text-2xl font-semibold">
       Who to follow
 
     </div>
 
     <!-- Who to follow -->
     % for user_suggested_follow in user_suggested_follows:
-      <a href="/{{user_suggested_follow['user_username']}}" class="flex items-center gap-4">
+      <a href="/{{user_suggested_follow['user_username']}}" class="flex items-center gap-3">
         % if "user_avatar" in user_suggested_follow:  
         <img src="/avatar/{{user_suggested_follow['user_avatar']}}" class="w-12 h-12 rounded-full">
         % end
         <div class="">
-          <div class="text-gray-200 font-bold">
+          <div class="text-gray-200 font-semibold text-sm">
             {{user_suggested_follow["user_username"]}} 
           </div>
-          <div class="text-zinc-500">
+          <div class="text-zinc-500 text-sm">
             <strong>@</strong>{{user_suggested_follow["user_username"]}}
           </div>
         </div>
-        <button class="ml-auto px-4 py-2 text-black text-base font-medium bg-gray-200 rounded-full">
+        <button class="ml-auto px-3 py-2 text-black text-sm font-medium bg-gray-200 rounded-full">
           Follow
         </button>
       </a>
