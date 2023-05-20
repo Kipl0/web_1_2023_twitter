@@ -24,8 +24,8 @@ def _(user_username):
     
     trends = db.execute("SELECT * FROM trends")
 
-    user_suggested_follows = []
-    user_suggested_follows = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ?",(user_username,"Admin"))
+    who_to_follow = []
+    who_to_follow = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ?",(user_username,"Admin"))
 
 
     ##########################
@@ -57,7 +57,7 @@ def _(user_username):
         user["follows"] = 0
 
 
-    return template("profile", user=user, tweets_and_user_data=tweets_and_user_data, trends=trends, user_cookie=user_cookie, user_suggested_follows=user_suggested_follows)
+    return template("profile", user=user, tweets_and_user_data=tweets_and_user_data, trends=trends, user_cookie=user_cookie, who_to_follow=who_to_follow)
 
   except Exception as ex:
     print(ex)

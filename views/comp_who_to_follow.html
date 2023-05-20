@@ -6,17 +6,17 @@
     </div>
 
     <!-- Who to follow -->
-    % for user_suggested_follow in user_suggested_follows:
-      <a href="/{{user_suggested_follow['user_username']}}" class="flex items-center gap-3">
-        % if "user_avatar" in user_suggested_follow:  
-        <img src="/avatar/{{user_suggested_follow['user_avatar']}}" class="w-12 h-12 rounded-full">
+    % for who_to_follow_suggestion in who_to_follow:
+      <a href="/{{who_to_follow_suggestion['user_username']}}" class="flex items-center gap-3">
+        % if "user_avatar" in who_to_follow_suggestion:  
+        <img src="/avatar/{{who_to_follow_suggestion['user_avatar']}}" class="w-12 h-12 rounded-full">
         % end
         <div class="">
           <div class="text-gray-200 font-semibold text-sm">
-            {{user_suggested_follow["user_username"]}} 
+            {{who_to_follow_suggestion["user_username"]}} 
           </div>
           <div class="text-zinc-500 text-sm">
-            <strong>@</strong>{{user_suggested_follow["user_username"]}}
+            <strong>@</strong>{{who_to_follow_suggestion["user_username"]}}
           </div>
         </div>
         <button class="ml-auto px-3 py-2 text-black text-sm font-medium bg-gray-200 rounded-full">

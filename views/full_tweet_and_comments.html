@@ -11,7 +11,8 @@
 <!---------------------- 
          Left 
 ----------------------->
-% include("comp_header_navbar", title="Profile", contact_active='class="active"')
+% include("comp_header_navbar", title="Tweet")
+
 
 
 <!------------------------
@@ -38,7 +39,24 @@
 ----------------------->
 <div class="col-span-1 hidden lg:block pl-6 pr-4 pt-4">
   <div class="min-w-[300px] sticky top-1">
-            % include("comp_search")
+      % include("comp_search")
+
+      <!-- TRENDS -->
+      % include("comp_trends", show_latest_tweets="False")
+
+      <!-- WHO TO FOLLOW -->
+      % include("comp_who_to_follow")
+
+    %end
+    <section class="text-zinc-500 text-sm">
+      Terms of Service
+      Privacy Policy
+      Cookie Policy
+      Accessibility
+      Ads info
+      More
+      © 2023 X Corp.
+    </section>
 
   </div>
 </div>
