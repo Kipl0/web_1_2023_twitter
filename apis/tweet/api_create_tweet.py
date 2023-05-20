@@ -32,7 +32,7 @@ def _():
     tweet_user_fk = user_cookie["user_id"]
     tweet_created_at = int(time.time())
     tweet_updated_at = ""
-    tweet_total_replies = 0
+    tweet_total_comments = 0
     tweet_total_retweets = 0
     tweet_total_likes = 0
     tweet_total_views = 0
@@ -52,7 +52,7 @@ def _():
 
     db.execute("INSERT INTO tweets VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 (tweet_id, tweet_user_fk, tweet_created_at, tweet_message, tweet_image, tweet_updated_at,
-                tweet_total_replies, tweet_total_retweets, tweet_total_likes, tweet_total_views))
+                tweet_total_comments, tweet_total_retweets, tweet_total_likes, tweet_total_views))
     db.commit()
     return {"info": "ok"}
 

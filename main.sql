@@ -10,8 +10,9 @@
 
 
 
--- ###########################
---          Users
+-- -----------------------------------------------
+--                    Users
+-- -----------------------------------------------
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE users(
@@ -81,6 +82,18 @@ CREATE TABLE deleted_users(
 
 INSERT INTO deleted_users VALUES("51602a9f7d82472b90ed1091248fa32b","deleted_user","deleted_user@gmail.com","123","be3a21b8186f43bf82483074d06f4222","deleted", "User", "default_avatar.jpg", "default_banner.png", "1679402790","","","",0,0,0,0,0,0,0,0,1);
 
+
+
+
+
+DROP TABLE IF EXISTS follower_following;
+CREATE TABLE follower_following(
+  follower_id       TEXT,
+  following_id      TEXT,
+  PRIMARY KEY(follower_id,following_id)
+) Without ROWID;
+
+
 -- CREATE UNIQUE INDEX idx_users_ ON users(user_username);
 
 -- CREATE INDEX idx_users_user_first_name ON users(user_first_name);
@@ -91,8 +104,9 @@ INSERT INTO deleted_users VALUES("51602a9f7d82472b90ed1091248fa32b","deleted_use
 -- SELECT name FROM sqlite_master WHERE type = 'trigger';
 -- ##############################
 
---#################################
---        Tweets
+-- -----------------------------------------------
+--                    Tweets
+-- -----------------------------------------------
 
 DROP TABLE IF EXISTS tweets;
 CREATE TABLE tweets(
@@ -102,7 +116,7 @@ CREATE TABLE tweets(
   tweet_message             TEXT,
   tweet_image               TEXT,
   tweet_updated_at          TEXT, -- Empty at create
-  tweet_total_replies       TEXT,
+  tweet_total_comments       TEXT,
   tweet_total_retweets      TEXT,
   tweet_total_likes         TEXT,
   tweet_total_views         TEXT,
@@ -115,8 +129,8 @@ CREATE TABLE tweets(
 -- INSERT INTO tweets VALUES("729ac281ba654300bd3e5994e167eaaa", "a", "1676283564", "a", "", "", "0", "0", "0", "0");
 
 
-
-INSERT INTO tweets VALUES("729ac281ba654300b23e5994e167ea6a", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953011", "Majas tweet 1 - Cupcakes", "a153f48b0920476288ea04f02ccf5033.jpg", "", 0, 0, 0, 0);
+-- majs503
+INSERT INTO tweets VALUES("729ac281ba654300b23e5994e167ea6a", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953011", "Majas tweet 1 - Cupcakes", "472eadb53ab74fc68c471861044cda76.jpg", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("6847c48ca5f94332af3640c38efe83fe", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953010", "Majas tweet 2", "edb4903f23c94b1abbad0aeac336bc4c.jpg", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("7cf79d3612c249f4ab6d535aa8bb861d", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953009", "Majas tweet 3", "", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("d64a86e5648648cfbc292c20b54739b8", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953008", "Majas tweet 4", "", "", 0, 0, 0, 0);
@@ -171,6 +185,15 @@ INSERT INTO tweets VALUES("793d655c7f334ad0858cfe2fdf182967", "a22da1effb3d4f03a
 
 
 
+DROP TABLE IF EXISTS tweet_comments;
+CREATE TABLE tweet_comments(
+  comment_id          TEXT NOT NULL,
+  comment_message     TEXT, 
+  comment_image       TEXT,
+  PRIMARY KEY(comment_id)
+) WITHOUT ROWID;
+
+INSERT INTO tweet_comments VALUES("672d655c7f334ad0858cfe2fdf18926A", "This is my comment", "");
 
 
 DROP TABLE IF EXISTS tweets_liked_by_users;
@@ -188,13 +211,6 @@ CREATE TABLE tweets_liked_by_users (
 
 
 
-DROP TABLE IF EXISTS follower_following;
-CREATE TABLE follower_following(
-  follower_id       TEXT,
-  following_id      TEXT,
-  PRIMARY KEY(follower_id,following_id)
-) Without ROWID;
-
 
 
 
@@ -203,7 +219,9 @@ CREATE TABLE follower_following(
 
 
 
-
+-- -----------------------------------------------
+--                    Trends
+-- -----------------------------------------------
 -- ##############################
 DROP TABLE IF EXISTS trends;
 CREATE TABLE trends(
@@ -250,6 +268,8 @@ DROP TRIGGER IF EXISTS increment_user_total_tweets;
 --   SET user_total_tweets =  user_total_tweets + 1 
 --   WHERE user_id = NEW.tweet_user_fk;
 -- END;
+
+
 
 DROP TRIGGER IF EXISTS decrement_user_total_tweets;
 -- CREATE TRIGGER decrement_user_total_tweets AFTER DELETE ON tweets

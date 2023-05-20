@@ -33,6 +33,7 @@ import routes.upload_picture
 import routes.register
 import routes.jwt_test
 import routes.admin
+import routes.full_tweet_and_comments
 import routes.tester_create_hashpw #Hash password, når main.sql opdateres manuelt...
 
 
