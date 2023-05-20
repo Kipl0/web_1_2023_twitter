@@ -6,10 +6,14 @@ import x
 @post("/search")
 def _() :
     try :
-        #connect to the database
-        #get the proper search results from the database and return the results at json.dumps
+        db = x.db()
+
+        search_input = request.forms.get("search_input")
+
+        search_results = db.execute(f"SELECT user_username, user_first_name, user_last_name, user_avatar FROM users WHERE user_username LIKE '%{search_input}%' OR user_first_name LIKE '%{search_input}%' OR user_last_name LIKE '%{search_input}%' OR user_first_name || ' ' || user_last_name  LIKE '%{search_input}%'").fetchall()
+
         response.set_header("Content-type","application/json")
-        return json.dumps([{"name":"A"},{"name":"B"}])
+        return json.dumps(search_results)
 
     except Exception as e :
         pass
