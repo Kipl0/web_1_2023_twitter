@@ -17,6 +17,22 @@ async function tweet() {
         return;
     }
 
+
+  
+
+
+
     location.reload();
 }
 
+    let uploaded_create_tweet_img = "";
+    const uploaded_create_tweet_img_input = document.getElementById("uploaded_create_tweet_img_input");
+
+    uploaded_create_tweet_img_input.addEventListener("change", function() {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+        uploaded_create_tweet_img = reader.result;
+        document.getElementById("uploaded_create_tweet_img").src = uploaded_create_tweet_img;
+    });
+    reader.readAsDataURL(this.files[0]);
+    });
