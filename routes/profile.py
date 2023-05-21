@@ -10,12 +10,14 @@ def _(user_username):
   try:
     db = x.db()
 
-    response.add_header("Cache-control", "no-store, no-cache, must-revalidate, max-age=0")
-    response.add_header("Pragma", "no-cache")
-    response.add_header("Expires",0)
+    # response.add_header("Cache-control", "no-store, no-cache, must-revalidate, max-age=0")
+    # response.add_header("Pragma", "no-cache")
+    # response.add_header("Expires",0)
 
     user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET) #vi vil gerne have fat i en cookie fra browseren der hedder "login" det har vi defineret i login.py
     
+    print(user_cookie)
+
     user = db.execute("SELECT * FROM users WHERE user_username=? COLLATE NOCASE",(user_username,)).fetchall()[0]
     user_id = user["user_id"]    
 
@@ -28,23 +30,32 @@ def _(user_username):
     who_to_follow = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ?",(user_username,"Admin"))
 
 
-    ##########################
-    #  Like tweet
+    # Hvis kun hvilke tweets man har liket, hvis man er logget ind -- lav evt. en ny forside?
     # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
-    for tweet in tweets_and_user_data :
-      tweet_liked_by_user_record = db.execute("SELECT * FROM tweets_liked_by_users WHERE user_id = ? AND tweet_id = ?",(user_cookie["user_id"], tweet["tweet_id"])).fetchone()
-        # Hvis den er lig 1 betyder det at user har liket tweet
-        # Hvis ikke tweet_liked_by_user_record eksisterer i db, så har user hverken set eller liket opslaget før
-      if tweet_liked_by_user_record == None : 
-        tweet["liked"] = 0
-        continue
+    if user_cookie != None : 
+      for tweet in tweets_and_user_data :
+        tweet_liked_by_user_record = db.execute("SELECT * FROM tweets_liked_by_users WHERE user_id = ? AND tweet_id = ?",(user_cookie["user_id"], tweet["tweet_id"])).fetchone()
+          # Hvis den er lig 1 betyder det at user har liket tweet # Hvis ikke tweet_liked_by_user_record eksisterer i db, så har user hverken set eller liket opslaget før
+        if tweet_liked_by_user_record == None : 
+          tweet["liked"] = 0
+          continue
 
-      if tweet_liked_by_user_record["liked"] == 1 :
-        # Add the key "liked" to the dict so that it will be:
-        # {'tweet_id': '1', 'tweet_text': 'mit tweet', 'total_likes': '11', 'liked': 1}
-        tweet["liked"] = 1
-        continue
-      tweet["liked"] = 0
+        if tweet_liked_by_user_record["liked"] == 1 :
+          # Add the key "liked" to the dict so that it will be: # {'tweet_id': '1', 'tweet_text': 'mit tweet', 'total_likes': '11', 'liked': 1}
+          tweet["liked"] = 1
+          continue
+        tweet["liked"] = 0
+
+      # Hvs bruger har kommenteret på tweet, så hvis blå aktiv farve ved load
+      for tweet in tweets_and_user_data :
+        tweet_comments = db.execute("SELECT * FROM tweet_comments WHERE comment_user_fk = ? AND comment_tweet_fk = ?",(user_cookie["user_id"], tweet["tweet_id"])).fetchone()
+        # Hvis den findes betyder det at user har kommenteret på tweet # laver nyt key-value pair hvor den er 0 eller 1
+        if tweet_comments == None : 
+          tweet["commented"] = 0
+          continue
+
+        tweet["commented"] = 1
+        
 
 
     ##########################
@@ -59,10 +70,16 @@ def _(user_username):
 
     return template("profile", user=user, tweets_and_user_data=tweets_and_user_data, trends=trends, user_cookie=user_cookie, who_to_follow=who_to_follow)
 
+
+
+
   except Exception as ex:
     print(ex)
     response.status = 400
     return {"error": str(ex)}
+
+
+
 
   finally:
     if "db" in locals(): db.close()

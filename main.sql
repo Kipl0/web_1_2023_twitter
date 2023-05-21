@@ -187,11 +187,11 @@ INSERT INTO tweets VALUES("793d655c7f334ad0858cfe2fdf182967", "a22da1effb3d4f03a
 
 DROP TABLE IF EXISTS tweet_comments;
 CREATE TABLE tweet_comments(
-  comment_id          TEXT NOT NULL,
+  comment_id                  TEXT NOT NULL,
   comment_tweet_fk            TEXT NOT NULL,
   comment_user_fk             TEXT NOT NULL,
-  comment_message     TEXT, 
-  comment_image       TEXT,
+  comment_message             TEXT, 
+  comment_image               TEXT,
   comment_created_at          TEXT,
   PRIMARY KEY(comment_id)
 ) WITHOUT ROWID;

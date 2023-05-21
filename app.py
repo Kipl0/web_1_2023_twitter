@@ -27,13 +27,13 @@ import routes.send_message
 import routes.login
 import routes.logout
 import routes.frontpage
-import routes.profile
 import routes.static_files
 import routes.upload_picture
 import routes.register
 import routes.jwt_test
 import routes.admin
 import routes.full_tweet_and_comments
+import routes.profile
 import routes.tester_create_hashpw #Hash password, når main.sql opdateres manuelt...
 
 
