@@ -45,8 +45,6 @@ function show_confirm_button() {
 // Åbn - luk pop up 
 function open_edit_profile() {
     const edit_profile_pop_up = document.getElementById("edit_profile_pop_up")
-    const close_edit_profile_pop_up = document.getElementById("close_edit_profile_pop_up")
-
     // Open close
     if(edit_profile_pop_up.classList.contains("hidden")) {
         edit_profile_pop_up.classList.remove("hidden")
@@ -84,7 +82,6 @@ function close_edit_profile(event) {
 
     }
   }
-
 }
 
 

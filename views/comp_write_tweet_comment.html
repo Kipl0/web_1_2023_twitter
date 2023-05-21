@@ -7,19 +7,18 @@
 
 
 <!-- Update profile -->
-
-<div id="write_tweet_form_container" class="hidden absolute z-90 w-screen h-full bg-[#7997bb]/[0.3] justify-center items-center">
-  <form  id="write_tweet_form" enctype="multipart/form-data" class="w-4/5 max-w-[600px] md:w-2/3 xl:w-3/5 bg-black border-2 border-black rounded-2xl overflow-y-auto max-h-[80vh]">
+<div id="write_tweet_form_container" onclick="closeOverlay(event)" class="fixed hidden inset-0 items-center justify-center bg-[#7997bb]/[0.3] z-50">
+  <section  id="write_tweet_form" enctype="multipart/form-data" onmousedown="event.stopPropagation()" onmouseup="event.stopPropagation()" class="w-4/5 max-w-[600px] md:w-2/3 xl:w-3/5 bg-black border-2 border-black rounded-2xl overflow-y-auto max-h-[80vh]">
     <section class="flex justify-between items-center p-4">
       <!-- close X -->
-      <div id="" class="flex items-center group cursor-pointer">
+      <div id="close_tweet_x"  class="flex items-center group cursor-pointer">
         <span  class="p-1 rounded-full aspect-square group-hover:bg-zinc-900 transition ease-in-out"> <!-- Circle -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#ffffff" d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z"/></svg>
+          <svg   xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#ffffff"  d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z"/></svg>
         </span>
       </div>
     </section>
     
-    <section class="flex w-full gap-4 p-4">
+    <form class="flex w-full gap-4 p-4">
       <section class="flex flex-col items-center">
         <img src="" alt="" id="comment_tweet_avatar" class="w-10 h-10 aspect-square rounded-full">
         <div class="border-[1px] border-zinc-500 h-full w-0"></div>
@@ -38,16 +37,17 @@
         </section>
         <!-- end -->
       </section>
-    </section>
+    </form>
 
     <!-- Her skriver brugeren sin egen kommentar -->
-    <section class="flex w-full gap-4 p-4">
+    <form onsubmit="write_tweet_comment(); return false" enctype="multipart/form-data" class="flex w-full gap-4 p-4">
+      <input id="tweet_id_to_html" type="text" name="tweet_id" value="" class="hidden">
       <img src="/avatar/{{user_cookie['user_avatar']}}" alt="" class="w-10 h-10 aspect-square rounded-full">
-      <section class="flex flex-col gap-6 w-full">
-        <textarea type="text" placeholder="Tweet your reply" class="w-full max-w-full p-2 bg-black outline-none placeholder:text-zinc-500"></textarea>
+      <section class="flex flex-col gap-2 w-full">
+        <textarea type="text" placeholder="Tweet your reply" name="tweet_comment_user_input" class="w-full max-w-full p-2 bg-black outline-none placeholder:text-zinc-500"></textarea>
         <img src="" alt="" id="uploaded_comment_img" class="w-full mt-4 max-h-96 rounded-lg object-contain">
         <section class="flex w-full mt-auto">
-          <div class="flex text-[#1D9BF0] gap-3 mt-auto">
+          <div class="flex text-[#1D9BF0] gap-3">
             <!-- Upload billede til tweet -->
             <label for="uploaded_comment_img_input" class="cursor-pointer">
               <input type="file" id="uploaded_comment_img_input" name="uploaded_comment_img_input" class="hidden">
@@ -62,8 +62,8 @@
           <button type="submit" class="ml-auto px-4 py-2 bg-[#4A99E9] rounded-full font-semibold">Reply</button>
         </section>  
       </section>  
-    </section>
-  </form>
+    </form>
+  </section>
 </div>
 
 

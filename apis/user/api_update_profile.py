@@ -51,7 +51,6 @@ def _():
                 myfile = f"banner/{user_cookie_banner}"
                 os.remove(myfile)
 
-
         db.execute(
             "UPDATE users SET user_first_name = ?, user_last_name = ?, user_caption = ?, user_location = ?, user_link = ?, user_avatar = ?, user_banner = ? WHERE user_id = ?",
             (
@@ -81,16 +80,3 @@ def _():
         pass
 
 
-
-
-    # uploaded_banner = request.files.get("uploaded_profile_banner")
-    # banner_filename = uploaded_banner.filename if uploaded_banner else None
-    # if banner_filename:
-    #     name, ext = os.path.splitext(banner_filename)
-    #     if ext not in (".jpg", ".jpeg", ".png"):
-    #         response.status = 400
-    #         return {"error": "Picture not allowed"}
-    #     picture_name_banner = str(uuid.uuid4().hex) + ext
-    #     uploaded_banner.save(f"banner/{picture_name_banner}")
-    # else:
-    #     picture_name_banner = None  # Keep the existing banner

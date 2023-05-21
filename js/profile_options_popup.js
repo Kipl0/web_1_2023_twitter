@@ -20,9 +20,6 @@ function initialize() {
 initialize();
 
 
-
-
-
 // åbn og luk pop up til logud i ... navbar
 
 function open_profile_option_btn(profile_options_btn) {
