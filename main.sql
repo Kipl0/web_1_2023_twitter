@@ -262,6 +262,11 @@ DROP VIEW IF EXISTS users_and_tweets;
 -- SELECT * FROM users JOIN tweets ON user_id = tweet_user_fk;
 -- SELECT * FROM users_and_tweets;
 
+
+
+
+
+
 -- Triggers
 -- Increate user_total_tweets when a tweet is inserted/created
 DROP TRIGGER IF EXISTS increment_user_total_tweets;
@@ -272,8 +277,6 @@ DROP TRIGGER IF EXISTS increment_user_total_tweets;
 --   WHERE user_id = NEW.tweet_user_fk;
 -- END;
 
-
-
 DROP TRIGGER IF EXISTS decrement_user_total_tweets;
 -- CREATE TRIGGER decrement_user_total_tweets AFTER DELETE ON tweets
 -- BEGIN
@@ -281,6 +284,27 @@ DROP TRIGGER IF EXISTS decrement_user_total_tweets;
 --   SET user_total_tweets =  user_total_tweets - 1 
 --   WHERE user_id = OLD.tweet_user_fk;
 -- END;
+
+
+-- Increate tweet_total_comments when a tweet_comment is inserted/created
+DROP TRIGGER IF EXISTS increment_tweet_total_comments;
+CREATE TRIGGER increment_tweet_total_comments AFTER INSERT ON tweet_comments
+BEGIN
+  UPDATE tweets 
+  SET tweet_total_comments = tweet_total_comments + 1 
+  WHERE tweet_id = NEW.comment_tweet_fk;
+END;
+
+-- DROP TRIGGER IF EXISTS increment_tweet_total_comments;
+-- CREATE TRIGGER increment_tweet_total_comments AFTER DELETE ON tweets
+-- BEGIN
+--   UPDATE users 
+--   SET user_total_tweets =  user_total_tweets - 1 
+--   WHERE user_id = OLD.tweet_user_fk;
+-- END;
+
+
+
 
 -- SELECT user_username, user_total_tweets FROM users;
 

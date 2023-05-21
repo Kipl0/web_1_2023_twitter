@@ -6,7 +6,6 @@ async function write_tweet_pop_up() {
     const frm = event.target
 
     const form_data = new FormData(frm)
-    
     // Det her er det samme som "request.forms.get("tweet_id")" i python.
     // Vi gør dette da et GET request ikke må have en body, som er der hvor vi normalt sender form_data til python
     // Vi er nødt til at have en body med da vi skal finde ud af hvilken tweet vi har klikket på 
@@ -76,7 +75,7 @@ async function write_tweet_pop_up() {
         }
 
     } else {
-        console.log("cannot write comment")
+        console.log("cannot open comment")
     }
 }
 
@@ -108,9 +107,36 @@ async function write_tweet_comment() {
     const data = await conn.json()
 
     if(conn.ok && data.info == "ok") {
-        console.log("tester ok")
+        const total_comments_btn = document.getElementById(`total_comments_btn_${data.tweet_id}`)
+        const total_comments_icon = document.getElementById(`total_comments_icon_${data.tweet_id}`)    
+
+        const buttonColorClasses = ["fill-[#1D9BF0]", "text-[#1D9BF0]", "fill-gray-500", "text-gray-500"] 
+        
+        total_comments_btn.innerHTML = data.tweet_total_comments.toString()
+        
+        total_comments_btn.classList.remove(...buttonColorClasses)
+        total_comments_icon.classList.remove(...buttonColorClasses)
+
+
+        total_comments_btn.classList.add(buttonColorClasses[1])
+        total_comments_icon.classList.add(buttonColorClasses[0])
+
+        const write_tweet_form_container = document.getElementById("write_tweet_form_container")
+        // Open close
+        if(write_tweet_form_container.classList.contains("hidden")) {
+            write_tweet_form_container.classList.remove("hidden")
+            write_tweet_form_container.classList.add("flex")
+        } else {
+            write_tweet_form_container.classList.add("hidden")
+            write_tweet_form_container.classList.remove("flex")
+        }
+        return
+
+
+
+
 
     } else {
-        console.log("nope")
+        console.log("cannot write comment")
     }
 }

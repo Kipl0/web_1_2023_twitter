@@ -36,7 +36,7 @@ def _():
 
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
 
-        tweet_to_comment_on = request.forms.get("tweet_id")
+        tweet_to_comment_on_id = request.forms.get("tweet_id")
 
         tweet_comment_user_input = request.forms.get("tweet_comment_user_input")
         if tweet_comment_user_input:
@@ -69,16 +69,19 @@ def _():
 
 
         comment_id = str(uuid.uuid4().hex)
-        # comment_tweet_fk = tweet_to_comment_on #tidligere defineret
+        # comment_tweet_fk = tweet_to_comment_on_id #tidligere defineret
         comment_user_fk = user_cookie["user_id"]
         comment_message = tweet_comment_user_input
         # comment_image #tidligere defineret linje 63
         comment_created_at = int(time.time())
 
-        db.execute("INSERT INTO tweet_comments VALUES(?, ?, ?, ?, ?, ?)",(comment_id, tweet_to_comment_on, comment_user_fk, comment_message, comment_image, comment_created_at))
+        db.execute("INSERT INTO tweet_comments VALUES(?, ?, ?, ?, ?, ?)",(comment_id, tweet_to_comment_on_id, comment_user_fk, comment_message, comment_image, comment_created_at))
         db.commit()
 
-        return {"info": "ok"}
+        tweet_to_comment_on = db.execute("SELECT * FROM tweets WHERE tweet_id=?",(tweet_to_comment_on_id,)).fetchone()
+        tweet_total_comments = tweet_to_comment_on["tweet_total_comments"]
+
+        return {"info": "ok", "tweet_id": tweet_to_comment_on_id, "tweet_total_comments": int(tweet_total_comments)}
 
     except Exception as ex:
         response.status = 401  # Internal Server Error

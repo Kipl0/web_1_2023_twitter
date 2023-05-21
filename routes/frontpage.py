@@ -26,6 +26,7 @@ def render_frontpage():
 
 
 
+
     # Hvis kun hvilke tweets man har liket, hvis man er logget ind -- lav evt. en ny forside?
     # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
     if user_cookie != None : 
@@ -43,6 +44,18 @@ def render_frontpage():
           tweet["liked"] = 1
           continue
         tweet["liked"] = 0
+
+      # Hvs bruger har kommenteret på tweet, så hvis blå aktiv farve ved load
+      for tweet in tweets_and_user_data :
+        tweet_comments = db.execute("SELECT * FROM tweet_comments WHERE comment_user_fk = ? AND comment_tweet_fk = ?",(user_cookie["user_id"], tweet["tweet_id"])).fetchone()
+        # Hvis den findes betyder det at user har kommenteret på tweet
+        # laver nyt key-value pair hvor den er 0 eller 1
+        if tweet_comments == None : 
+          tweet["commented"] = 0
+          continue
+
+        tweet["commented"] = 1
+        
 
 
     return template("frontpage", title="Twitter", tweets_and_user_data=tweets_and_user_data, user_cookie=user_cookie, trends=trends, who_to_follow=who_to_follow, TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
