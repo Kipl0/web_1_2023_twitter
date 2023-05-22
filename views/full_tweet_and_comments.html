@@ -9,23 +9,26 @@
 <!------------------------
           center 
 ------------------------->
-<!-- Center  -->
+
 <div class="w-full lg:w-5/12">
   <div class="min-h-screen h-full border-x border-gray-600">
+    <div class="sticky w-full z-20 top-0 py-2 border-b border-zinc-600 bg-black/[.80] backdrop-blur-sm"><!--top - go back -->
+      <a href="/" class="flex items-center pl-4 gap-9" >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
+        <div>
+          <p class="text-xl font-bold">Tweet</p>
+        </div>
+      </a>
+    </div>
 
-    <div class="sticky w-full top-0 pl-4 py-2 z-10 border-b border-zinc-600 bg-black/[.80] backdrop-blur-sm "> <!--top - go back -->
-      <div class="sticky w-full z-20 top-0 pl-4 py-2 border-b border-zinc-600 bg-black/[.80] backdrop-blur-sm"><!--top - go back -->
-        <a href="/" class="flex items-center gap-9" >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
-          <div>
-            <p class="text-xl font-bold">tweet</p>
-          </div>
-        </a>
+    <!-- tweet -->
+    <div id="{{tweet_and_user_data['tweet_id']}}" class="flex gap-4 p-4 border-t border-gray-600">
+      <div class="">
+        <img src="/avatar/{{tweet_and_user_data['user_avatar']}}" class="w-12 rounded-full">
       </div>
       <div class="w-full relative">
-        <div class="flex w-full">
+        <div class="flex w-full ">
           <a href="/{{tweet_and_user_data['user_username']}}" class="flex items-center gap-2">
-            <img src="/avatar/{{tweet_and_user_data['user_avatar']}}" class="w-12 rounded-full">
             <span class="flex items-center font-bold">
                 {{tweet_and_user_data["user_first_name"]}}
                 %if tweet_and_user_data["user_verified"] == "1":
@@ -36,7 +39,6 @@
               <strong>@</strong>{{tweet_and_user_data["user_username"]}}
             </span>
           </a>
-
           <!-- 3 prikker ... options -->
           <button onclick="tweet_options_popup(this); return false" id="tweet_option_btn_{{tweet_and_user_data['tweet_id']}}" class="ml-auto text-gray-500">
             <div class="flex items-center group cursor-pointer"> <!--group container-->
@@ -49,7 +51,7 @@
             </div>
           </button>
         </div>
-        
+
         <div id="tweet_option_popup_{{tweet_and_user_data['tweet_id']}}" class="hidden absolute flex-col bg-black border border-gray-600 rounded-md w-fit right-0">
           % if tweet_and_user_data["user_id"] == user_cookie["user_id"] :
             <form method=""><button class="flex w-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 h-full rounded-t-md justify-center items-center">Edit tweet</button></form>
@@ -64,14 +66,14 @@
 
         <div class="mt-4 w-full">
           <div class="w-full h-fit">
-              {{tweet_and_user_data["tweet_message"]}}
+            {{tweet_and_user_data["tweet_message"]}}
 
-              %if tweet_and_user_data["tweet_image"] != "" :  
-              <img src="/tweet_images/{{tweet_and_user_data['tweet_image']}}" class="w-full mt-4 max-h-96 rounded-lg object-contain">
-              %end
+            %if tweet_and_user_data["tweet_image"] != "" :  
+            <img src="/tweet_images/{{tweet_and_user_data['tweet_image']}}" class="w-full mt-4 max-h-96 rounded-lg object-contain">
+            %end
           </div>
         </div>
-
+        <!-- icons -->
         <div  class="flex justify-between mt-2">
           <!-- Total comments -->
           <form onsubmit="write_tweet_pop_up(); return false" method="POST" action="" class="flex items-center group cursor-pointer"> <!--group container-->
@@ -153,40 +155,6 @@
               {{tweet_and_user_data["tweet_total_views"]}}
             </span>
           </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           <div class="flex gap-2 items-center group cursor-pointer">
             <span class="p-2 rounded-full group-hover:bg-[#1D9BF0]/[0.20] transition ease-in-out"> <!-- Circle -->
               <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" class="fill-gray-500 hover:fill-[#1D9BF0] transition ease-in-out" width="20" height="20">
@@ -198,15 +166,164 @@
       </div>
     </div>
 
+
+
+
+    
+    <form onsubmit="write_tweet_comment(); return false" enctype="multipart/form-data" class="flex w-full gap-4 p-4 border-t border-gray-600">
+      <input id="tweet_id_to_html" type="text" name="tweet_id" value="{{tweet_and_user_data['tweet_id']}}" class="hidden">
+      <img src="/avatar/{{user_cookie['user_avatar']}}" alt="" class="w-10 h-10 aspect-square rounded-full">
+      <section class="flex flex-col gap-2 w-full">
+        <textarea type="text" placeholder="Tweet your reply" name="tweet_comment_user_input" class="w-full max-w-full p-2 bg-black outline-none placeholder:text-zinc-500"></textarea>
+        <img src="" alt="" id="uploaded_comment_img" class="w-full mt-4 max-h-96 rounded-lg object-contain">
+        <section class="flex w-full mt-auto">
+          <div class="flex text-[#1D9BF0] gap-3">
+            <!-- Upload billede til tweet -->
+            <label for="uploaded_comment_img_input" class="cursor-pointer">
+              <input type="file" id="uploaded_comment_img_input" name="uploaded_comment_img_input" class="hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"><path fill="currentColor" d="M232 184V56a16 16 0 0 0-16-16H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16v-16ZM216 56v108.7L187.3 136a16.1 16.1 0 0 0-22.6 0L144 156.7L99.3 112a16.1 16.1 0 0 0-22.6 0L40 148.7V56Zm0 144H40v-28.7l48-48l44.7 44.7a15.9 15.9 0 0 0 22.6 0l20.7-20.7l40 40V200Zm-68.5-91.5a11.9 11.9 0 0 1-3.5-8.5a12 12 0 0 1 24 0a12 12 0 0 1-12 12a12.3 12.3 0 0 1-8.5-3.5Z"/></svg>
+            </label>
+            <!-- andre ikoner -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><path fill="currentColor" d="M10.28 5.28L7 8.563l-1.28-1.28L4.28 8.72l2 2l.72.686l.72-.687l4-4l-1.44-1.44zM15 7v2h13V7H15zm-4.72 6.28L7 16.564L5.72 15.28l-1.44 1.44l2 2l.72.686l.72-.687l4-4l-1.44-1.44zM15 15v2h13v-2H15zm-4.72 6.28L7 24.563l-1.28-1.28l-1.44 1.437l2 2l.72.686l.72-.687l4-4l-1.44-1.44zM15 23v2h13v-2H15z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"><path fill="currentColor" d="M128 24a104 104 0 1 0 104 104A104.2 104.2 0 0 0 128 24Zm0 192a88 88 0 1 1 88-88a88.1 88.1 0 0 1-88 88ZM80 108a12 12 0 1 1 12 12a12 12 0 0 1-12-12Zm72 0a12 12 0 1 1 12 12a12 12 0 0 1-12-12Zm24.5 48a56 56 0 0 1-97 0a8 8 0 1 1 13.8-8a40.1 40.1 0 0 0 69.4 0a8 8 0 0 1 13.8 8Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-2V3a1 1 0 0 0-2 0v1H9V3a1 1 0 0 0-2 0v1H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm1 15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7h16Zm0-9H4V7a1 1 0 0 1 1-1h2v1a1 1 0 0 0 2 0V6h6v1a1 1 0 0 0 2 0V6h2a1 1 0 0 1 1 1Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"><path d="M256 48c34.19 0 66.334 13.314 90.51 37.49S384 141.81 384 176c0 42.92-24.092 107.127-69.67 185.68-22.279 38.396-44.771 71.634-58.332 90.931-13.518-19.232-35.912-52.327-58.161-90.645C152.149 283.281 128 218.976 128 176c0-34.19 13.314-66.334 37.49-90.51S221.81 48 256 48m0-16c-79.529 0-144 64.471-144 144 0 112 144 304 144 304s144-192 144-304c0-79.529-64.471-144-144-144z" fill="currentColor"/><path d="M256 112c-35.3 0-64 28.7-64 64s28.7 64 64 64 64-28.7 64-64-28.7-64-64-64zm0 110.9c-25.9 0-46.9-21-46.9-46.9s21-46.9 46.9-46.9 46.9 21 46.9 46.9-21 46.9-46.9 46.9z" fill="currentColor"/></svg>
+          </div>  
+          <button type="submit" class="ml-auto px-4 py-2 bg-[#4A99E9] rounded-full font-semibold">Reply</button>
+        </section>  
+      </section>  
+    </form>
+
+      <!--Hvis bruger oploader billede til kommentar-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!----------------------
+            comments 
+    ----------------------->
+    <!-- for comment in comments -->
+    % for comment in tweet_comment_and_user_data :
+      <div  class="flex gap-4 p-4 border-t border-gray-600">
+        <div class="">
+          <img src="/avatar/{{comment['user_avatar']}}" class="w-12 rounded-full">
+        </div>
+        <div class="w-full relative">
+          <div class="flex w-full ">
+            <a href="/{{comment['user_username']}}" class="flex items-center gap-2">
+              <span class="flex items-center font-bold">
+                  {{comment["user_first_name"]}}
+                  %if comment["user_verified"] == "1":
+                  <svg width="20" height="20" viewBox="0 0 24 24" class="text-sky-500 pl-2"><path fill="currentColor" d="m8.6 22.5l-1.9-3.2l-3.6-.8l.35-3.7L1 12l2.45-2.8l-.35-3.7l3.6-.8l1.9-3.2L12 2.95l3.4-1.45l1.9 3.2l3.6.8l-.35 3.7L23 12l-2.45 2.8l.35 3.7l-3.6.8l-1.9 3.2l-3.4-1.45Zm2.35-6.95L16.6 9.9l-1.4-1.45l-4.25 4.25l-2.15-2.1L7.4 12Z"/></svg>
+                  %end
+              </span>
+              <span class=" text-zinc-500">
+                <strong>@</strong>{{comment["user_username"]}}
+              </span>
+            </a>
+            <!-- 3 prikker ... options -->
+            <button class="ml-auto text-gray-500">
+              <div class="flex items-center group cursor-pointer"> <!--group container-->
+                <span class="p-1 rounded-full group-hover:bg-sky-500/[0.20] transition ease-in-out"> <!-- Circle -->
+                  <svg width="26" height="26" viewBox="0 0 24 24" >
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Z" />
+                  </svg>
+                </span>
+              </div>
+            </button>
+          </div>
+
+          <div class="mt-4 w-full">
+            <div class="w-full h-fit">
+              {{comment["comment_message"]}}
+
+              %if comment["comment_image"] != "" :  
+              <img src="/comment_images/{{comment['comment_image']}}" class="w-full mt-4 max-h-96 rounded-lg object-contain">
+              %end
+            </div>
+          </div>
+          <!-- icons -->
+          <div  class="flex justify-between mt-2">
+            <button class="flex items-center group cursor-pointer">
+              <span class="p-2 rounded-full group-hover:bg-[#1D9BF0]/[0.20] transition ease-in-out"> <!-- Circle -->
+                <svg id="total_comments_icon_{{tweet_and_user_data['tweet_id']}}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" class="fill-[#1D9BF0]  transition ease-in-out" width="20" height="20">
+                  <g><path d="M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.64 8.129 8.13 0 2.96-1.607 5.68-4.196 7.11l-8.054 4.46v-3.69h-.067c-4.49.1-8.183-3.51-8.183-8.01zm8.005-6c-3.317 0-6.005 2.69-6.005 6 0 3.37 2.77 6.08 6.138 6.01l.351-.01h1.761v2.3l5.087-2.81c1.951-1.08 3.163-3.13 3.163-5.36 0-3.39-2.744-6.13-6.129-6.13H9.756z"></path></g>
+                </svg>
+              </span>
+            </button>
+            <button class="flex items-center group cursor-pointer">
+              <span class="p-2 rounded-full group-hover:bg-[#1D9BF0]/[0.20] transition ease-in-out"> <!-- Circle -->
+                <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" class="fill-gray-500 group-hover:fill-emerald-500 transition ease-in-out" width="20" height="20">
+                  <g><path d="M4.75 3.79l4.603 4.3-1.706 1.82L6 8.38v7.37c0 .97.784 1.75 1.75 1.75H13V20H7.75c-2.347 0-4.25-1.9-4.25-4.25V8.38L1.853 9.91.147 8.09l4.603-4.3zm11.5 2.71H11V4h5.25c2.347 0 4.25 1.9 4.25 4.25v7.37l1.647-1.53 1.706 1.82-4.603 4.3-4.603-4.3 1.706-1.82L18 15.62V8.25c0-.97-.784-1.75-1.75-1.75z"></path></g>
+                </svg>
+              </span>
+            </button>
+            <button class="flex items-center group cursor-pointer">
+              <span class="p-2 rounded-full group-hover:bg-[#1D9BF0]/[0.20] transition ease-in-out"> <!-- Circle -->
+                <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" id="heart_{{tweet_and_user_data['tweet_id']}}" class="fill-pink-600 group-hover:fill-pink-600 transition ease-in-out " width="20" height="20">
+                  <g><path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"></path></g>
+                </svg>
+              </span> 
+            </button>
+            <button class="flex items-center group cursor-pointer">
+              <span class="p-2 rounded-full group-hover:bg-[#1D9BF0]/[0.20] transition ease-in-out"> <!-- Circle -->
+                <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strok="" aria-hidden="true" class="fill-gray-500 group-hover:fill-[#1D9BF0] transition ease-in-out" width="20" height="20">
+                  <g><path d="M8.75 21V3h2v18h-2zM18 21V8.5h2V21h-2zM4 21l.004-10h2L6 21H4zm9.248 0v-7h2v7h-2z"></path></g>
+                </svg>
+              </span>
+            </button>
+            <button class="flex items-center group cursor-pointer">
+              <span class="p-2 rounded-full group-hover:bg-[#1D9BF0]/[0.20] transition ease-in-out"> <!-- Circle -->
+                <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" class="fill-gray-500 hover:fill-[#1D9BF0] transition ease-in-out" width="20" height="20">
+                  <g><path d="M12 2.59l5.7 5.7-1.41 1.42L13 6.41V16h-2V6.41l-3.3 3.3-1.41-1.42L12 2.59zM21 15l-.02 3.51c0 1.38-1.12 2.49-2.5 2.49H5.5C4.11 21 3 19.88 3 18.5V15h2v3.5c0 .28.22.5.5.5h12.98c.28 0 .5-.22.5-.5L19 15h2z"></path></g>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    % end
+
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!----------------------
         right 
 ----------------------->
 <div class="col-span-1 hidden lg:block pl-6 pr-4 pt-4">
-  <div class="min-w-[300px] sticky top-1">
+  <div class="min-w-[300px] max-w-[400px] sticky top-1">
       % include("comp_search")
 
       <!-- TRENDS -->
@@ -245,7 +362,8 @@
 
 <script src="/js/tweet_options.js"></script>
 <script src="/js/like_unlike_tweet.js"></script>
-<script src="/js/write_tweet_comment.js"></script>
+<script src="/js/write_tweet_comment_pop_up.js"></script>
+<script src="/js/write_tweet_comment_full_tweet.js"></script>
 
 <!-- footer -->
 % include("comp_footer")

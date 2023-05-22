@@ -214,6 +214,20 @@ CREATE TABLE tweets_liked_by_users (
 
 
 
+DROP TABLE IF EXISTS tweets_retweeted_by_users;
+CREATE TABLE tweets_retweeted_by_users (
+    user_fk             TEXT NOT NULL,
+    tweet_fk            TEXT NOT NULL,
+    retweeted           BOOLEAN,
+    PRIMARY KEY (user_fk, tweet_fk)
+    -- FOREIGN KEY (user_id) REFERENCES users(user_id),
+    -- FOREIGN KEY (tweet_id) REFERENCES tweets(tweet_id)
+)WITHOUT ROWID;
+
+
+
+
+
 
 
 

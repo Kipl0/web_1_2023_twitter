@@ -37,6 +37,7 @@ def _():
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
 
         tweet_to_comment_on_id = request.forms.get("tweet_id")
+        print(tweet_to_comment_on_id)
 
         tweet_comment_user_input = request.forms.get("tweet_comment_user_input")
         if tweet_comment_user_input:

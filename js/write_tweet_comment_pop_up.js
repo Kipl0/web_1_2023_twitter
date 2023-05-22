@@ -96,7 +96,7 @@ function closeOverlay(event) {
 // --------------------------------------
 //        Skriv og send komment
 // --------------------------------------
-async function write_tweet_comment() {
+async function write_tweet_comment(show_pop_up) {
     const frm = event.target
 
     const conn = await fetch("/write-tweet-comment", {
@@ -107,35 +107,32 @@ async function write_tweet_comment() {
     const data = await conn.json()
 
     if(conn.ok && data.info == "ok") {
-        const total_comments_btn = document.getElementById(`total_comments_btn_${data.tweet_id}`)
-        const total_comments_icon = document.getElementById(`total_comments_icon_${data.tweet_id}`)    
+        if(show_pop_up == true) {
+            const total_comments_btn = document.getElementById(`total_comments_btn_${data.tweet_id}`)
+            const total_comments_icon = document.getElementById(`total_comments_icon_${data.tweet_id}`)    
 
-        const buttonColorClasses = ["fill-[#1D9BF0]", "text-[#1D9BF0]", "fill-gray-500", "text-gray-500"] 
-        
-        total_comments_btn.innerHTML = data.tweet_total_comments.toString()
-        
-        total_comments_btn.classList.remove(...buttonColorClasses)
-        total_comments_icon.classList.remove(...buttonColorClasses)
+            const buttonColorClasses = ["fill-[#1D9BF0]", "text-[#1D9BF0]", "fill-gray-500", "text-gray-500"] 
+            
+            total_comments_btn.innerHTML = data.tweet_total_comments.toString()
+            
+            total_comments_btn.classList.remove(...buttonColorClasses)
+            total_comments_icon.classList.remove(...buttonColorClasses)
 
 
-        total_comments_btn.classList.add(buttonColorClasses[1])
-        total_comments_icon.classList.add(buttonColorClasses[0])
+            total_comments_btn.classList.add(buttonColorClasses[1])
+            total_comments_icon.classList.add(buttonColorClasses[0])
 
-        const write_tweet_form_container = document.getElementById("write_tweet_form_container")
-        // Open close
-        if(write_tweet_form_container.classList.contains("hidden")) {
-            write_tweet_form_container.classList.remove("hidden")
-            write_tweet_form_container.classList.add("flex")
-        } else {
-            write_tweet_form_container.classList.add("hidden")
-            write_tweet_form_container.classList.remove("flex")
+            const write_tweet_form_container = document.getElementById("write_tweet_form_container")
+            // Open close
+            if(write_tweet_form_container.classList.contains("hidden")) {
+                write_tweet_form_container.classList.remove("hidden")
+                write_tweet_form_container.classList.add("flex")
+            } else {
+                write_tweet_form_container.classList.add("hidden")
+                write_tweet_form_container.classList.remove("flex")
+            }
         }
         return
-
-
-
-
-
     } else {
         console.log("cannot write comment")
     }
