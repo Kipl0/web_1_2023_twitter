@@ -15,8 +15,7 @@ def _(user_username):
     # response.add_header("Expires",0)
 
     user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET) #vi vil gerne have fat i en cookie fra browseren der hedder "login" det har vi defineret i login.py
-    
-    print(user_cookie)
+
 
     user = db.execute("SELECT * FROM users WHERE user_username=? COLLATE NOCASE",(user_username,)).fetchall()[0]
     user_id = user["user_id"]    
@@ -24,15 +23,50 @@ def _(user_username):
     # Den matcher user_id med tweet_user_fk, så den filtrer hvem der har tweetet hvad - så hp user sidder sammen med hp tweets AND der hvor user_username er lige url'en 
     tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id AND user_username=? COLLATE NOCASE ORDER BY tweet_created_at DESC LIMIT 10",(user_username,)).fetchall()
     
+
+    retweets_and_user_data = db.execute("SELECT * FROM tweets,users,tweets_retweeted_by_users WHERE tweets.tweet_user_fk = users.user_id AND tweets_retweeted_by_users.tweet_fk = tweets.tweet_id AND tweets_retweeted_by_users.user_fk=?  COLLATE NOCASE ORDER BY tweet_created_at DESC LIMIT 10",(user_id,)).fetchall()
+
+
+    # Key value pair, der sepererer retweet_tweets fra originale tweets - så begge to kan få grøn ikon og grøn tekst
+    for tweet_original in tweets_and_user_data :
+      tweet_original['original_tweet'] = 1
+    for tweet_retweeted in retweets_and_user_data :
+      tweet_retweeted['original_tweet'] = 0
+
+
+
+
+
+
     trends = db.execute("SELECT * FROM trends")
 
     who_to_follow = []
     who_to_follow = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ?",(user_username,"Admin"))
 
 
-    # Hvis kun hvilke tweets man har liket, hvis man er logget ind -- lav evt. en ny forside?
     # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
     if user_cookie != None : 
+      ###############################
+      # Retweets
+      for tweet in tweets_and_user_data :
+        tweet_retweeted_by_user_record = db.execute("SELECT * FROM tweets_retweeted_by_users WHERE user_fk = ? AND tweet_fk = ?",(user_cookie["user_id"], tweet["tweet_id"])).fetchone()
+          # Hvis den er lig 1 betyder det at user har liket tweet  # Hvis ikke tweet_liked_by_user_record eksisterer i db, så har user hverken set eller liket opslaget før
+        if tweet_retweeted_by_user_record == None : 
+          tweet["retweeted"] = 0
+          continue
+
+        if tweet_retweeted_by_user_record["retweeted"] == 1 :
+          # Add the key "liked" to the dict so that it will be: # {'tweet_id': '1', 'tweet_text': 'mit tweet', 'total_likes': '11', 'liked': 1}
+          tweet["retweeted"] = 1
+          continue
+        tweet["retweeted"] = 1
+
+
+      # merch tweets_and_user_data with retweets_and_user_data
+      combined_data = tweets_and_user_data + retweets_and_user_data
+      tweets_and_user_data = sorted(combined_data, key=lambda x: x.get("retweeted_at", x["tweet_created_at"]), reverse=True)
+
+
       for tweet in tweets_and_user_data :
         tweet_liked_by_user_record = db.execute("SELECT * FROM tweets_liked_by_users WHERE user_id = ? AND tweet_id = ?",(user_cookie["user_id"], tweet["tweet_id"])).fetchone()
           # Hvis den er lig 1 betyder det at user har liket tweet # Hvis ikke tweet_liked_by_user_record eksisterer i db, så har user hverken set eller liket opslaget før
@@ -58,6 +92,8 @@ def _(user_username):
         
 
 
+
+
     ##########################
     #  Follower following
     if user_cookie != None :
@@ -68,7 +104,8 @@ def _(user_username):
         user["follows"] = 0
 
 
-    return template("profile", user=user, tweets_and_user_data=tweets_and_user_data, trends=trends, user_cookie=user_cookie, who_to_follow=who_to_follow)
+
+    return template("profile", user=user, tweets_and_user_data=tweets_and_user_data, trends=trends, user_cookie=user_cookie, who_to_follow=who_to_follow, page="profile")
 
 
 

@@ -646,6 +646,10 @@ video {
   margin-bottom: 1.5rem;
 }
 
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
 .ml-4 {
   margin-left: 1rem;
 }
@@ -676,10 +680,6 @@ video {
 
 .mt-auto {
   margin-top: auto;
-}
-
-.mb-4 {
-  margin-bottom: 1rem;
 }
 
 .block {
@@ -833,14 +833,6 @@ video {
   width: 100vw;
 }
 
-.w-14 {
-  width: 3.5rem;
-}
-
-.w-16 {
-  width: 4rem;
-}
-
 .min-w-\[300px\] {
   min-width: 300px;
 }
@@ -871,10 +863,6 @@ video {
 
 .max-w-xl {
   max-width: 36rem;
-}
-
-.max-w-\[500px\] {
-  max-width: 500px;
 }
 
 .flex-initial {
@@ -1079,11 +1067,6 @@ video {
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
-.border-yellow-300 {
-  --tw-border-opacity: 1;
-  border-color: rgb(253 224 71 / var(--tw-border-opacity));
-}
-
 .border-zinc-400 {
   --tw-border-opacity: 1;
   border-color: rgb(161 161 170 / var(--tw-border-opacity));
@@ -1156,6 +1139,10 @@ video {
   fill: #1D9BF0;
 }
 
+.fill-emerald-500 {
+  fill: #10b981;
+}
+
 .fill-gray-500 {
   fill: #6b7280;
 }
@@ -1164,8 +1151,16 @@ video {
   fill: #db2777;
 }
 
-.fill-emerald-500 {
-  fill: #10b981;
+.fill-yellow-600 {
+  fill: #ca8a04;
+}
+
+.fill-gray-600 {
+  fill: #4b5563;
+}
+
+.fill-emerald-600 {
+  fill: #059669;
 }
 
 .object-contain {
@@ -1266,6 +1261,10 @@ video {
   padding-left: 0.25rem;
 }
 
+.pl-10 {
+  padding-left: 2.5rem;
+}
+
 .pl-12 {
   padding-left: 3rem;
 }
@@ -1308,6 +1307,10 @@ video {
 
 .pt-4 {
   padding-top: 1rem;
+}
+
+.pr-8 {
+  padding-right: 2rem;
 }
 
 .text-center {
@@ -1365,6 +1368,11 @@ video {
   color: rgb(96 165 250 / var(--tw-text-opacity));
 }
 
+.text-emerald-500 {
+  --tw-text-opacity: 1;
+  color: rgb(16 185 129 / var(--tw-text-opacity));
+}
+
 .text-gray-200 {
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity));
@@ -1410,14 +1418,9 @@ video {
   color: rgb(113 113 122 / var(--tw-text-opacity));
 }
 
-.text-\[\#4A99E9\] {
+.text-yellow-600 {
   --tw-text-opacity: 1;
-  color: rgb(74 153 233 / var(--tw-text-opacity));
-}
-
-.text-emerald-500 {
-  --tw-text-opacity: 1;
-  color: rgb(16 185 129 / var(--tw-text-opacity));
+  color: rgb(202 138 4 / var(--tw-text-opacity));
 }
 
 .shadow-lg {

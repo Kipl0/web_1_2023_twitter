@@ -43,6 +43,7 @@ import apis.tweet.api_create_tweet
 import apis.tweet.api_delete_tweet
 import apis.tweet.api_like_unlike_tweet
 import apis.tweet.write_tweet_comment
+import apis.tweet.api_retweet
 import apis.user.api_follow_unfollow
 import apis.user.api_update_profile
 import apis.user.api_deactivate_user

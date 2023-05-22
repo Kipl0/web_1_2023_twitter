@@ -31,11 +31,10 @@ async function like_tweet() {
         like_unlike_heart.classList.add(buttonColorClasses[0])
         return
     }
+    else {
+        //noget gik galt i API conn
+        console.log("conn", conn.ok)
 
-
-
-    //noget gik galt i API conn
-    console.log("conn", conn.ok)
-
-    console.log("cannot like tweet")
+        console.log("cannot like tweet")
+    }
 }
