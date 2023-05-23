@@ -5,8 +5,6 @@ from bottle import template, get
 @get("/verify-email/<verification_key>") #/<verification-key>
 def verify_accout(verification_key):
     try :
-        print("verified")
-
         return template("verified_user")
 
 

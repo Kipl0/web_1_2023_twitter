@@ -81,7 +81,7 @@ def _():
             "user_total_dislikes" : 0,
             "user_total_followers" : 0,
             "user_total_following" : 0,
-            "user_active" : 0
+            "user_active" : 1
         }
 
 
