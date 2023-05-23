@@ -25,7 +25,6 @@ def _():
         response.set_cookie("user_cookie", does_user_exist, secret=x.COOKIE_SECRET, httponly=True)
         cookie_expiration_date = int(time.time()) + 7200
         return 
-        # return {"info":"success log in", "login_username":does_user_exist["user_username"]} #bruges til at få fat i username til at logge ind på egen profil - men det vil jeg ikke have
 
     except Exception as ex:
         print(ex)
