@@ -9,12 +9,15 @@
 <!-- <div id="{{tweet['tweet_id']}}" class=" border-t border-gray-600"> -->
 
 <!-- retweet tekst -->
-  % if tweet['retweeted'] == 1 and page=='profile' and tweet['original_tweet'] == 0 :
+  % if tweet['retweeted'] == 1 and tweet['original_tweet'] == 0 :
     <section class="w-full flex pl-10 pt-4">
       <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" class="fill-gray-500 transition ease-in-out" width="20" height="20">
         <g><path d="M4.75 3.79l4.603 4.3-1.706 1.82L6 8.38v7.37c0 .97.784 1.75 1.75 1.75H13V20H7.75c-2.347 0-4.25-1.9-4.25-4.25V8.38L1.853 9.91.147 8.09l4.603-4.3zm11.5 2.71H11V4h5.25c2.347 0 4.25 1.9 4.25 4.25v7.37l1.647-1.53 1.706 1.82-4.603 4.3-4.603-4.3 1.706-1.82L18 15.62V8.25c0-.97-.784-1.75-1.75-1.75z"></path></g>
       </svg>
-      <span class="text-gray-500 pl-2">You retweeted</span>
+
+        <!-- <span class="text-gray-500 pl-2">You retweeted</span> -->
+        <span class="text-gray-500 pl-2">{{tweet['retweeted_by']}} retweeted {{tweet['user_username']}} 's tweet</span>
+ 
     </section>
   % end 
   <div class="flex gap-4 p-4">
@@ -135,7 +138,7 @@
         <!-- Total likes -->
         <form onsubmit="like_tweet(); return false">
           <input type="text" name="tweet_id" value="{{tweet['tweet_id']}}" class="hidden">
-          % if tweet["liked"] == 1 :
+          % if tweet["liked_viewed"] == 1 :
           <!-- Total likes -->
           <button type="submit" class="flex items-center group cursor-pointer "> <!--hvis liked-->
             <span class="p-2 rounded-full group-hover:bg-[#1D9BF0]/[0.20] transition ease-in-out"> <!-- Circle -->

@@ -21,7 +21,7 @@ async function like_tweet() {
         like_unlike_btn.classList.remove(...buttonColorClasses)
         like_unlike_heart.classList.remove(...buttonColorClasses)
 
-        if ( data.liked == 0 ) {
+        if ( data.liked_viewed == 0 ) {
             like_unlike_btn.classList.add(buttonColorClasses[3])
             like_unlike_heart.classList.add(buttonColorClasses[2])
             return

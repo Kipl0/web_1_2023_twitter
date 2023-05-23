@@ -26,11 +26,12 @@ def _(user_username):
 
     retweets_and_user_data = db.execute("SELECT * FROM tweets,users,tweets_retweeted_by_users WHERE tweets.tweet_user_fk = users.user_id AND tweets_retweeted_by_users.tweet_fk = tweets.tweet_id AND tweets_retweeted_by_users.user_fk=?  COLLATE NOCASE ORDER BY tweet_created_at DESC LIMIT 10",(user_id,)).fetchall()
 
-
     # Key value pair, der sepererer retweet_tweets fra originale tweets - så begge to kan få grøn ikon og grøn tekst
     for tweet_original in tweets_and_user_data :
       tweet_original['original_tweet'] = 1
     for tweet_retweeted in retweets_and_user_data :
+      retweeted_by = db.execute("SELECT user_username FROM users WHERE user_id = ?",(tweet_retweeted['user_fk'],)).fetchone() # loop igennem alle retweets og sæt retweeted by
+      tweet_retweeted['retweeted_by'] = retweeted_by['user_username'] # tilføj den som key-value par til hver retweet i tabellen
       tweet_retweeted['original_tweet'] = 0
 
 
@@ -41,7 +42,7 @@ def _(user_username):
     trends = db.execute("SELECT * FROM trends")
 
     who_to_follow = []
-    who_to_follow = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ?",(user_username,"Admin"))
+    who_to_follow = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ?",(user_username,"Admin")).fetchall()
 
 
     # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
@@ -56,7 +57,7 @@ def _(user_username):
           continue
 
         if tweet_retweeted_by_user_record["retweeted"] == 1 :
-          # Add the key "liked" to the dict so that it will be: # {'tweet_id': '1', 'tweet_text': 'mit tweet', 'total_likes': '11', 'liked': 1}
+          # Add the key "liked_viewed" to the dict so that it will be: # {'tweet_id': '1', 'tweet_text': 'mit tweet', 'total_likes': '11', 'liked': 1}
           tweet["retweeted"] = 1
           continue
         tweet["retweeted"] = 1
@@ -64,21 +65,21 @@ def _(user_username):
 
       # merch tweets_and_user_data with retweets_and_user_data
       combined_data = tweets_and_user_data + retweets_and_user_data
-      tweets_and_user_data = sorted(combined_data, key=lambda x: x.get("retweeted_at", x["tweet_created_at"]), reverse=True)
-
+      tweets_and_user_data = sorted(combined_data, key=lambda x: x.get("retweeted_at", x["tweet_created_at"]), reverse=True) #concatinate
 
       for tweet in tweets_and_user_data :
         tweet_liked_by_user_record = db.execute("SELECT * FROM tweets_liked_by_users WHERE user_id = ? AND tweet_id = ?",(user_cookie["user_id"], tweet["tweet_id"])).fetchone()
           # Hvis den er lig 1 betyder det at user har liket tweet # Hvis ikke tweet_liked_by_user_record eksisterer i db, så har user hverken set eller liket opslaget før
         if tweet_liked_by_user_record == None : 
-          tweet["liked"] = 0
+          tweet["liked_viewed"] = 0
           continue
 
-        if tweet_liked_by_user_record["liked"] == 1 :
-          # Add the key "liked" to the dict so that it will be: # {'tweet_id': '1', 'tweet_text': 'mit tweet', 'total_likes': '11', 'liked': 1}
-          tweet["liked"] = 1
+
+        if tweet_liked_by_user_record["liked_viewed"] == 1 :
+          # Add the key "liked_viewed" to the dict so that it will be: # {'tweet_id': '1', 'tweet_text': 'mit tweet', 'total_likes': '11', 'liked': 1}
+          tweet["liked_viewed"] = 1
           continue
-        tweet["liked"] = 0
+        tweet["liked_viewed"] = 0
 
       # Hvs bruger har kommenteret på tweet, så hvis blå aktiv farve ved load
       for tweet in tweets_and_user_data :

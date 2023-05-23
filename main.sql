@@ -201,9 +201,9 @@ CREATE TABLE tweet_comments(
 
 DROP TABLE IF EXISTS tweets_liked_by_users;
 CREATE TABLE tweets_liked_by_users (
-    user_id         TEXT NOT NULL,
-    tweet_id        TEXT NOT NULL,
-    liked           BOOLEAN,
+    user_id               TEXT NOT NULL,
+    tweet_id              TEXT NOT NULL,
+    liked_viewed          BOOLEAN,
     PRIMARY KEY (user_id, tweet_id)
     -- FOREIGN KEY (user_id) REFERENCES users(user_id),
     -- FOREIGN KEY (tweet_id) REFERENCES tweets(tweet_id)
@@ -216,10 +216,11 @@ CREATE TABLE tweets_liked_by_users (
 
 DROP TABLE IF EXISTS tweets_retweeted_by_users;
 CREATE TABLE tweets_retweeted_by_users (
-    user_fk             TEXT NOT NULL,
-    tweet_fk            TEXT NOT NULL,
-    retweeted           BOOLEAN,
-    retweeted_at        TEXT NOT NULL,
+    user_fk                         TEXT NOT NULL,
+    tweet_fk                        TEXT NOT NULL,
+    -- retweeted_by_username           TEXT NOT NULL,
+    retweeted                       BOOLEAN,
+    retweeted_at                    TEXT NOT NULL,
     PRIMARY KEY (user_fk, tweet_fk)
     -- FOREIGN KEY (user_id) REFERENCES users(user_id),
     -- FOREIGN KEY (tweet_id) REFERENCES tweets(tweet_id)
@@ -319,6 +320,15 @@ END;
 -- END;
 
 
+
+-- Increate tweet_total_comments when a tweet_comment is inserted/created
+DROP TRIGGER IF EXISTS increment_tweet_total_views;
+CREATE TRIGGER increment_tweet_total_views AFTER INSERT ON tweets_liked_by_users
+BEGIN
+  UPDATE tweets 
+  SET tweet_total_views = tweet_total_views + 1 
+  WHERE tweet_id = NEW.tweet_id;
+END;
 
 
 -- SELECT user_username, user_total_tweets FROM users;
