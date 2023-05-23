@@ -4,10 +4,13 @@ import uuid
 import time
 import bcrypt
 import os
+from apis.send_verification_email import send_verification_email
 
 @post("/register")
 def _():
     try:
+        db = x.db()
+
         #get data validated data from form.
         user_email = x.validate_user_email()
         user_username = x.validate_user_name()
@@ -62,7 +65,6 @@ def _():
             "user_username" : user_username,
             "user_email" : user_email,
             "user_password" : hashed_password,
-            "user_verification_key" : str(uuid.uuid4()).replace("-", ""),
             "user_first_name" : user_first_name,
             "user_last_name" : user_last_name,
             "user_avatar" : picture_name_avatar,
@@ -88,16 +90,25 @@ def _():
             values += f':{key},'
         values = values.rstrip(",")
 
-        db = x.db()
         total_rows_inserted = db.execute(f"INSERT INTO users VALUES({values})", user).rowcount
-        print(user_password)
         db.commit()
 
         if total_rows_inserted != 1 : raise Exception("Please try again")
-        return {
-            "info" : "user created",
-            "user_id" : user_id
-        }
+
+
+
+
+        # Kør funktionen create_verification_key - findes længere nede - verification_key bliver returned her og bruges i næste function lige under
+        verification_key = create_verification_key(user_id=user_id)
+
+
+
+        # Send email to user if registered, "reciever_email = " øger bare læsbarhed - kan undværes
+        send_verification_email(reciever_email=user_email, verification_key=verification_key)
+
+
+
+        return template("login")
 
     except Exception as e:
         print(e)
@@ -120,3 +131,15 @@ def _():
 
     finally:
         if "db" in locals(): db.close()
+
+
+
+# str 3 gange for læsbarhed - så man tydeligt kan se, hvad der returneres her.
+def create_verification_key(user_id : str) -> str : 
+    db = x.db()
+
+    verification_key = str(uuid.uuid4().hex)
+    db.execute("INSERT INTO accounts_to_verify VALUES(?,?)",(verification_key, user_id))
+    db.commit()
+
+    return verification_key

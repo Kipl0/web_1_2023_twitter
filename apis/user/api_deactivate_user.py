@@ -28,7 +28,6 @@ def _(username=None):
                     "deleted_user_username" : user_to_deactivate["user_username"],
                     "deleted_user_email" : user_to_deactivate["user_email"],
                     "deleted_user_password" : user_to_deactivate["user_password"],
-                    "deleted_user_verification_key" : user_to_deactivate["user_verification_key"],
                     "deleted_user_first_name" : user_to_deactivate["user_first_name"],
                     "deleted_user_last_name" : user_to_deactivate["user_last_name"],
                     "deleted_user_avatar" : user_to_deactivate["user_avatar"],

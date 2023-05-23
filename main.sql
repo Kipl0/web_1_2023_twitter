@@ -20,7 +20,6 @@ CREATE TABLE users(
   user_username               TEXT UNIQUE NOT NULL,
   user_email                  TEXT UNIQUE NOT NULL,
   user_password               TEXT NOT NULL,
-  user_verification_key       TEXT DEFAULT "",
   user_first_name             TEXT NOT NULL,
   user_last_name              TEXT DEFAULT "",
   user_avatar                 TEXT, 
@@ -41,11 +40,11 @@ CREATE TABLE users(
   PRIMARY KEY(user_id)
 ) WITHOUT ROWID;
 
-INSERT INTO users VALUES("51602a9f7d82472b90ed1091248f6cb1","HarryMemes","HarryMemes@gmail.com","123","be3a21b8186f43bf82483074d06f4ab4","Harry Potter", "Memes", "51602a9f7d82472b90ed1091248f6cb1.jpeg", "ad1bfe9ce6e44a009b57a1a183ccb202.jpg", "1679402780","","","",0,0,0,0,0,0,0,0,1);
-INSERT INTO users VALUES("a22da1effb3d4f03a0f77f9aa8320203","geekdaddy75","geekdaddy75@gmail.com","123","6162dc2c622546c79a526fe068ed6dfb","GeekDaddy", "Memes", "a22da1effb3d4f03a0f77f9aa8320203.jpg", "e130fd8b81d049a1b2fafbca9c5a15e3.png", "1679402780","","","",0,0,0,0,0,0,0,0,1);
-INSERT INTO users VALUES("6268331d012247539998d7664bd05cc1","katyperry","Katy@gmail.com","123","d2799c780985435c8e731751b31162f4","Katy", "Perry", "6268331d012247539998d7664bd05cc1.jpg", "494e6a7fdadb4b3cae58d37a4fad879c.jpg", "1679402780","","","",0,0,0,0,0,0,0,0,1);
-INSERT INTO users VALUES("07578f6c49d84b7c94ce80e96c64ccc0","majs503","maalmaja@gmail.com","123","e97db58a36ea498894f364f0c1c0c83e","Maja", "Larsen", "07578f6c49d84b7c94ce80e96c64ccc0.jpg", "dd5582fff3ca4f7f9f97a911f3e77b22.jpg", "1679402780","","","",0,0,0,0,0,0,0,0,1);
-INSERT INTO users VALUES("16edc063917a4e589c4d6e7524df39ef","Admin","admin@twitter.com","123","e8e90bcf70c94b9c982d0c6dcfb4fb65","Admin", "Admin", "admin.png", "default_banner.png", "1652354259","","","",0,0,0,0,0,0,0,0,1);
+INSERT INTO users VALUES("51602a9f7d82472b90ed1091248f6cb1","HarryMemes","HarryMemes@gmail.com","123","Harry Potter", "Memes", "51602a9f7d82472b90ed1091248f6cb1.jpeg", "ad1bfe9ce6e44a009b57a1a183ccb202.jpg", "1679402780","","","",0,0,0,0,0,0,0,0,1);
+INSERT INTO users VALUES("a22da1effb3d4f03a0f77f9aa8320203","geekdaddy75","geekdaddy75@gmail.com","123","GeekDaddy", "Memes", "a22da1effb3d4f03a0f77f9aa8320203.jpg", "e130fd8b81d049a1b2fafbca9c5a15e3.png", "1679402780","","","",0,0,0,0,0,0,0,0,1);
+INSERT INTO users VALUES("6268331d012247539998d7664bd05cc1","katyperry","Katy@gmail.com","123","Katy", "Perry", "6268331d012247539998d7664bd05cc1.jpg", "494e6a7fdadb4b3cae58d37a4fad879c.jpg", "1679402780","","","",0,0,0,0,0,0,0,0,1);
+INSERT INTO users VALUES("07578f6c49d84b7c94ce80e96c64ccc0","majs503","maalmaja@gmail.com","123","Maja", "Larsen", "07578f6c49d84b7c94ce80e96c64ccc0.jpg", "dd5582fff3ca4f7f9f97a911f3e77b22.jpg", "1679402780","","","",0,0,0,0,0,0,0,0,1);
+INSERT INTO users VALUES("16edc063917a4e589c4d6e7524df39ef","Admin","admin@twitter.com","123","Admin", "Admin", "admin.png", "default_banner.png", "1652354259","","","",0,0,0,0,0,0,0,0,1);
 
 
 
@@ -58,7 +57,6 @@ CREATE TABLE deleted_users(
   deleted_user_username               TEXT UNIQUE NOT NULL,
   deleted_user_email                  TEXT UNIQUE NOT NULL,
   deleted_user_password               TEXT NOT NULL,
-  deleted_user_verification_key       TEXT DEFAULT "",
   deleted_user_first_name             TEXT NOT NULL,
   deleted_user_last_name              TEXT DEFAULT "",
   deleted_user_avatar                 TEXT, 
@@ -80,9 +78,17 @@ CREATE TABLE deleted_users(
 ) WITHOUT ROWID;
 
 
-INSERT INTO deleted_users VALUES("51602a9f7d82472b90ed1091248fa32b","deleted_user","deleted_user@gmail.com","123","be3a21b8186f43bf82483074d06f4222","deleted", "User", "default_avatar.jpg", "default_banner.png", "1679402790","","","",0,0,0,0,0,0,0,0,1);
+INSERT INTO deleted_users VALUES("51602a9f7d82472b90ed1091248fa32b","deleted_user","deleted_user@gmail.com","123","deleted", "User", "default_avatar.jpg", "default_banner.png", "1679402790","","","",0,0,0,0,0,0,0,0,1);
 
 
+
+-- Da denne handling KUN skal udføres ved registre 1 gang, laver jeg en ny tabel, fremfor at user-tabellen skal gøres større og kalde en ligegyldig værdi
+DROP TABLE IF EXISTS accounts_to_verify;
+CREATE TABLE accounts_to_verify(
+  verify_user_key         TEXT UNIQUE NOT NULL,
+  verify_user_fk          TEXT UNIQUE NOT NULL,
+  PRIMARY KEY(verify_user_key)
+)WITHOUT ROWID;
 
 
 
