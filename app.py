@@ -55,7 +55,6 @@ import apis.user.api_activate_user
 import apis.user.api_delete_user
 import apis.user.api_verify_user
 # other
-import apis.api_send_message
 import apis.upload_files
 import apis.api_get_latest_tweets
 import apis.api_search

@@ -15,5 +15,4 @@ def verify_accout(verification_key):
 
 
     finally : 
-        pass
-        # if "db" in locals : close.db()
+        if "db" in locals : close.db()

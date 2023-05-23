@@ -37,7 +37,6 @@ def send_verification_email(reciever_email,verification_key) :
     </html>
     """
 
-    print(html)
 
     # Turn these into plain/html MIMEText objects
     part1 = MIMEText(text, "plain")
