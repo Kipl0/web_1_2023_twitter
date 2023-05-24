@@ -20,14 +20,10 @@ def _():
         if follower_following_record == None : 
             db.execute("INSERT INTO follower_following VALUES(?,?)",(user_cookie_id, user_to_follow_id))
             db.commit()
-            db.execute("UPDATE users SET user_total_followers = user_total_followers + 1 WHERE user_id = ?",(user_to_follow_id,))
-            db.commit()
             return {"info":"ok", "user_id" : user_to_follow_id, "follows" : 1, "user_total_followers" : int(user_total_followers) + 1}
     
         # Hvis pk findes i tabel - stop med at follow
         db.execute("DELETE FROM follower_following WHERE follower_id = ? AND following_id = ?",(user_cookie_id,user_to_follow_id))
-        db.commit()
-        db.execute("UPDATE users SET user_total_followers = user_total_followers - 1 WHERE user_id = ?",(user_to_follow_id,))
         db.commit()
         return {"info":"ok", "user_id" : user_to_follow_id, "follows" : 0, "user_total_followers" : int(user_total_followers) - 1}
 

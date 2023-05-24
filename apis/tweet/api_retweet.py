@@ -29,10 +29,7 @@ def _():
             tweet_to_retweet = db.execute("SELECT * FROM tweets WHERE tweet_id = ?",(tweet_id,)).fetchone()
             tweet_total_retweets = tweet_to_retweet["tweet_total_retweets"]
 
-            db.execute("UPDATE tweets SET tweet_total_retweets = tweet_total_retweets + 1 WHERE tweet_id = ?",(tweet_id,))
-            db.commit()
-
-            return {"info" : "ok", "tweet_id" : tweet_id, "retweeted" : 1, "tweet_total_retweets" : int(tweet_total_retweets) + 1}
+            return {"info" : "ok", "tweet_id" : tweet_id, "retweeted" : 1, "tweet_total_retweets" : int(tweet_total_retweets)}
 
 
 
@@ -44,10 +41,8 @@ def _():
         tweet_to_retweet = db.execute("SELECT * FROM tweets WHERE tweet_id = ?",(tweet_id,)).fetchone()
         tweet_total_retweets = tweet_to_retweet["tweet_total_retweets"]
 
-        db.execute("UPDATE tweets SET tweet_total_retweets = tweet_total_retweets - 1 WHERE tweet_id = ?",(tweet_id,))
-        db.commit()
 
-        return {"info" : "ok", "tweet_id" : tweet_id, "retweeted" : 0, "tweet_total_retweets" : int(tweet_total_retweets) - 1}
+        return {"info" : "ok", "tweet_id" : tweet_id, "retweeted" : 0, "tweet_total_retweets" : int(tweet_total_retweets)}
 
 
     except Exception as ex:

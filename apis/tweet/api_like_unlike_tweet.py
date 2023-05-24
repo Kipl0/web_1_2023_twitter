@@ -35,8 +35,8 @@ def _():
 
 
         # user har set tweet, men ikke liket det - liker det nu
-        if tweet_liked_by_user_record["liked"] == 0 :
-            db.execute("UPDATE tweets_liked_by_users SET liked = 1 WHERE user_id = ? AND tweet_id = ?",(user_cookie["user_id"], tweet_id))
+        if tweet_liked_by_user_record["liked_viewed"] == 0 :
+            db.execute("UPDATE tweets_liked_by_users SET liked_viewed = 1 WHERE user_id = ? AND tweet_id = ?",(user_cookie["user_id"], tweet_id))
             db.commit()
 
             tweet_to_like = db.execute("SELECT * FROM tweets WHERE tweet_id = ?",(tweet_id,)).fetchone()
@@ -49,7 +49,7 @@ def _():
 
 
         # Hvis bruger klikker på knap, der returneres resultat, hvor liked ikke er 0 (koden er ikke gået ind i foregående sætninger)
-        db.execute("UPDATE tweets_liked_by_users SET liked = 0 WHERE user_id = ? AND tweet_id = ?",(user_cookie["user_id"], tweet_id))
+        db.execute("UPDATE tweets_liked_by_users SET liked_viewed = 0 WHERE user_id = ? AND tweet_id = ?",(user_cookie["user_id"], tweet_id))
         db.commit()
 
         tweet_to_like = db.execute("SELECT * FROM tweets WHERE tweet_id = ?",(tweet_id,)).fetchone()

@@ -297,7 +297,9 @@ DROP VIEW IF EXISTS users_and_tweets;
 
 
 
--- Triggers
+------------------------------- 
+        -- Triggers
+------------------------------- 
 -- Increate user_total_tweets when a tweet is inserted/created
 DROP TRIGGER IF EXISTS increment_user_total_tweets;
 -- CREATE TRIGGER increment_user_total_tweets AFTER INSERT ON tweets
@@ -325,13 +327,6 @@ BEGIN
   WHERE tweet_id = NEW.comment_tweet_fk;
 END;
 
--- DROP TRIGGER IF EXISTS increment_tweet_total_comments;
--- CREATE TRIGGER increment_tweet_total_comments AFTER DELETE ON tweets
--- BEGIN
---   UPDATE users 
---   SET user_total_tweets =  user_total_tweets - 1 
---   WHERE user_id = OLD.tweet_user_fk;
--- END;
 
 
 
@@ -345,53 +340,65 @@ BEGIN
 END;
 
 
--- SELECT user_username, user_total_tweets FROM users;
-
--- INSERT INTO tweets VALUES(
---   "3ad7c99a108b4b0d91a8c2e20dfc9c9a", 
---   "Hi", 
---   "",
---   "1677162587",
---   "ebb0d9d74d6c4825b3e1a1bcd73ff49a"
--- );
-
--- DELETE FROM tweets WHERE tweet_id = "3ad7c99a108b4b0d91a8c2e20dfc9c9a";
-
-
-
-
-
-
-
+-- Increate tweet_total_comments when a tweet_comment is inserted/created
+DROP TRIGGER IF EXISTS increment_tweet_total_likes;
+CREATE TRIGGER increment_tweet_total_likes AFTER INSERT ON tweets_liked_by_users
+BEGIN
+  UPDATE tweets 
+  SET tweet_total_likes = tweet_total_likes + 1 
+  WHERE tweet_id = NEW.tweet_id;
+END;
+-- decreate tweet_total_comments when a tweet_comment is inserted/created
+DROP TRIGGER IF EXISTS decrement_tweet_total_likes;
+CREATE TRIGGER decrement_tweet_total_likes AFTER DELETE ON tweets_liked_by_users
+BEGIN
+  UPDATE tweets 
+  SET tweet_total_likes = tweet_total_likes - 1 
+  WHERE tweet_id = OLD.tweet_id;
+END;
 
 
 
+-- Increate tweet_total_retweets when a tweet_comment is inserted/created
+DROP TRIGGER IF EXISTS increment_tweet_total_retweets;
+CREATE TRIGGER increment_tweet_total_retweets AFTER INSERT ON tweets_retweeted_by_users
+BEGIN
+  UPDATE tweets 
+  SET tweet_total_retweets = tweet_total_retweets + 1 
+  WHERE tweet_id = NEW.tweet_fk;
+END;
+-- decreate tweet_total_comments when a tweet_comment is inserted/created
+DROP TRIGGER IF EXISTS decrement_tweet_total_retweets;
+CREATE TRIGGER decrement_tweet_total_retweets AFTER DELETE ON tweets_retweeted_by_users
+BEGIN
+  UPDATE tweets 
+  SET tweet_total_retweets = tweet_total_retweets - 1 
+  WHERE tweet_id = OLD.tweet_fk;
+END;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- Increate tweet_total_comments when a tweet_comment is inserted/created
+DROP TRIGGER IF EXISTS increment_user_total_follows;
+CREATE TRIGGER increment_user_total_follows AFTER INSERT ON follower_following
+BEGIN
+  UPDATE users 
+  SET user_total_followers = user_total_followers + 1 
+  WHERE user_id = NEW.following_id;
+  UPDATE users 
+  SET user_total_following = user_total_following + 1 
+  WHERE user_id = NEW.follower_id;
+END;
+-- decreate tweet_total_comments when a tweet_comment is inserted/created
+DROP TRIGGER IF EXISTS decrement_user_total_follows;
+CREATE TRIGGER decrement_user_total_follows AFTER DELETE ON follower_following
+BEGIN
+  UPDATE users 
+  SET user_total_followers = user_total_followers - 1 
+  WHERE user_id = OLD.following_id;
+  UPDATE users 
+  SET user_total_following = user_total_following - 1 
+  WHERE user_id = OLD.follower_id;
+END;
 
 
 

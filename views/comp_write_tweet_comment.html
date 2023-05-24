@@ -36,7 +36,7 @@
       <input id="tweet_id_to_html" type="text" name="tweet_id" value="" class="hidden">
       <img src="/avatar/{{user_cookie['user_avatar']}}" alt="" class="w-10 h-10 aspect-square rounded-full">
       <section class="flex flex-col gap-2 w-full">
-        <textarea type="text" placeholder="Tweet your reply" name="tweet_comment_user_input" class="w-full max-w-full p-2 bg-black outline-none placeholder:text-zinc-500"></textarea>
+        <textarea type="text" placeholder="Tweet your reply" name="tweet_comment_user_input" class="w-full max-w-full p-2 bg-black outline-none placeholder:text-zinc-500" minlength="{{TWEET_MIN_LEN}}" maxlength="{{TWEET_MIN_LEN}}"></textarea>
         <img src="" alt="" id="uploaded_comment_img" class="w-full mt-4 max-h-96 rounded-lg object-contain">
         <section class="flex w-full mt-auto">
           <div class="flex text-[#1D9BF0] gap-3">
