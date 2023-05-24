@@ -27,8 +27,7 @@ CREATE TABLE users(
   user_link                   TEXT DEFAULT "",
   user_caption                TEXT DEFAULT "",
   user_location               TEXT DEFAULT "",
-  user_created_at             TEXT NOT NULL,
-  -- user_verified               TEXT DEFAULT 0, 
+  user_created_at             TEXT NOT NULL, 
   user_total_tweets           INTEGER DEFAULT 0,
   user_total_followers        INTEGER DEFAULT 0,
   user_total_following        INTEGER DEFAULT 0,
@@ -64,7 +63,6 @@ CREATE TABLE deleted_users(
   deleted_user_caption                TEXT DEFAULT "",
   deleted_user_location               TEXT DEFAULT "",
   deleted_user_created_at             TEXT NOT NULL,
-  deleted_user_verified               TEXT DEFAULT 0, 
   deleted_user_total_tweets           INTEGER DEFAULT 0,
   deleted_user_total_followers        INTEGER DEFAULT 0,
   deleted_user_total_following        INTEGER DEFAULT 0,
@@ -77,7 +75,7 @@ CREATE TABLE deleted_users(
 ) WITHOUT ROWID;
 
 
-INSERT INTO deleted_users VALUES("51602a9f7d82472b90ed1091248fa32b","deleted_user","deleted_user@gmail.com","123","deleted", "User", "default_avatar.jpg", "default_banner.png", "1679402790","","","",0,0,0,0,0,0,0,0,1);
+INSERT INTO deleted_users VALUES("51602a9f7d82472b90ed1091248fa32b","deleted_user","deleted_user@gmail.com","123","deleted", "User", "default_avatar.jpg", "default_banner.png", "1679402790","","","",0,0,0,0,0,0,0,1);
 
 
 
@@ -93,8 +91,8 @@ CREATE TABLE accounts_to_verify(
 
 -- Da denne handling KUN skal udføres ved registre 1 gang, laver jeg en ny tabel, fremfor at user-tabellen skal gøres større og kalde en ligegyldig værdi
 -- Brug random uuid i stedet for user_id, så hackers ikke kan change password igen og igen, hvis de først får fat i url
-DROP TABLE IF EXISTS accounts_to_change_password;
-CREATE TABLE accounts_to_change_password(
+DROP TABLE IF EXISTS accounts_to_reset_password;
+CREATE TABLE accounts_to_reset_password(
   change_password_user_key         TEXT UNIQUE NOT NULL,
   change_password_user_fk          TEXT UNIQUE NOT NULL,
   PRIMARY KEY(change_password_user_key)

@@ -6,7 +6,7 @@ from email.mime.multipart import MIMEMultipart
 import uuid
 import x
 
-def send_verification_email(reciever_email,verification_key) :
+def send_change_password_email(reciever_email,change_key) :
 
     sender_email = "maalmaja@gmail.com"
     reciever_email = reciever_email
@@ -17,21 +17,20 @@ def send_verification_email(reciever_email,verification_key) :
     message["From"] = sender_email
     message["To"] = reciever_email #hentes fra api_register ved registre
 
-    print(verification_key)
+    # print("hello")
 
     text = f"""\
         Hi!
-        Welcome to Twitter <br>
-        You must verify your email before logging in. <br>
-        Click this link to --> https://kipl0.eu.pythonanywhere.com/verify-email/{verification_key}
+        To reset your password click the link below <br>
+        Click this link to reset password --> https://kipl0.eu.pythonanywhere.com/change-password/{change_key}
     """
     html = f"""\
     <html>
         <body>
-            <h2> Hi! </h2>
-            <h3>Welcome to Twitter </h3>
-            <p>You must verify your email before logging in. </p>
-            <p>Click this link to --> <a href="https://kipl0.eu.pythonanywhere.com/verify-email/{verification_key}">verify email!</a></p>
+            <h2>Hi!</h2>
+            <p>To reset your password click the link below </p>
+            <p>Click this link to reset password --> <a href="https://kipl0.eu.pythonanywhere.com/change-password/{change_key}">reset password!</a></p>
+            </p>
         </body>
     </html>
     """
