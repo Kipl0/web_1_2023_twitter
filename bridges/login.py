@@ -15,12 +15,12 @@ def _():
 
         does_user_exist = db.execute("SELECT * FROM users WHERE user_username = ? LIMIT 1", (login_username,)).fetchone()
 
-        print(does_user_exist["user_verified"] == "0")
-
         if not does_user_exist:
             raise Exception(400, "Cannot login")
 
-        if does_user_exist["user_verified"] == "0" :
+        user_not_verified = db.execute("SELECT * FROM accounts_to_verify WHERE verify_user_fk = ?",(does_user_exist['user_id'],)).fetchone()
+        # tjek om bruger ligger i verify tabel
+        if not user_not_verified :
             raise Exception(400, "User account is not verified yet")
 
 

@@ -57,9 +57,7 @@ async function delete_user() {
     }
 }
 
-
-
-
+    
 
 
 let active_popup = null;

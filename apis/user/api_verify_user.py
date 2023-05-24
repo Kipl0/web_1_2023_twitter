@@ -12,11 +12,9 @@ def _(verification_key):
 
 
         if user_to_verify != "": # den eksisterer i db
-            db.execute("UPDATE users SET user_verified = 1 WHERE user_id = ?", (user_to_verify['verify_user_fk'],))
-            db.commit()
-
             db.execute("DELETE FROM accounts_to_verify WHERE verify_user_key = ?", (verification_key,))
             db.commit()
+
         else: #den eksisterer ikke i db
             print("Verification_key does not exist in the database")
             raise Exception(400, "Verification_key does not exist in the database")

@@ -50,6 +50,7 @@ import apis.tweet.api_retweet
 # user
 import apis.user.api_follow_unfollow
 import apis.user.api_update_profile
+import apis.user.api_change_password_submit
 import apis.user.api_deactivate_user
 import apis.user.api_register
 import apis.user.api_activate_user

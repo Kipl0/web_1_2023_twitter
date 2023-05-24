@@ -36,7 +36,6 @@ def _(username=None):
                     "user_caption" : user_to_activate["deleted_user_caption"],
                     "user_location" : user_to_activate["deleted_user_location"],
                     "user_created_at" : user_to_activate["deleted_user_created_at"],
-                    "user_verified" : user_to_activate["deleted_user_verified"],
                     "user_total_tweets" : user_to_activate["deleted_user_total_tweets"],
                     "user_total_retweets" : user_to_activate["deleted_user_total_retweets"],
                     "user_total_comments" : user_to_activate["deleted_user_total_comments"],

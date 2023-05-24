@@ -18,7 +18,6 @@
         % for user in users :
         <div class="flex items-center relative gap-4 text-white p-4">
             <div>
-
                 <img src="/avatar/{{user['user_avatar']}}" class="flex w-10 h-auto aspect-square rounded-full">
             </div>
             <div class="">
@@ -44,8 +43,6 @@
                     </button>
                 </form>
             </div>
-
-
         </div>
         % end
 
@@ -95,32 +92,14 @@
                         </section>
                     </form>
 
-
-
-
-
-
-
-
-          <section id="show_confirm_buttons" class="hidden w-full justify-center">
-              <button onclick="show_confirm_button(); return false" type="button" id="cancel_deactivate_profile_btn" class="flex justify-center items-center w-fit h-full hover:cursor-pointer py-2 px-4 mx-2 rounded-bl-md text-black bg-red-400 hover:bg-red-500" >
-                  Cancel deactivate
-              </button>
-              <button onclick="deactivate_own_profile(); return false;" type="submit" class="flex justify-center items-center w-fit h-full hover:cursor-pointer py-2 px-4 mx-2 rounded-br-md text-black bg-[#49b265] hover:bg-[#159947] whitespace-nowrap" >
-                  Deactivate profile 
-              </button>
-          </section>
-
-
-
-
-
-
-
-
-
-
-
+                    <section id="show_confirm_buttons" class="hidden w-full justify-center">
+                        <button onclick="show_confirm_button(); return false" type="button" id="cancel_deactivate_profile_btn" class="flex justify-center items-center w-fit h-full hover:cursor-pointer py-2 px-4 mx-2 rounded-bl-md text-black bg-red-400 hover:bg-red-500" >
+                            Cancel deactivate
+                        </button>
+                        <button onclick="deactivate_own_profile(); return false;" type="submit" class="flex justify-center items-center w-fit h-full hover:cursor-pointer py-2 px-4 mx-2 rounded-br-md text-black bg-[#49b265] hover:bg-[#159947] whitespace-nowrap" >
+                            Deactivate profile 
+                        </button>
+                    </section>
 
                 </div>
             </div>
@@ -148,7 +127,6 @@
 </div>
 <!-- end right -->
 
-<!-- % include("comp_confirm_action") -->
 
 
 

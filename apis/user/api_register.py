@@ -73,7 +73,6 @@ def _():
             "user_caption" : "",
             "user_location" : "",
             "user_created_at" : int(time.time()),
-            "user_verified" : 0,
             "user_total_tweets" : 0,
             "user_total_retweets" : 0,
             "user_total_comments" : 0,

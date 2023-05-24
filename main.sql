@@ -28,7 +28,7 @@ CREATE TABLE users(
   user_caption                TEXT DEFAULT "",
   user_location               TEXT DEFAULT "",
   user_created_at             TEXT NOT NULL,
-  user_verified               TEXT DEFAULT 0, 
+  -- user_verified               TEXT DEFAULT 0, 
   user_total_tweets           INTEGER DEFAULT 0,
   user_total_followers        INTEGER DEFAULT 0,
   user_total_following        INTEGER DEFAULT 0,
@@ -40,11 +40,11 @@ CREATE TABLE users(
   PRIMARY KEY(user_id)
 ) WITHOUT ROWID;
 
-INSERT INTO users VALUES("51602a9f7d82472b90ed1091248f6cb1","HarryMemes","HarryMemes@gmail.com","123","Harry Potter", "Memes", "51602a9f7d82472b90ed1091248f6cb1.jpeg", "ad1bfe9ce6e44a009b57a1a183ccb202.jpg", "1679402780","","","1684880883",1,0,0,0,0,0,0,0,1);
-INSERT INTO users VALUES("a22da1effb3d4f03a0f77f9aa8320203","geekdaddy75","geekdaddy75@gmail.com","123","GeekDaddy", "Memes", "a22da1effb3d4f03a0f77f9aa8320203.jpg", "e130fd8b81d049a1b2fafbca9c5a15e3.png", "1679402780","","","1684880883",1,0,0,0,0,0,0,0,1);
-INSERT INTO users VALUES("6268331d012247539998d7664bd05cc1","katyperry","Katy@gmail.com","123","Katy", "Perry", "6268331d012247539998d7664bd05cc1.jpg", "494e6a7fdadb4b3cae58d37a4fad879c.jpg", "1679402780","","","1684880883",1,0,0,0,0,0,0,0,1);
-INSERT INTO users VALUES("07578f6c49d84b7c94ce80e96c64ccc0","majs503","maalmaja@gmail.com","123","Maja", "Larsen", "07578f6c49d84b7c94ce80e96c64ccc0.jpg", "dd5582fff3ca4f7f9f97a911f3e77b22.jpg", "1679402780","","","1684880883",1,0,0,0,0,0,0,0,1);
-INSERT INTO users VALUES("16edc063917a4e589c4d6e7524df39ef","Admin","admin@twitter.com","123","Admin", "Admin", "admin.png", "default_banner.png", "1652354259","","","1684880883",1,0,0,0,0,0,0,0,1);
+INSERT INTO users VALUES("51602a9f7d82472b90ed1091248f6cb1","HarryMemes","HarryMemes@gmail.com","123","Harry Potter", "Memes", "51602a9f7d82472b90ed1091248f6cb1.jpeg", "ad1bfe9ce6e44a009b57a1a183ccb202.jpg", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1);
+INSERT INTO users VALUES("a22da1effb3d4f03a0f77f9aa8320203","geekdaddy75","geekdaddy75@gmail.com","123","GeekDaddy", "Memes", "a22da1effb3d4f03a0f77f9aa8320203.jpg", "e130fd8b81d049a1b2fafbca9c5a15e3.png", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1);
+INSERT INTO users VALUES("6268331d012247539998d7664bd05cc1","katyperry","Katy@gmail.com","123","Katy", "Perry", "6268331d012247539998d7664bd05cc1.jpg", "494e6a7fdadb4b3cae58d37a4fad879c.jpg", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1);
+INSERT INTO users VALUES("07578f6c49d84b7c94ce80e96c64ccc0","majs503","maalmaja@gmail.com","123","Maja", "Larsen", "07578f6c49d84b7c94ce80e96c64ccc0.jpg", "dd5582fff3ca4f7f9f97a911f3e77b22.jpg", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1);
+INSERT INTO users VALUES("16edc063917a4e589c4d6e7524df39ef","Admin","admin@twitter.com","123","Admin", "Admin", "admin.png", "default_banner.png", "1652354259","","","1684880883",0,0,0,0,0,0,0,1);
 
 
 -- DELETE FROM users WHERE user_username = "majs503";
@@ -92,6 +92,7 @@ CREATE TABLE accounts_to_verify(
 
 
 -- Da denne handling KUN skal udføres ved registre 1 gang, laver jeg en ny tabel, fremfor at user-tabellen skal gøres større og kalde en ligegyldig værdi
+-- Brug random uuid i stedet for user_id, så hackers ikke kan change password igen og igen, hvis de først får fat i url
 DROP TABLE IF EXISTS accounts_to_change_password;
 CREATE TABLE accounts_to_change_password(
   change_password_user_key         TEXT UNIQUE NOT NULL,
