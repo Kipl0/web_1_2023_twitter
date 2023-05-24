@@ -20,7 +20,8 @@ def _():
 
         user_not_verified = db.execute("SELECT * FROM accounts_to_verify WHERE verify_user_fk = ?",(does_user_exist['user_id'],)).fetchone()
         # tjek om bruger ligger i verify tabel
-        if not user_not_verified :
+        if not user_not_verified == None :
+            print(user_not_verified)
             raise Exception(400, "User account is not verified yet")
 
 

@@ -3,7 +3,7 @@ from apis.change_password_email import send_change_password_email
 import uuid
 import x
 
-@post("/change-password-submit")
+@post("/change-password-send-email")
 def _():
     try :
         db = x.db()

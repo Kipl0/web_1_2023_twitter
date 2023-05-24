@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 async function change_password_submit(){
     const frm = event.target
-    const conn = await fetch("/change-password-submit", {
+    const conn = await fetch("/change-password-send-email", {
         method: "POST",
         body: new FormData(frm)
     })

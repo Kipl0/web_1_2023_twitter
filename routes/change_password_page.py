@@ -1,22 +1,20 @@
 from bottle import get, request, response, template
 import x
 
-@get("/change-password")
-def _():
+@get("/change-password/<user_key>")
+def _(user_key):
     try :
         db = x.db()
 
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
-
-        print(user_cookie)
 
         if user_cookie :
             response.status = 303
             response.set_header("Location", "/")
             return
         else:
-            print("DEN BURDE VÆRE NONE")
-            return template("change_password")
+            print("user_cookie eksisterer ikke")
+            return template("change_password_page")
 
 
     except Exception as ex :
