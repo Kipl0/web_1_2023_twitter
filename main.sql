@@ -340,22 +340,6 @@ BEGIN
 END;
 
 
--- Increate tweet_total_comments when a tweet_comment is inserted/created
-DROP TRIGGER IF EXISTS increment_tweet_total_likes;
-CREATE TRIGGER increment_tweet_total_likes AFTER INSERT ON tweets_liked_by_users
-BEGIN
-  UPDATE tweets 
-  SET tweet_total_likes = tweet_total_likes + 1 
-  WHERE tweet_id = NEW.tweet_id;
-END;
--- decreate tweet_total_comments when a tweet_comment is inserted/created
-DROP TRIGGER IF EXISTS decrement_tweet_total_likes;
-CREATE TRIGGER decrement_tweet_total_likes AFTER DELETE ON tweets_liked_by_users
-BEGIN
-  UPDATE tweets 
-  SET tweet_total_likes = tweet_total_likes - 1 
-  WHERE tweet_id = OLD.tweet_id;
-END;
 
 
 

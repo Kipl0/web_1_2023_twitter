@@ -31,6 +31,7 @@ import routes.profile
 import routes.full_tweet_and_comments
 import routes.admin
 import routes.send_message
+import routes.twitter_gold
 import routes.upload_picture
 import routes.jwt_test
 import routes.verify_user

@@ -10,9 +10,9 @@ def _(user_username):
   try:
     db = x.db()
 
-    # response.add_header("Cache-control", "no-store, no-cache, must-revalidate, max-age=0")
-    # response.add_header("Pragma", "no-cache")
-    # response.add_header("Expires",0)
+    response.add_header("Cache-control", "no-store, no-cache, must-revalidate, max-age=0")
+    response.add_header("Pragma", "no-cache")
+    response.add_header("Expires",0)
 
     user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET) #vi vil gerne have fat i en cookie fra browseren der hedder "login" det har vi defineret i login.py
 
@@ -33,9 +33,6 @@ def _(user_username):
       retweeted_by = db.execute("SELECT user_username FROM users WHERE user_id = ?",(tweet_retweeted['user_fk'],)).fetchone() # loop igennem alle retweets og sæt retweeted by
       tweet_retweeted['retweeted_by'] = retweeted_by['user_username'] # tilføj den som key-value par til hver retweet i tabellen
       tweet_retweeted['original_tweet'] = 0
-
-
-
 
 
 
@@ -106,7 +103,7 @@ def _(user_username):
 
 
 
-    return template("profile", user=user, tweets_and_user_data=tweets_and_user_data, trends=trends, user_cookie=user_cookie, who_to_follow=who_to_follow, page="profile")
+    return template("profile", user=user, tweets_and_user_data=tweets_and_user_data, trends=trends, user_cookie=user_cookie, who_to_follow=who_to_follow, page="profile", TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
 
 
 

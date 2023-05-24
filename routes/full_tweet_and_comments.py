@@ -60,7 +60,7 @@ def _(tweet_id):
                 tweet_and_user_data["commented"] = 1
 
 
-        return template("full_tweet_and_comments", tweet_and_user_data = tweet_and_user_data, tweet_comment_and_user_data=tweet_comment_and_user_data, user_cookie=user_cookie, tweet_comments = tweet_comments, trends = trends, who_to_follow=who_to_follow)
+        return template("full_tweet_and_comments", tweet_and_user_data = tweet_and_user_data, tweet_comment_and_user_data=tweet_comment_and_user_data, user_cookie=user_cookie, tweet_comments = tweet_comments, trends = trends, who_to_follow=who_to_follow, TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
 
 
     except Exception as ex :
