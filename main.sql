@@ -36,14 +36,15 @@ CREATE TABLE users(
   user_total_likes            INTEGER DEFAULT 0,
   user_total_dislikes         INTEGER DEFAULT 0,
   user_active                 INTEGER DEFAULT 1,
+  user_twitter_gold                INTEGER DEFAULT 0,
   PRIMARY KEY(user_id)
 ) WITHOUT ROWID;
 
-INSERT INTO users VALUES("51602a9f7d82472b90ed1091248f6cb1","HarryMemes","HarryMemes@gmail.com","123","Harry Potter", "Memes", "51602a9f7d82472b90ed1091248f6cb1.jpeg", "ad1bfe9ce6e44a009b57a1a183ccb202.jpg", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1);
-INSERT INTO users VALUES("a22da1effb3d4f03a0f77f9aa8320203","geekdaddy75","geekdaddy75@gmail.com","123","GeekDaddy", "Memes", "a22da1effb3d4f03a0f77f9aa8320203.jpg", "e130fd8b81d049a1b2fafbca9c5a15e3.png", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1);
-INSERT INTO users VALUES("6268331d012247539998d7664bd05cc1","katyperry","Katy@gmail.com","123","Katy", "Perry", "6268331d012247539998d7664bd05cc1.jpg", "494e6a7fdadb4b3cae58d37a4fad879c.jpg", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1);
-INSERT INTO users VALUES("07578f6c49d84b7c94ce80e96c64ccc0","majs503","maalmaja@gmail.com","123","Maja", "Larsen", "07578f6c49d84b7c94ce80e96c64ccc0.jpg", "dd5582fff3ca4f7f9f97a911f3e77b22.jpg", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1);
-INSERT INTO users VALUES("16edc063917a4e589c4d6e7524df39ef","Admin","admin@twitter.com","123","Admin", "Admin", "admin.png", "default_banner.png", "1652354259","","","1684880883",0,0,0,0,0,0,0,1);
+INSERT INTO users VALUES("51602a9f7d82472b90ed1091248f6cb1","HarryMemes","HarryMemes@gmail.com","123","Harry Potter", "Memes", "51602a9f7d82472b90ed1091248f6cb1.jpeg", "ad1bfe9ce6e44a009b57a1a183ccb202.jpg", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1,0);
+INSERT INTO users VALUES("a22da1effb3d4f03a0f77f9aa8320203","geekdaddy75","geekdaddy75@gmail.com","123","GeekDaddy", "Memes", "a22da1effb3d4f03a0f77f9aa8320203.jpg", "e130fd8b81d049a1b2fafbca9c5a15e3.png", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1,0);
+INSERT INTO users VALUES("6268331d012247539998d7664bd05cc1","katyperry","Katy@gmail.com","123","Katy", "Perry", "6268331d012247539998d7664bd05cc1.jpg", "494e6a7fdadb4b3cae58d37a4fad879c.jpg", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1,0);
+INSERT INTO users VALUES("07578f6c49d84b7c94ce80e96c64ccc0","majs503","maalmaja@gmail.com","123","Maja", "Larsen", "07578f6c49d84b7c94ce80e96c64ccc0.jpg", "dd5582fff3ca4f7f9f97a911f3e77b22.jpg", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1,0);
+INSERT INTO users VALUES("16edc063917a4e589c4d6e7524df39ef","Admin","admin@twitter.com","123","Admin", "Admin", "admin.png", "default_banner.png", "1652354259","","","1684880883",0,0,0,0,0,0,0,1,0);
 
 
 -- DELETE FROM users WHERE user_username = "majs503";
@@ -71,11 +72,12 @@ CREATE TABLE deleted_users(
   deleted_user_total_likes            INTEGER DEFAULT 0,
   deleted_user_total_dislikes         INTEGER DEFAULT 0,
   deleted_user_active                 INTEGER DEFAULT 0,
+  deleted_user_twitter_gold           INTEGER DEFAULT 0,
   PRIMARY KEY(deleted_user_id)
 ) WITHOUT ROWID;
 
 
-INSERT INTO deleted_users VALUES("51602a9f7d82472b90ed1091248fa32b","deleted_user","deleted_user@gmail.com","123","deleted", "User", "default_avatar.jpg", "default_banner.png", "1679402790","","","",0,0,0,0,0,0,0,1);
+INSERT INTO deleted_users VALUES("51602a9f7d82472b90ed1091248fa32b","deleted_user","deleted_user@gmail.com","123","deleted", "User", "default_avatar.jpg", "default_banner.png", "1679402790","","","",0,0,0,0,0,0,0,1,0);
 
 
 
@@ -105,6 +107,15 @@ CREATE TABLE follower_following(
   follower_id       TEXT,
   following_id      TEXT,
   PRIMARY KEY(follower_id,following_id)
+) Without ROWID;
+
+
+
+DROP TABLE IF EXISTS twitter_gold_keys;
+CREATE TABLE twitter_gold_keys(
+  verification_key        TEXT NOT NULL,
+  user_fk                 TEXT UNIQUE NOT NULL,
+  PRIMARY KEY(verification_key, user_fk)
 ) Without ROWID;
 
 

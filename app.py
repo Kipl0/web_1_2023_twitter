@@ -57,6 +57,8 @@ import apis.user.api_register
 import apis.user.api_activate_user
 import apis.user.api_delete_user
 import apis.user.api_verify_user
+import apis.user.api_twitter_gold
+import apis.user.api_confirm_twitter_gold
 import apis.user.api_change_password_confirm_new
 # other
 import apis.upload_files

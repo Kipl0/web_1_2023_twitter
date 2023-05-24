@@ -46,6 +46,29 @@ def _(filename):
   return static_file(filename, root="./comment_images")
 
 
+##############################
+#    pictures for twitter
+@get("/pictures/<filename:re:.*\.png>")
+def _(filename):
+  return static_file(filename, root="./pictures")
+
+@get("/pictures/<filename:re:.*\.jpg>")
+def _(filename):
+  return static_file(filename, root="./pictures")
+
+@get("/pictures/<filename:re:.*\.jpeg>")
+def _(filename):
+  return static_file(filename, root="./pictures")
+
+@get("/pictures/<filename:re:.*\.PNG>")
+def _(filename):
+  return static_file(filename, root="./pictures")
+
+@get("/pictures/<filename:re:.*\.gif>")
+def _(filename):
+  return static_file(filename, root="./pictures")
+
+
 
 ##############################
 @get("/avatar/<filename:re:.*\.png>")
