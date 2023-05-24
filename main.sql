@@ -91,6 +91,16 @@ CREATE TABLE accounts_to_verify(
 
 
 
+-- Da denne handling KUN skal udføres ved registre 1 gang, laver jeg en ny tabel, fremfor at user-tabellen skal gøres større og kalde en ligegyldig værdi
+DROP TABLE IF EXISTS accounts_to_change_password;
+CREATE TABLE accounts_to_change_password(
+  change_password_user_key         TEXT UNIQUE NOT NULL,
+  change_password_user_fk          TEXT UNIQUE NOT NULL,
+  PRIMARY KEY(change_password_user_key)
+)WITHOUT ROWID;
+
+
+
 DROP TABLE IF EXISTS follower_following;
 CREATE TABLE follower_following(
   follower_id       TEXT,

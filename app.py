@@ -34,6 +34,7 @@ import routes.send_message
 import routes.upload_picture
 import routes.jwt_test
 import routes.verify_user
+import routes.change_password
 import routes.tester_create_hashpw #Hash password, når main.sql opdateres manuelt...
 import routes.static_files
 

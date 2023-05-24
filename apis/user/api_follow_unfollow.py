@@ -36,6 +36,7 @@ def _():
 
     except Exception as ex :
         try: # Controlled exception, usually comming from the x file
+            print(x)
             response.status = ex.args[0]
             return {"info":ex.args[1]}
         except: # Something unknown went wrong
