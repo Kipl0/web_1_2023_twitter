@@ -1,5 +1,5 @@
 from bottle import post, request, response
-from apis.change_password_email import send_change_password_email
+from apis.messages_to_users.change_password_email import send_change_password_email
 import uuid
 import x
 
@@ -7,7 +7,6 @@ import x
 def _():
     try :
         db = x.db()
-        # TODO
 
         # få fat på email input
         # Validate både om det er en email i validate() js
@@ -36,7 +35,9 @@ def _():
         return {"info":"ok"}
 
     except Exception as ex :
-        pass
+        print(ex)
+        response.status = 400
+        return {"error": str(ex)}
 
 
     finally : 
