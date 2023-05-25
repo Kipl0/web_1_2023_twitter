@@ -36,6 +36,7 @@ import routes.upload_picture
 import routes.jwt_test
 import routes.verify_user
 import routes.change_password_page
+import routes.self_deactivate_profile
 import routes.tester_create_hashpw #Hash password, når main.sql opdateres manuelt...
 import routes.static_files
 
@@ -53,13 +54,16 @@ import apis.user.api_follow_unfollow
 import apis.user.api_update_profile
 import apis.user.api_change_password_submit
 import apis.user.api_deactivate_user
+import apis.user.api_confirm_self_deactivate_profile
 import apis.user.api_register
 import apis.user.api_activate_user
 import apis.user.api_delete_user
+import apis.user.api_self_deactivate_profile
 import apis.user.api_verify_user
 import apis.user.api_twitter_gold
 import apis.user.api_confirm_twitter_gold
 import apis.user.api_change_password_confirm_new
+
 # other
 import apis.upload_files
 import apis.api_get_latest_tweets

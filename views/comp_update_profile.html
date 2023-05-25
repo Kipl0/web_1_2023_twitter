@@ -53,17 +53,9 @@
       <form id="deactivate_user_form" method="POST" action="" class="flex flex-col justify-center items-center">
           <section class="flex w-full justify-center">
             <input id="deactivate_user{{user['user_id']}}" type="text" name="deactivate_user_{{user['user_id']}}" class="hidden">
-            <button onclick="show_confirm_button(); return false" id="deactivate_profile_btn" type="button" class="flex justify-center items-center h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-8 border-2 border-zinc-500" style="position: relative;">
+            <button onclick="deactivate_own_profile(); return false" id="deactivate_profile_btn" type="button" class="flex justify-center items-center h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-8 border-2 border-zinc-500" style="position: relative;">
                 Deactivate user
             </button>
-          </section>
-          <section id="show_confirm_buttons" class="hidden w-full justify-center">
-              <button onclick="show_confirm_button(); return false" type="button" id="cancel_deactivate_profile_btn" class="flex justify-center items-center w-fit h-full hover:cursor-pointer py-2 px-4 mx-2 rounded-bl-md text-black bg-red-400 hover:bg-red-500" >
-                  Cancel deactivate
-              </button>
-              <button onclick="deactivate_own_profile(); return false;" type="submit" class="flex justify-center items-center w-fit h-full hover:cursor-pointer py-2 px-4 mx-2 rounded-br-md text-black bg-[#49b265] hover:bg-[#159947] whitespace-nowrap" >
-                  Deactivate profile 
-              </button>
           </section>
       </form>
     % end

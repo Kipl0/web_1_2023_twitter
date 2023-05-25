@@ -19,26 +19,26 @@ async function update_profile() {
 
 }
 
-function show_confirm_button() {
-    const show_confirm_buttons = document.getElementById("show_confirm_buttons")
-    const deactivate_profile_btn = document.getElementById("deactivate_profile_btn")
+// function show_confirm_button() {
+//     const show_confirm_buttons = document.getElementById("show_confirm_buttons")
+//     const deactivate_profile_btn = document.getElementById("deactivate_profile_btn")
 
-    // dobbelttjek her er nødvendigt i tilfælde af at bruger har klikker på cancel
-    if (show_confirm_buttons.classList.contains("hidden")) {
-      show_confirm_buttons.classList.remove("hidden")
-      show_confirm_buttons.classList.add("flex")
+//     // dobbelttjek her er nødvendigt i tilfælde af at bruger har klikker på cancel
+//     if (show_confirm_buttons.classList.contains("hidden")) {
+//       show_confirm_buttons.classList.remove("hidden")
+//       show_confirm_buttons.classList.add("flex")
 
-      deactivate_profile_btn.classList.remove("flex")
-      deactivate_profile_btn.classList.add("hidden")
+//       deactivate_profile_btn.classList.remove("flex")
+//       deactivate_profile_btn.classList.add("hidden")
 
-    } else {
-      show_confirm_buttons.classList.add("hidden")
-      show_confirm_buttons.classList.remove("flex")
+//     } else {
+//       show_confirm_buttons.classList.add("hidden")
+//       show_confirm_buttons.classList.remove("flex")
 
-      deactivate_profile_btn.classList.add("flex")
-      deactivate_profile_btn.classList.remove("hidden")
-    }
-}
+//       deactivate_profile_btn.classList.add("flex")
+//       deactivate_profile_btn.classList.remove("hidden")
+//     }
+// }
 
 
 
@@ -67,20 +67,7 @@ function close_edit_profile(event) {
     edit_profile_pop_up.classList.add("hidden")
     edit_profile_pop_up.classList.remove("flex")
 
-    // hvis brugeren klikker deaktiver og herefter lukker update
-    // så knappen starter forfra
-    const show_confirm_buttons = document.getElementById("show_confirm_buttons")
-    const deactivate_profile_btn = document.getElementById("deactivate_profile_btn")
 
-    // dobbelttjek her er nødvendigt i tilfælde af at bruger har klikker på cancel
-    if (show_confirm_buttons.classList.contains("flex")) {
-      show_confirm_buttons.classList.remove("flex")
-      show_confirm_buttons.classList.add("hidden")
-
-      deactivate_profile_btn.classList.add("flex")
-      deactivate_profile_btn.classList.remove("hidden")
-
-    }
   }
 }
 

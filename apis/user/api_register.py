@@ -4,7 +4,7 @@ import uuid
 import time
 import bcrypt
 import os
-from apis.send_verification_email import send_verification_email
+from apis.messages_to_users.send_verification_email import send_verification_email
 
 @post("/register")
 def _():

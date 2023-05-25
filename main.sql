@@ -119,6 +119,15 @@ CREATE TABLE twitter_gold_keys(
 ) Without ROWID;
 
 
+
+DROP TABLE IF EXISTS accounts_to_self_deactivate;
+CREATE TABLE accounts_to_self_deactivate(
+  deactivate_key          TEXT NOT NULL,
+  user_fk                 TEXT UNIQUE NOT NULL,
+  PRIMARY KEY(deactivate_key)
+) Without ROWID;
+
+
 -- CREATE UNIQUE INDEX idx_users_ ON users(user_username);
 
 -- CREATE INDEX idx_users_user_first_name ON users(user_first_name);
