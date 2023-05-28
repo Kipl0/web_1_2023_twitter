@@ -11,10 +11,13 @@ def _(tweet_id):
         db = x.db()
 
         tweets_and_user_data = db.execute("SELECT * FROM tweets, users WHERE tweets.tweet_user_fk = users.user_id AND tweet_id = ?", (tweet_id,)).fetchone()
-        
         # Man kan ikke returnere en dictionary i en dictionary som json (den hentes som json i js) - derfor bruges json.dumps i python og parse i js
         # fordi password er hashed er det et byte objekt og derfor ikke validt json, så det bliver decoded til string her.
         tweets_and_user_data['user_password'] = tweets_and_user_data['user_password'].decode('utf-8')
+        # Denne linje fejler, fordi hvis den allerede er en string, kan den ikke decodes - vi tjekker derfor om det er en byte først
+        # if isinstance(tweets_and_user_data['user_password'], bytes):
+        #     tweets_and_user_data['user_password'] = tweets_and_user_data['user_password'].decode('utf-8')
+
         
         ## når bruger 
 
