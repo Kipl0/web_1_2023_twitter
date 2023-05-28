@@ -27,7 +27,9 @@ def _():
           return "Picture not allowed"
         uploaded_tweet_image_name = str(uuid.uuid4().hex)
         uploaded_tweet_image_name = uploaded_tweet_image_name + ext
+        print("Saving image")
         uploaded_tweet_image.save(f"tweet_images/{uploaded_tweet_image_name}")
+        print("Image saved")
         # return "Picture uploaded"
     else:
       uploaded_tweet_image_name = ""
