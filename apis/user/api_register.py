@@ -26,9 +26,10 @@ def _():
         hashed_password = bcrypt.hashpw(user_input_password, salt)
 
 
+
         #Upload avatar
         uploaded_avatar = request.files.get("uploaded_avatar") #files i formen
-        if uploaded_avatar.filename != "empty" :
+        if uploaded_avatar != None :
             name, ext = os.path.splitext(uploaded_avatar.filename)
             if ext == "" : 
                 #Because of enctype the uploaded picture is not "none", but the extension is - so if there's no upload ext will be an empty string or just none
@@ -47,7 +48,7 @@ def _():
 
         #Upload banner
         uploaded_banner = request.files.get("uploaded_banner") #files i formen
-        if uploaded_banner.filename != "empty" :
+        if uploaded_banner != None :
             name, ext = os.path.splitext(uploaded_banner.filename)
             if ext == "" : 
                 #Because of enctype the uploaded picture is not "none", but the extension is - so if there's no upload ext will be an empty string or just none
