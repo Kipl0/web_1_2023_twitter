@@ -15,10 +15,15 @@ def render_frontpage():
     response.add_header("Expires",0)
 
     user_cookie = request.get_cookie("user_cookie", secret="my-secret") #vi vil gerne have fat i en cookie fra browseren der hedder "user_cookie" det har vi defineret i login.py
+    
+    if user_cookie == None:
+      response.status = 303
+      response.set_header("Location", "/login")
+      return
+      #return template("login",  USER_NAME_MIN=x.USER_NAME_MIN, USER_NAME_MAX=x.USER_NAME_MAX, PASSWORD_MIN=x.PASSWORD_MIN, PASSWORD_MAX=x.PASSWORD_MAX)
 
     who_to_follow = []
-    if user_cookie != None:
-      who_to_follow = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ? LIMIT 3",(user_cookie["user_username"],"Admin"))
+    who_to_follow = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ? LIMIT 3",(user_cookie["user_username"],"Admin"))
 
     trends = db.execute("SELECT * FROM trends")
 
