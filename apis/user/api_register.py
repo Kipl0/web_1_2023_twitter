@@ -110,7 +110,7 @@ def _():
 
 
         # Send email to user if registered, "reciever_email = " øger bare læsbarhed - kan undværes
-        #send_verification_email(reciever_email=user_email, verification_key=verification_key)
+        send_verification_email(reciever_email=user_email, verification_key=verification_key)
 
 
 
