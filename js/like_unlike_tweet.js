@@ -1,4 +1,6 @@
-// Like eller unlike et tweet 1 gang per bruger
+/**
+ * Like eller unlike et tweet 1 gang per bruger
+ */
 async function like_tweet() {
     try {
         // Hent event target som i vores tilfælde er en form
@@ -27,6 +29,10 @@ async function like_tweet() {
     }
 }
 
+/**
+ * Opdater like iconet efter like/unlike
+ * @param {object} data - data som inderholder tweet informationer.
+ */
 function update_like_icon(data){
     // Definer farver for like og unlike 
     const buttonColorClasses = ["fill-pink-600", "text-pink-600", "fill-gray-500", "text-gray-500"]

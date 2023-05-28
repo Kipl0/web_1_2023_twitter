@@ -12,7 +12,3 @@ def verify_accout(verification_key):
         print(ex)
         response.status = 400
         return {"error": str(ex)}
-
-
-    finally : 
-        if "db" in locals : close.db()

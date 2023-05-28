@@ -1,3 +1,7 @@
+/**
+ * Denne funktion bliver kaldt en gang når js filen bliver importeret
+ * - Formålet med dette er at lave kun en eventlistener.
+ */
 function comment_init() {
     // Hvis brugeren ønsker at lave kommentar med billede
     let uploaded_comment_img = "";
@@ -14,4 +18,5 @@ function comment_init() {
 
 }
 
+// Kald når js filen bliver importeret
 comment_init()

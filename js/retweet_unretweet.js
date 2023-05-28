@@ -1,4 +1,6 @@
-//Like eller unlike et tweet 1 gang per bruger
+/**
+ * Like eller unlike et tweet 1 gang per bruger
+ */
 async function retweet_tweet() {
     try {
         // Hent event target som i vores tilfælde er en form
@@ -28,6 +30,10 @@ async function retweet_tweet() {
     }
 }
 
+/**
+ * Åbn & Luk pop up til logud i navbar
+ * @param {object} data - Data som inderholder tweet informationer.
+ */
 function update_retweet_icon(data){
     // Definer farver for retweet
     const buttonColorClasses = ["fill-emerald-500", "text-emerald-500", "fill-gray-500", "text-gray-500"]

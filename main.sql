@@ -41,14 +41,64 @@ CREATE TABLE users(
   PRIMARY KEY(user_id)
 ) WITHOUT ROWID;
 
+-- ----------- Virtual Users Table --------------
+-- Create the users_search virtual table
+DROP TABLE IF EXISTS users_search;
+CREATE VIRTUAL TABLE users_search USING FTS5(
+  user_virtual_id,
+  user_username,
+  user_first_name,
+  user_last_name,
+  user_avatar
+);
+
+
+-- Create a trigger to automatically update the users_search virtual table on INSERT
+DROP TRIGGER IF EXISTS insert_user_in_users_search;
+CREATE TRIGGER insert_user_in_users_search
+AFTER INSERT ON users
+BEGIN
+  INSERT INTO users_search (user_virtual_id, user_username, user_first_name, user_last_name, user_avatar)
+  VALUES (NEW.user_id, NEW.user_username, NEW.user_first_name, NEW.user_last_name, NEW.user_avatar);
+END;
+
+
+-- Create a trigger to automatically update the users_search virtual table on UPDATE
+DROP TRIGGER IF EXISTS update_user_in_users_search;
+CREATE TRIGGER update_user_in_users_search
+AFTER UPDATE ON users
+BEGIN
+  UPDATE users_search
+  SET user_username = NEW.user_username,
+      user_first_name = NEW.user_first_name,
+      user_last_name = NEW.user_last_name,
+      user_avatar = NEW.user_avatar
+  WHERE user_virtual_id = NEW.user_id;
+END;
+
+
+-- Create a trigger to automatically update the users_search virtual table on DELETE'
+DROP TRIGGER IF EXISTS delete_user_in_users_search;
+CREATE TRIGGER delete_user_in_users_search
+AFTER DELETE ON users
+BEGIN
+  DELETE FROM users_search WHERE user_virtual_id = OLD.user_id;
+END;
+
+
+
 INSERT INTO users VALUES("51602a9f7d82472b90ed1091248f6cb1","HarryMemes","HarryMemes@gmail.com","123","Harry Potter", "Memes", "51602a9f7d82472b90ed1091248f6cb1.jpeg", "ad1bfe9ce6e44a009b57a1a183ccb202.jpg", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1,0);
 INSERT INTO users VALUES("a22da1effb3d4f03a0f77f9aa8320203","geekdaddy75","geekdaddy75@gmail.com","123","GeekDaddy", "Memes", "a22da1effb3d4f03a0f77f9aa8320203.jpg", "e130fd8b81d049a1b2fafbca9c5a15e3.png", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1,0);
 INSERT INTO users VALUES("6268331d012247539998d7664bd05cc1","katyperry","Katy@gmail.com","123","Katy", "Perry", "6268331d012247539998d7664bd05cc1.jpg", "494e6a7fdadb4b3cae58d37a4fad879c.jpg", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1,0);
 INSERT INTO users VALUES("07578f6c49d84b7c94ce80e96c64ccc0","majs503","maalmaja@gmail.com","123","Maja", "Larsen", "07578f6c49d84b7c94ce80e96c64ccc0.jpg", "dd5582fff3ca4f7f9f97a911f3e77b22.jpg", "1679402780","","1684880883",1,0,0,0,0,0,0,0,1,0);
 INSERT INTO users VALUES("16edc063917a4e589c4d6e7524df39ef","Admin","admin@twitter.com","123","Admin", "Admin", "admin.png", "default_banner.png", "1652354259","","","1684880883",0,0,0,0,0,0,0,1,0);
-
-
 -- DELETE FROM users WHERE user_username = "majs503";
+
+
+
+
+
+
 
 -- ----------- Deleted Users --------------
 DROP TABLE IF EXISTS deleted_users;

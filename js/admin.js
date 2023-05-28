@@ -30,15 +30,47 @@ async function deactivate_user() {
 }
 /**
  * Hvis confirmer knappen
+ * @param {HTMLElement} delete_user_button - button that is pressed
  */
-function show_confirm_button() {
-    // Hent delete user knap og show confirm knapper 
-    const delete_user_button = document.getElementById("delete_user_button")
-    const show_confirm_buttons = document.getElementById("show_confirm_buttons")
+function show_confirm_button(delete_user_button) {
 
+
+    const tweet_option_popup_text = "show_confirm_buttons_admin_"
+    
+    // Split the text from the id where _
+    const parts = delete_user_button.id.split("_");
+    const id = parts[parts.length - 1];
+    const show_confirm_buttons = document.getElementById(tweet_option_popup_text + id)
+    
     // Opdater styling
-    show_confirm_buttons.style.display = "flex"
-    delete_user_button.style.display = "none"
+    show_confirm_buttons.classList.remove("hidden")
+    show_confirm_buttons.classList.add("flex")
+    
+    delete_user_button.classList.remove("flex")
+    delete_user_button.classList.add("hidden")
+}
+
+/**
+ * Hvis confirmer knappen
+* @param {HTMLElement} button - button that is pressed
+ */
+function hide_confirm_button(button) {
+    const show_confirm_buttons_admin = "show_confirm_buttons_admin_"
+    const delete_user_button = "delete_user_button_"
+
+    // Split the text from the id where _
+    const parts = button.id.split("_");
+    const id = parts[parts.length - 1];
+
+    const show_confirm_buttons_admin_element = document.getElementById(show_confirm_buttons_admin + id)
+    const delete_user_button_element = document.getElementById(delete_user_button + id)
+    
+    // Opdater styling
+    delete_user_button_element.classList.remove("hidden")
+    delete_user_button_element.classList.add("flex")
+    
+    show_confirm_buttons_admin_element.classList.remove("flex")
+    show_confirm_buttons_admin_element.classList.add("hidden")
 }
 
 /**
@@ -116,6 +148,7 @@ const cancel_delete_user_btn = document.getElementById("cancel_delete_user_btn")
 
 /**
  * Hent og toggle popup user options til enten at være synlig eller usynlig
+ * @param {HTMLElement} user_options_btn - Button element der ver klikket på for at aktivere denne funktion.
  */
 function open_user_options(user_options_btn) {
     // Definer først del af user_option_popup_text elementes id
@@ -162,10 +195,8 @@ function init() {
             active_popup = null
 
             // Hvis Admin har klikket på "delete" knappen, men lukket pop-uppen ved at klikke på skærm i stedet for "cancel" knappen - det her stiller til default
-            const delete_user_button = document.getElementById("delete_user_button")
             const show_confirm_buttons = document.getElementById("show_confirm_buttons")
             show_confirm_buttons.style.display = "none"
-            delete_user_button.style.display = "flex"
         } 
     });
 }

@@ -1,24 +1,36 @@
-
-
+/**
+ * Verificer en brugers konto 
+ */
 async function verify_account() {
+    try {
+        // Hent verification nøglen fra url
+        url = window.location.href
+        url_split = url.split("/")
+        verification_key = url_split[url_split.length - 1] // Få det sidste element fra array
 
-    url = window.location.href
-    url_split = url.split("/")
+        //TODO
+        // hent id fra h1, p og spinner
+        // gør h1 til succes text
+        // gør p tag til login knap 
+        // gør spinner til succes ikon
 
-    verification_key = url_split[url_split.length - 1] //få det sidste element fra array
+        // Lav reqeust til vores API om at verify email
+        const conn = await fetch(`/verify-email/${verification_key}`,{
+            method: "POST"
+        })
 
-    //TODO
-    // hent id fra h1, p og spinner
-    // gør h1 til succes text
-    // gør p tag til login knap 
-    // gør spinner til succes ikon
+        // Hent response fra API
+        const data = await conn.json()
 
-    const conn = await fetch(`/verify-email/${verification_key}`,{
-        method: "POST"
-    })
-    const data = await conn.json()
+        // Tjek om requestet gik igennem og kast en error hvis ikke det skete
+        if( !conn.ok || data.info != "ok" ) {
+            verify_header.innerHTML = "Cannot verify your accout!"
+            verify_text.innerHTML = "Please, try again later"
+            verify_spinner.classList.add("hidden")
+            throw new TypeError("Something went wrong");
+        }
 
-    if(conn.ok && data.info == "ok") {
+        
         const verify_header = document.getElementById("verify_header")
         const verify_text = document.getElementById("verify_text")
         const verify_login_btn = document.getElementById("verify_login_btn")
@@ -35,12 +47,10 @@ async function verify_account() {
 
         verify_succes.classList.remove("hidden")
         verify_succes.classList.add("flex")
-
-
-    } else {
-        verify_header.innerHTML = "Cannot verify your accout!"
-        verify_text.innerHTML = "Please, try again later"
-        verify_spinner.classList.add("hidden")
+    } 
+    catch ({ name, message }) {
+        console.log(name); 
+        console.log(message); 
     }
 }
 

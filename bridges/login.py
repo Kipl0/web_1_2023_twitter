@@ -17,7 +17,7 @@ def _():
 
         if not does_user_exist:
             raise Exception(400, "Cannot login")
-
+        
         user_not_verified = db.execute("SELECT * FROM accounts_to_verify WHERE verify_user_fk = ?",(does_user_exist['user_id'],)).fetchone()
         # tjek om bruger ligger i verify tabel
         if not user_not_verified == None :
@@ -33,12 +33,12 @@ def _():
 
         response.set_cookie("user_cookie", does_user_exist, secret=x.COOKIE_SECRET, httponly=True)
         cookie_expiration_date = int(time.time()) + 7200
-        return
+        return {"info": "ok"}
     except Exception as ex:
         # Handle the exception or re-raise it if needed
         response.status = 400
         print(ex)
-        return template("login", ex=ex)
+        return {"info": str(ex)}
         # except Exception as ex:
     finally:
         if "db" in locals(): db.close()
