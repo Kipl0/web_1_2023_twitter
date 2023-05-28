@@ -1,6 +1,5 @@
 
 let active_popup = null;
-
 let tweet_options_btn_g 
 let tweet_option_popup
 
@@ -19,14 +18,15 @@ init()
 
 function tweet_options_popup(tweet_options_btn) {
     tweet_options_btn_g = tweet_options_btn
-    const tweet_option_popup_text = "tweet_option_popup_";
-
+    const tweet_option_popup_text = "tweet_option_popup"
+    
     // Split the text from the id where _
     const parts = tweet_options_btn.id.split("_");
     const id = parts[parts.length - 1];
+    const retweet_identifyer = parts[parts.length - 2]
 
-    const tweet_option_popup_and_id = tweet_option_popup_text + id;
-
+    const tweet_option_popup_and_id = tweet_option_popup_text + "_" + retweet_identifyer + "_" + id;
+    console.log(tweet_option_popup_and_id)
     tweet_option_popup = document.getElementById(tweet_option_popup_and_id);
 
     // Show and hide popup
@@ -51,22 +51,26 @@ function tweet_options_popup(tweet_options_btn) {
 
 
 async function delete_tweet(){
-    const frm = event.target
+    try {
+        const frm = event.target
 
-    const conn = await fetch("/delete-tweet", {
-        method : "DELETE",
-        body : new FormData(frm),        
-    })
+        const conn = await fetch("/delete-tweet", {
+            method : "DELETE",
+            body : new FormData(frm),        
+        })
 
-    const data = await conn.json()
+        const data = await conn.json()
 
-    if( conn.ok && data.info == "ok" ) {
+        if( !conn.ok || data.info != "ok" ) {
+            throw new TypeError("Something went wrong. Cannot like tweet");
+        }
+    
         const testertester = document.getElementById(`${data.tweet_to_delete_id}`)
-        
         testertester.style.display="none"
-
-    } else {
-        console.log("cannot delete tweet")
-    }   
+    } 
+    catch ({ name, message }) {
+        console.log(name); 
+        console.log(message); 
+    }
 }
 

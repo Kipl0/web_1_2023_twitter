@@ -14,11 +14,11 @@ def _():
         #get data validated data from form.
         user_email = x.validate_user_email()
         user_username = x.validate_user_name()
+        user_first_name = x.validate_user_first_name()
+        user_last_name = x.validate_user_last_name()
         user_password = x.validate_user_password()
         x.validate_user_confirm_password()
         
-        user_first_name = request.forms.get("user_first_name")
-        user_last_name = request.forms.get("user_last_name")
         
         #password bcrypt - hashing
         user_input_password = user_password.encode('utf-8')
@@ -52,7 +52,7 @@ def _():
         else:
             if ext not in(".jpg", ".jpeg", ".png"):
                 response.status = 400
-                return "Picture not allowed"
+                raise Exception("Picture not allowed")
             picture_name_banner = str(uuid.uuid4().hex)
             picture_name_banner = picture_name_banner + ext
             uploaded_banner.save(f"banner/{picture_name_banner}")
@@ -93,7 +93,8 @@ def _():
         total_rows_inserted = db.execute(f"INSERT INTO users VALUES({values})", user).rowcount
         db.commit()
 
-        if total_rows_inserted != 1 : raise Exception("Please try again")
+        if total_rows_inserted != 1 : 
+            raise Exception("Please try again")
 
 
 
@@ -104,11 +105,11 @@ def _():
 
 
         # Send email to user if registered, "reciever_email = " øger bare læsbarhed - kan undværes
-        send_verification_email(reciever_email=user_email, verification_key=verification_key)
+        #send_verification_email(reciever_email=user_email, verification_key=verification_key)
 
 
 
-        return template("login")
+        return {"info": "ok"}
 
     except Exception as e:
         print(e)

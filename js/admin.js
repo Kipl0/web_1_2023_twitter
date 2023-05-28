@@ -1,113 +1,142 @@
-
-
-
+/**
+ * Lav et request til vores api om at deaktivere brugeren
+ */
 async function deactivate_user() {
-    const frm = event.target.form
-    const conn = await fetch("/deactivate-user", {
-        method : "POST",
-        body : new FormData(frm),        
-    })
-    const data = await conn.json()
+    try {
+        // Hent event target som i vores tilfælde er en form
+        const frm = event.target.form
 
-    if( conn.ok && data.info == "ok" ) {
-        console.log("deactivating user")
+        // Lav reqeust til vores API om at deactivate-user
+        const conn = await fetch("/deactivate-user", {
+            method : "POST",
+            body : new FormData(frm),        
+        })
+
+        // Hent response fra API
+        const data = await conn.json()
+
+        // Tjek om requestet var succesfuldt
+        if( !conn.ok || data.info != "ok" ) {
+            throw new TypeError("Something went wrong. Cannot write comment to tweet");
+        }
+    
+        // Reload side 
         location.reload()
-    } else {
-        console.log("cannot deactivate user")
+    } 
+    catch ({ name, message }) {
+        console.log(name); 
+        console.log(message); 
     }
 }
-
+/**
+ * Hvis confirmer knappen
+ */
 function show_confirm_button() {
+    // Hent delete user knap og show confirm knapper 
     const delete_user_button = document.getElementById("delete_user_button")
     const show_confirm_buttons = document.getElementById("show_confirm_buttons")
+
+    // Opdater styling
     show_confirm_buttons.style.display = "flex"
     delete_user_button.style.display = "none"
 }
 
+/**
+ * Lav et request til vores api om at gøre brugeren aktiv igen
+ */
 async function activate_user() {
-    const frm = event.target.form
-    const conn = await fetch("/activate-user", {
-        method : "POST",
-        body : new FormData(frm),        
-    })
-    const data = await conn.json()
+    try {
+        // Hent event target som i vores tilfælde er en form
+        const frm = event.target.form
 
-    if( conn.ok && data.info == "ok" ) {
-        console.log("activating user")
+        // Lav reqeust til vores API om at activate-user
+        const conn = await fetch("/activate-user", {
+            method : "POST",
+            body : new FormData(frm),        
+        })
+
+        // Hent response fra API
+        const data = await conn.json()
+
+        // Tjek om requestet var succesfuldt
+        if( !conn.ok || data.info != "ok" ) {
+            throw new TypeError("Something went wrong. Cannot write comment to tweet");
+        }
+
+        // Reload siden
         location.reload()
-    } else {
-        console.log("cannot activate user")
+    } 
+    catch ({ name, message }) {
+        console.log(name); 
+        console.log(message); 
     }
 }
 
-
+/**
+ * Lav et request til vores api om at slette brugeren fra databasen
+ */
 async function delete_user() {
-    const frm = event.target.form
-    const conn = await fetch("/delete-user", {
-        method : "DELETE",
-        body : new FormData(frm),        
-    })
-    const data = await conn.json()
+    try {
+        // Hent event target som i vores tilfælde er en form
+        const frm = event.target.form
 
-    if( conn.ok && data.info == "ok" ) {
-        console.log("deleting user")
+        // Lav reqeust til vores API om at activate-user
+        const conn = await fetch("/delete-user", {
+            method : "DELETE",
+            body : new FormData(frm),        
+        })
+
+        // Hent response fra API
+        const data = await conn.json()
+
+        // Tjek om requestet var succesfuldt
+        if( !conn.ok || data.info != "ok" ) {
+            throw new TypeError("Something went wrong. Cannot write comment to tweet");
+        }
+
+        // Reload siden
         location.reload()
-    } else {
-        console.log("cannot delete user")
+    } 
+    catch ({ name, message }) {
+        console.log(name); 
+        console.log(message); 
     }
 }
 
     
 
-
+// Definer globale variabler
 let active_popup = null;
-
 let user_options_btn_g 
 let user_option_popup
-
 const cancel_delete_user_btn = document.getElementById("cancel_delete_user_btn")
 
-// lav kun en eventlistener ved init, og ikke ved hvert klik
-function init() {
-    // Close popup when clicked outside button and popup
-    document.addEventListener("click", (e) => {
-         if (active_popup && e.target !== active_popup.button && !active_popup.popup.contains(e.target)  && !active_popup.button.contains(e.target) || e.target == cancel_delete_user_btn) {
-            active_popup.popup.classList.remove("flex");
-            active_popup.popup.classList.add("hidden");
-            active_popup = null
 
-            console.log(e.target)
 
-            // Hvis Admin har klikket på "delete" knappen, men lukket pop-uppen ved at klikke på skærm i stedet for "cancel" knappen - det her stiller til default
-            const delete_user_button = document.getElementById("delete_user_button")
-            const show_confirm_buttons = document.getElementById("show_confirm_buttons")
-            show_confirm_buttons.style.display = "none"
-            delete_user_button.style.display = "flex"
-        } 
-    });
-}
-init()
 
+/**
+ * Hent og toggle popup user options til enten at være synlig eller usynlig
+ */
 function open_user_options(user_options_btn) {
-    user_options_btn_g = user_options_btn
+    // Definer først del af user_option_popup_text elementes id
     const user_option_popup_text = "user_option_popup_";
 
-    // Split the text from the id where _
+    // Split input elements id for hvert "_" karakter, for at få id'et som står bagerst 
     const parts = user_options_btn.id.split("_");
     const id = parts[parts.length - 1];
 
+    // Definer det fulde id på det element vi ønsker at finde og hent det
     const user_option_popup_and_id = user_option_popup_text + id;
-
     user_option_popup = document.getElementById(user_option_popup_and_id);
     
-    // Show and hide popup
+    // Skjul popup
     if (active_popup && active_popup.popup !== user_option_popup) {
         active_popup.popup.classList.remove("flex");
         active_popup.popup.classList.add("hidden");
         active_popup = null;
     }
 
-    // Toggle the visibility of the popup
+    // Toggle popup elemented til enten at være synlig eller usynlig
     if (user_option_popup.classList.contains("hidden")) {
         user_option_popup.classList.remove("hidden");
         user_option_popup.classList.add("flex");
@@ -118,3 +147,28 @@ function open_user_options(user_options_btn) {
         active_popup = null;
     }
 }
+
+/**
+ * Denne funktion bliver kaldt en gang når js filen bliver importeret
+ * - Formålet med dette er at lave kun en eventlistener.
+ */
+function init() {
+    // Opret event listner når brugeren klikker på musen
+    document.addEventListener("click", (e) => {
+        // Tjek om brugeren har klikket inden for knappen og popup vinduet: Hvis true så luk popup
+        if (active_popup && e.target !== active_popup.button && !active_popup.popup.contains(e.target)  && !active_popup.button.contains(e.target) || e.target == cancel_delete_user_btn) {
+            active_popup.popup.classList.remove("flex");
+            active_popup.popup.classList.add("hidden");
+            active_popup = null
+
+            // Hvis Admin har klikket på "delete" knappen, men lukket pop-uppen ved at klikke på skærm i stedet for "cancel" knappen - det her stiller til default
+            const delete_user_button = document.getElementById("delete_user_button")
+            const show_confirm_buttons = document.getElementById("show_confirm_buttons")
+            show_confirm_buttons.style.display = "none"
+            delete_user_button.style.display = "flex"
+        } 
+    });
+}
+
+// Kald init når js filen bliver importeret
+init()

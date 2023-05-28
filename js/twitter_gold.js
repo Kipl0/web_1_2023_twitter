@@ -43,25 +43,25 @@ async function send_sms(sms_message, sms_to_phone) {
 
 }
 
-// async function confirm_twitter_gold() {
-//     const frm = event.target   
-//     const conn = await fetch("/confirm-twitter-gold", {
-//         method: "POST",
-//         body : new FormData(frm)
-//     })
+async function confirm_twitter_gold() {
+    const frm = event.target   
+    const conn = await fetch("/confirm-twitter-gold", {
+        method: "POST",
+        body : new FormData(frm)
+    })
 
-//     const data = await conn.json()
+    const data = await conn.json()
 
-//     if(conn.ok && data.info == "ok") {
-//         const get_twitter_gold_form = document.getElementById("get_twitter_gold_form")
-//         const twitter_gold_tip = document.getElementById("twitter_gold_tip")
+    if(conn.ok && data.info == "ok") {
+        const get_twitter_gold_form = document.getElementById("get_twitter_gold_form")
+        const twitter_gold_tip = document.getElementById("twitter_gold_tip")
 
-//         confirm_digits_form.classList.remove("flex")
-//         confirm_digits_form.classList.add("hidden")
+        confirm_digits_form.classList.remove("flex")
+        confirm_digits_form.classList.add("hidden")
 
-//         twitter_gold_tip.innerHTML = "Cheers! You upgraded to twitter gold!"
-//     } else {
-//         twitter_gold_tip.innerHTML = "Something went wrong, please try again"
-//         console.log("nope")
-//     }
-// }
+        twitter_gold_tip.innerHTML = "Cheers! You upgraded to twitter gold!"
+    } else {
+        twitter_gold_tip.innerHTML = "Something went wrong, please try again"
+        console.log("nope")
+    }
+}

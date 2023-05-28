@@ -103,7 +103,7 @@ def _(user_username):
 
 
 
-    return template("profile", user=user, tweets_and_user_data=tweets_and_user_data, trends=trends, user_cookie=user_cookie, who_to_follow=who_to_follow, page="profile", TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
+    return template("profile", user=user, tweets_and_user_data=tweets_and_user_data, trends=trends, user_cookie=user_cookie, who_to_follow=who_to_follow, page="profile", TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN, USER_FIRST_NAME_MIN=x.USER_FIRST_NAME_MIN, USER_FIRST_NAME_MAX=x.USER_FIRST_NAME_MAX, USER_LAST_NAME_MIN=x.USER_LAST_NAME_MIN, USER_LAST_NAME_MAX=x.USER_LAST_NAME_MAX)
 
 
 

@@ -2,11 +2,19 @@
 
 // ##############################
 function validate(callback){
-    const form = event.target.form
-    // const form = document.getElementById("testertest")
+    let form = event.target.form
+    if(form == undefined){
+      form = event.target
+    }
+    
+    const infoText = document.getElementById("infoText")
+    infoText.innerHTML = ""
+    infoText.classList.add("hidden")
+
     const validate_error = "rgba(253, 63, 100, 1)"
     form.querySelectorAll("[data-validate]").forEach(function(element){ 
       element.classList.remove("validate_error")
+      element.classList.remove("bg-orange-700")
       // element.style.backgroundColor = "white"
     })
     form.querySelectorAll("[data-validate]").forEach( function(element){
@@ -16,7 +24,11 @@ function validate(callback){
               element.value.length > parseInt(element.getAttribute("data-max")) 
           ){
             element.classList.add("validate_error")
-            element.style.backgroundColor = validate_error
+            element.classList.add("bg-orange-700")
+
+            //element.style.backgroundColor = validate_error
+            infoText.innerHTML = `Field must contain between ${element.getAttribute("data-min")} and ${element.getAttribute("data-max")} characters`
+            infoText.classList.remove("hidden")
           }
         break;
         case "int":

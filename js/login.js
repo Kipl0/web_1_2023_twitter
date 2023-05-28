@@ -15,24 +15,30 @@ function showTip(message){
 
 // ##############################
 async function login(){
-    const btn = event.target
-    btn.disabled = true
-    btn.innerText = btn.getAttribute("data-await")
-    const frm = event.target.form
-    const conn = await fetch("/login", {
-        method : "POST",
-        body : new FormData(frm)
-    })
-    btn.disabled = false
-    btn.innerText = btn.getAttribute("data-default")
-    if( !conn.ok ){
-        console.log("Cannot login")
-        showTip()        
-        return
-    }
-    // Success
-    location.href = `/`
+    try {
+        const btn = event.target
+        btn.disabled = true
+        btn.innerText = btn.getAttribute("data-await")
+        const frm = event.target.form
+        const conn = await fetch("/login", {
+            method : "POST",
+            body : new FormData(frm)
+        })
+        btn.disabled = false
+        btn.innerText = btn.getAttribute("data-default")
+        if( !conn.ok ){
+            console.log("Cannot login")
+            showTip()        
+            return
+        }
+        // Success
+        location.href = `/`
 
-    // const data = await conn.json() //bruges til at få fat i username - for at kunne logge ind på profile   -->   /username
-    // location.href = `/${data.login_username}`  --> hænger sammen med linje 34
+        // const data = await conn.json() //bruges til at få fat i username - for at kunne logge ind på profile   -->   /username
+        // location.href = `/${data.login_username}`  --> hænger sammen med linje 34
+    } 
+    catch ({ name, message }) {
+        console.log(name); 
+        console.log(message); 
+    }
 }

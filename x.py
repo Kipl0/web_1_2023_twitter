@@ -17,7 +17,7 @@ def db():
   try:
     db = sqlite3.connect(str(pathlib.Path(__file__).parent.resolve())+"/twitter.db")
     # db = sqlite3.connect("twitter.db")  
-    # db.execute("PRAGME foreign_keys=ON")
+    db.execute("PRAGMA foreign_keys=ON;")
     db.row_factory = dict_factory
     return db
   except Exception as ex:
@@ -79,8 +79,8 @@ PASSWORD_REGEX = ""
 def validate_user_password():
   error = f"Password must be between {PASSWORD_MIN} and {PASSWORD_MAX} characters"
   request.forms.user_password = request.forms.user_password.strip()
-  if len(request.forms.user_password) < PASSWORD_MIN : raise Exception(error)
-  if len(request.forms.user_password) > PASSWORD_MAX : raise Exception(error)
+  if len(request.forms.user_password) < PASSWORD_MIN : raise Exception(400, error)
+  if len(request.forms.user_password) > PASSWORD_MAX : raise Exception(400, error)
   return request.forms.user_password
 
 
@@ -88,16 +88,27 @@ def validate_user_confirm_password():
   error = "Passwords do not match"
   request.forms.user_password = request.forms.user_password.strip()
   request.forms.user_confirm_password = request.forms.user_confirm_password.strip()
-  if request.forms.user_password != request.forms.user_confirm_password : raise Exception(error)
+  if request.forms.user_password != request.forms.user_confirm_password : raise Exception(400, error)
 
 USER_FIRST_NAME_MIN = 2
 USER_FIRST_NAME_MAX = 20
 
+USER_LAST_NAME_MIN = 2
+USER_LAST_NAME_MAX = 20
+
 def validate_user_first_name():
   error = "Please insert your first name"
   request.forms.user_first_name = request.forms.user_first_name.strip()
-  if len(request.forms.user_first_name) < USER_FIRST_NAME_MIN : raise Exception(error)
-  if len(request.forms.user_first_name) > USER_FIRST_NAME_MAX : raise Exception(error)
+  if len(request.forms.user_first_name) < USER_FIRST_NAME_MIN : raise Exception(400, error)
+  if len(request.forms.user_first_name) > USER_FIRST_NAME_MAX : raise Exception(400, error)
+  return request.forms.user_first_name
+
+def validate_user_last_name():
+  error = "Please insert your last name"
+  request.forms.user_last_name = request.forms.user_last_name.strip()
+  if len(request.forms.user_last_name) < USER_LAST_NAME_MIN : raise Exception(400, error)
+  if len(request.forms.user_last_name) > USER_LAST_NAME_MAX : raise Exception(400, error)
+  return request.forms.user_last_name
 
 
 

@@ -1,23 +1,47 @@
+/**
+ * Lav et request til vores api om at ændre brugerens password
+ */
 async function change_password_confirm() {
+    try {
+        url = window.location.href
+        url_split = url.split("/")
+        user_key = url_split[url_split.length - 1] //få det sidste element fra array
 
-    url = window.location.href
-    url_split = url.split("/")
+        // Hent event target som i vores tilfælde er en form
+        const frm = event.target
 
-    user_key = url_split[url_split.length - 1] //få det sidste element fra array
+        // Lav reqeust til vores API om at confirm-new-password
+        const conn = await fetch(`/confirm-new-password/${user_key}`, {
+            method: "POST",
+            body: new FormData(frm)
+        })
 
-    const frm = event.target
-    const conn = await fetch(`/confirm-new-password/${user_key}`, {
-        method: "POST",
-        body: new FormData(frm)
-    })
-    const data = await conn.json()
-    console.log(data)
+        // Hent response fra API
+        const data = await conn.json()
+        
+        // Hvis brugen ikke opfylder vores validation kriterier, hvis en fejlbesked til brugeren
+        if (conn.status == 400){
+            const infoText = document.getElementById("infoText")
+            infoText.innerHTML = data.info
+            infoText.classList.remove("hidden")
+            return
+        }
 
-    if(conn.ok && data.info == "ok") {
-        console.log("ok")
-        // redirect to login
+        // Hvis ikke password blev opdateret, hvis en fejlbesked til brugeren
+        if( !conn.ok || data.info != "ok" ) {
+            const infoText = document.getElementById("infoText")
+            infoText.innerHTML = data.info
+            infoText.classList.remove("hidden")
+            throw new TypeError(400, "Something went wrong. Cannot write comment to tweet");
+        }
+
+        // Redirect til login siden
         location.href = `/login`
-    } else {
-        console.log("data ikke ok")
+       
+    } 
+    catch ({ name, message }) {
+        console.log(name); 
+        console.log(message); 
+        
     }
 }

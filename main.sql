@@ -11,9 +11,10 @@
 
 
 -- -----------------------------------------------
---                    Users
+--                    TABELS
 -- -----------------------------------------------
 
+-- ----------- Users --------------
 DROP TABLE IF EXISTS users;
 CREATE TABLE users(
   user_id                     TEXT UNIQUE NOT NULL,
@@ -49,7 +50,7 @@ INSERT INTO users VALUES("16edc063917a4e589c4d6e7524df39ef","Admin","admin@twitt
 
 -- DELETE FROM users WHERE user_username = "majs503";
 
-
+-- ----------- Deleted Users --------------
 DROP TABLE IF EXISTS deleted_users;
 CREATE TABLE deleted_users(
   deleted_user_id                     TEXT UNIQUE NOT NULL,
@@ -82,6 +83,7 @@ INSERT INTO deleted_users VALUES("51602a9f7d82472b90ed1091248fa32b","deleted_use
 
 
 -- Da denne handling KUN skal udføres ved registre 1 gang, laver jeg en ny tabel, fremfor at user-tabellen skal gøres større og kalde en ligegyldig værdi
+-- ----------- Accounts to Verify --------------
 DROP TABLE IF EXISTS accounts_to_verify;
 CREATE TABLE accounts_to_verify(
   verify_user_key         TEXT UNIQUE NOT NULL,
@@ -93,6 +95,7 @@ CREATE TABLE accounts_to_verify(
 
 -- Da denne handling KUN skal udføres ved registre 1 gang, laver jeg en ny tabel, fremfor at user-tabellen skal gøres større og kalde en ligegyldig værdi
 -- Brug random uuid i stedet for user_id, så hackers ikke kan change password igen og igen, hvis de først får fat i url
+-- ----------- Accounts to Reset Password --------------
 DROP TABLE IF EXISTS accounts_to_reset_password;
 CREATE TABLE accounts_to_reset_password(
   change_password_user_key         TEXT UNIQUE NOT NULL,
@@ -101,7 +104,7 @@ CREATE TABLE accounts_to_reset_password(
 )WITHOUT ROWID;
 
 
-
+-- ----------- Follower Following --------------
 DROP TABLE IF EXISTS follower_following;
 CREATE TABLE follower_following(
   follower_id       TEXT,
@@ -110,7 +113,7 @@ CREATE TABLE follower_following(
 ) Without ROWID;
 
 
-
+-- ----------- Twitter Gold Keys --------------
 DROP TABLE IF EXISTS twitter_gold_keys;
 CREATE TABLE twitter_gold_keys(
   verification_key        TEXT NOT NULL,
@@ -119,7 +122,7 @@ CREATE TABLE twitter_gold_keys(
 ) Without ROWID;
 
 
-
+-- ----------- Accounts to Self Deactivate --------------
 DROP TABLE IF EXISTS accounts_to_self_deactivate;
 CREATE TABLE accounts_to_self_deactivate(
   deactivate_key          TEXT NOT NULL,
@@ -138,9 +141,7 @@ CREATE TABLE accounts_to_self_deactivate(
 -- SELECT name FROM sqlite_master WHERE type = 'trigger';
 -- ##############################
 
--- -----------------------------------------------
---                    Tweets
--- -----------------------------------------------
+-- ----------- Tweets --------------
 
 DROP TABLE IF EXISTS tweets;
 CREATE TABLE tweets(
@@ -150,12 +151,11 @@ CREATE TABLE tweets(
   tweet_message             TEXT,
   tweet_image               TEXT,
   tweet_updated_at          TEXT, -- Empty at create
-  tweet_total_comments       TEXT,
+  tweet_total_comments      TEXT,
   tweet_total_retweets      TEXT,
   tweet_total_likes         TEXT,
   tweet_total_views         TEXT,
-  PRIMARY KEY(tweet_id),
-  FOREIGN KEY(tweet_user_fk) REFERENCES users(user_id) -- sammenhæng mellem PK og FK
+  PRIMARY KEY(tweet_id)
 ) WITHOUT ROWID;
 -- -- Majs503
 -- I db browser kan man ikke indsætte en linje med en tweet_user_fk som ikke eksisterer som PK i users
@@ -217,7 +217,7 @@ INSERT INTO tweets VALUES("793d655c7f334ad0858cfe2fdf182966", "a22da1effb3d4f03a
 INSERT INTO tweets VALUES("793d655c7f334ad0858cfe2fdf182967", "a22da1effb3d4f03a0f77f9aa8320203", "1680953001", "tweet nr. 11", "5acf858574b64e28810b517a827efde8.png", "", 0, 0, 0, 0); -- nr. 11
     
 
-
+-- ----------- Tweet Comments --------------
 
 DROP TABLE IF EXISTS tweet_comments;
 CREATE TABLE tweet_comments(
@@ -227,26 +227,32 @@ CREATE TABLE tweet_comments(
   comment_message             TEXT, 
   comment_image               TEXT,
   comment_created_at          TEXT,
-  PRIMARY KEY(comment_id)
+  PRIMARY KEY(comment_id),
+  FOREIGN KEY (comment_user_fk) REFERENCES users(user_id)
+    ON DELETE CASCADE,
+  FOREIGN KEY (comment_tweet_fk) REFERENCES tweets(tweet_id)
+    ON DELETE CASCADE
 ) WITHOUT ROWID;
 
 
-
+-- ----------- Tweets Liked by Users --------------
 
 DROP TABLE IF EXISTS tweets_liked_by_users;
 CREATE TABLE tweets_liked_by_users (
     user_id               TEXT NOT NULL,
     tweet_id              TEXT NOT NULL,
     liked_viewed          BOOLEAN,
-    PRIMARY KEY (user_id, tweet_id)
-    -- FOREIGN KEY (user_id) REFERENCES users(user_id),
-    -- FOREIGN KEY (tweet_id) REFERENCES tweets(tweet_id)
+    PRIMARY KEY (user_id, tweet_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+      ON DELETE CASCADE,
+    FOREIGN KEY (tweet_id) REFERENCES tweets(tweet_id)
+      ON DELETE CASCADE
 )WITHOUT ROWID;
 
 
 
 
-
+-- -----------Tweets Retweeted by Users --------------
 
 DROP TABLE IF EXISTS tweets_retweeted_by_users;
 CREATE TABLE tweets_retweeted_by_users (
@@ -255,27 +261,17 @@ CREATE TABLE tweets_retweeted_by_users (
     -- retweeted_by_username           TEXT NOT NULL,
     retweeted                       BOOLEAN,
     retweeted_at                    TEXT NOT NULL,
-    PRIMARY KEY (user_fk, tweet_fk)
-    -- FOREIGN KEY (user_id) REFERENCES users(user_id),
-    -- FOREIGN KEY (tweet_id) REFERENCES tweets(tweet_id)
+    PRIMARY KEY (user_fk, tweet_fk),
+    FOREIGN KEY (user_fk) REFERENCES users(user_id)
+      ON DELETE CASCADE,
+    FOREIGN KEY (tweet_fk) REFERENCES tweets(tweet_id)
+      ON DELETE CASCADE
 )WITHOUT ROWID;
 
 
 
+-- -----------Trends--------------
 
-
-
-
-
--- HVAD GØR DENNE LINJE?
--- CREATE INDEX idx_tweets_tweet_image ON tweets(tweet_image);
-
-
-
--- -----------------------------------------------
---                    Trends
--- -----------------------------------------------
--- ##############################
 DROP TABLE IF EXISTS trends;
 CREATE TABLE trends(
   trend_id            TEXT,
@@ -290,55 +286,31 @@ INSERT INTO trends VALUES("2a9470bc61314187b19d7190b76cd535", "Netto", "32574");
 INSERT INTO trends VALUES("c9773e2bb68647039a7a40c2ee7d4716", "Politics", "4458796");
 
 
--- ##############################
--- ##############################
--- ##############################
--- SELECT * FROM tweets JOIN users ON tweet_user_fk = user_id ORDER BY RANDOM() LIMIT 10;
-DROP VIEW IF EXISTS users_by_name;
-
--- CREATE VIEW users_by_name AS SELECT * FROM users ORDER BY user_username DESC;
-
--- SELECT * FROM users_by_name LIMIT 1;
 
 
+-- -----------------------------------------------
+--                    Triggers
+-- ----------------------------------------------- 
 
--- JOIN and test it for all users and tweets
--- Create the view that contains the join command
--- The name of the view is: users_and_tweets
--- SELECT * FROM users JOIN tweets ON user_id = tweet_user_fk;
-
-DROP VIEW IF EXISTS users_and_tweets;
--- CREATE VIEW users_and_tweets AS 
--- SELECT * FROM users JOIN tweets ON user_id = tweet_user_fk;
--- SELECT * FROM users_and_tweets;
-
-
-
-
-
-
-------------------------------- 
-        -- Triggers
-------------------------------- 
 -- Increate user_total_tweets when a tweet is inserted/created
 DROP TRIGGER IF EXISTS increment_user_total_tweets;
--- CREATE TRIGGER increment_user_total_tweets AFTER INSERT ON tweets
--- BEGIN
---   UPDATE users 
---   SET user_total_tweets =  user_total_tweets + 1 
---   WHERE user_id = NEW.tweet_user_fk;
--- END;
+CREATE TRIGGER increment_user_total_tweets AFTER INSERT ON tweets
+BEGIN
+  UPDATE users 
+  SET user_total_tweets =  user_total_tweets + 1 
+  WHERE user_id = NEW.tweet_user_fk;
+END;
 
 DROP TRIGGER IF EXISTS decrement_user_total_tweets;
--- CREATE TRIGGER decrement_user_total_tweets AFTER DELETE ON tweets
--- BEGIN
---   UPDATE users 
---   SET user_total_tweets =  user_total_tweets - 1 
---   WHERE user_id = OLD.tweet_user_fk;
--- END;
+CREATE TRIGGER decrement_user_total_tweets AFTER DELETE ON tweets
+BEGIN
+  UPDATE users 
+  SET user_total_tweets =  user_total_tweets - 1 
+  WHERE user_id = OLD.tweet_user_fk;
+END;
 
 
--- Increate tweet_total_comments when a tweet_comment is inserted/created
+-- Increate tweet_total_comments when a tweet_comment is inserted
 DROP TRIGGER IF EXISTS increment_tweet_total_comments;
 CREATE TRIGGER increment_tweet_total_comments AFTER INSERT ON tweet_comments
 BEGIN
@@ -350,7 +322,7 @@ END;
 
 
 
--- Increate tweet_total_comments when a tweet_comment is inserted/created
+-- Increate tweet_total_views when a tweets_liked_by_users is inserted/created
 DROP TRIGGER IF EXISTS increment_tweet_total_views;
 CREATE TRIGGER increment_tweet_total_views AFTER INSERT ON tweets_liked_by_users
 BEGIN
@@ -363,7 +335,7 @@ END;
 
 
 
--- Increate tweet_total_retweets when a tweet_comment is inserted/created
+-- Increate tweet_total_retweets when a tweet_retweet is inserted/created
 DROP TRIGGER IF EXISTS increment_tweet_total_retweets;
 CREATE TRIGGER increment_tweet_total_retweets AFTER INSERT ON tweets_retweeted_by_users
 BEGIN
@@ -371,7 +343,7 @@ BEGIN
   SET tweet_total_retweets = tweet_total_retweets + 1 
   WHERE tweet_id = NEW.tweet_fk;
 END;
--- decreate tweet_total_comments when a tweet_comment is inserted/created
+-- decreate tweet_total_retweets when a tweet_retweet is deleted
 DROP TRIGGER IF EXISTS decrement_tweet_total_retweets;
 CREATE TRIGGER decrement_tweet_total_retweets AFTER DELETE ON tweets_retweeted_by_users
 BEGIN
@@ -381,7 +353,7 @@ BEGIN
 END;
 
 
--- Increate tweet_total_comments when a tweet_comment is inserted/created
+-- Increate user_total_follows when a user_follows is inserted/created
 DROP TRIGGER IF EXISTS increment_user_total_follows;
 CREATE TRIGGER increment_user_total_follows AFTER INSERT ON follower_following
 BEGIN
@@ -392,7 +364,7 @@ BEGIN
   SET user_total_following = user_total_following + 1 
   WHERE user_id = NEW.follower_id;
 END;
--- decreate tweet_total_comments when a tweet_comment is inserted/created
+-- decreate user_total_follows when a user_follows is deleted
 DROP TRIGGER IF EXISTS decrement_user_total_follows;
 CREATE TRIGGER decrement_user_total_follows AFTER DELETE ON follower_following
 BEGIN
@@ -408,3 +380,50 @@ END;
 
 
 
+
+-- -----------------------------------------------
+--                    Database
+-- -----------------------------------------------
+
+-- -----------Views--------------
+
+-- HVAD GØR DENNE LINJE?
+-- CREATE INDEX idx_tweets_tweet_image ON tweets(tweet_image);
+
+-- SELECT * FROM tweets JOIN users ON tweet_user_fk = user_id ORDER BY RANDOM() LIMIT 10;
+DROP VIEW IF EXISTS users_by_name;
+CREATE VIEW users_by_name AS SELECT * FROM users ORDER BY user_username DESC;
+
+-- SELECT * FROM users_by_name LIMIT 1;
+
+
+
+DROP VIEW IF EXISTS users_and_tweets;
+CREATE VIEW users_and_tweets AS SELECT * FROM tweets,users ORDER BY tweet_created_at DESC;
+
+
+-- -----------Joins--------------
+
+-- JOIN and test it for all users and tweets
+-- Create the view that contains the join command
+-- The name of the view is: users_and_tweets
+SELECT * FROM users JOIN tweets ON user_id = tweet_user_fk;
+
+
+SELECT user_username, tweet_total_likes, tweet_message FROM tweets LEFT OUTER JOIN users
+  ON tweets.tweet_user_fk = users.user_id
+  ORDER BY user_username DESC;
+
+-- Det her giver selfølgelig ingen mening, men det illustrer hvad CROSS JOIN er
+SELECT user_username, tweet_message FROM tweets CROSS JOIN users
+  ORDER BY user_username DESC;
+
+-- Det burde vi nok have brugt i front page og profile page
+SELECT user_username, tweet_message FROM tweets INNER JOIN users
+  ORDER BY user_username DESC;
+
+SELECT liked_viewed, user_username, tweet_message FROM users, tweets JOIN tweets_liked_by_users
+   ON users.user_id = tweets_liked_by_users.user_id AND tweets_liked_by_users.tweet_id = tweets.tweet_id;
+
+
+-- -----------Indexing--------------

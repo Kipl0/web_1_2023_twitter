@@ -32,11 +32,12 @@
     </form>
 
     <!-- Her skriver brugeren sin egen kommentar --> <!--Den er true fordi der er pop op - det er der ikke på full tweet siden -->
-    <form onsubmit="write_tweet_comment(true); return false" enctype="multipart/form-data" class="flex w-full gap-4 p-4">
+    <form onsubmit="validate(() => {write_tweet_comment(true)}); return false" enctype="multipart/form-data" class="flex w-full gap-4 p-4">
       <input id="tweet_id_to_html" type="text" name="tweet_id" value="" class="hidden">
       <img src="/avatar/{{user_cookie['user_avatar']}}" alt="" class="w-10 h-10 aspect-square rounded-full">
       <section class="flex flex-col gap-2 w-full">
-        <textarea type="text" placeholder="Tweet your reply" name="tweet_comment_user_input" class="w-full max-w-full p-2 bg-black outline-none placeholder:text-zinc-500" minlength="{{TWEET_MIN_LEN}}" maxlength="{{TWEET_MIN_LEN}}"></textarea>
+        <p class="hidden text-orange-700" id="infoText"></p>
+        <textarea type="text" placeholder="Tweet your reply" id="tweet_comment_textarea" name="tweet_comment_user_input" class="w-full max-w-full p-2 bg-black outline-none placeholder:text-zinc-500" minlength="{{TWEET_MIN_LEN}}" maxlength="{{TWEET_MAX_LEN}}"  data-min="{{TWEET_MIN_LEN}}" data-max="{{TWEET_MAX_LEN}}" data-validate="str"></textarea>
         <img src="" alt="" id="uploaded_comment_img" class="w-full mt-4 max-h-96 rounded-lg object-contain">
         <section class="flex w-full mt-auto">
           <div class="flex text-[#1D9BF0] gap-3">
@@ -58,5 +59,5 @@
   </section>
 </div>
 
-
+<script src="/js/validate.js"></script>
 <script src="/js/write_tweet_comment_pop_up.js"></script>

@@ -1,6 +1,7 @@
 // Create tweet
 
 async function tweet() {
+    
     const frm = event.target.form;
     const conn = await fetch("/tweet", {
         method: "POST",
@@ -8,7 +9,7 @@ async function tweet() {
     });
 
     const data = await conn.json();
-
+    console.log(data)
     if (!conn.ok) {
         const errorTip = document.getElementById("error-tip");
         errorTip.innerText = data.error; // Assuming the server returns an 'error' field in the response

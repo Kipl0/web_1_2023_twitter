@@ -1,34 +1,51 @@
-
-
+// send user email to deactivate own profile
 async function deactivate_own_profile() {
-    const current_url = window.location.href;
-    const username_index = current_url.lastIndexOf("/") + 1;
-    const username = current_url.substring(username_index);
+    try {
+        url = window.location.href
+        url_split = url.split("/")
+        deactivate_key = url_split[url_split.length - 1] //få det sidste element fra array
 
-    const frm = event.target.form;
-    const formData = new FormData(frm);
+        const frm = event.target.form
 
-    const conn = await fetch(`/deactivate-user/${username}`, {
-        method: "POST",
-        body: formData,
-    });
-
-    const data = await conn.json();
-
-    if ( conn.ok && data.info == "ok" ) {
-
-        // Redirect brugeren tilbage på forsiden
-        fetch('/logout').then(response => {
-            if (response.redirected) {
-            window.location.href = response.url; // Redirect to the response URL
-            }
+        const conn = await fetch(`/self-deactivate-profile/${deactivate_key}`, {
+            method: "POST",
+            body: new FormData(frm)
         })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        const data = await conn.json()
 
-    } else {
-        console.log("Cannot deactivate user");
+        if( !conn.ok || data.info != "ok" ) {
+            throw new TypeError("Something went wrong. Cannot write comment to tweet");
+        }
+
+        const infoText = document.getElementById("infoText")
+        infoText.innerHTML = "A confirmation mail has been sent"
+        infoText.classList.remove("hidden")
+    } 
+    catch ({ name, message }) {
+        console.log(name); 
+        console.log(message); 
     }
 }
 
+
+async function confirm_deactivate_account() {
+    url = window.location.href
+    url_split = url.split("/")
+
+    deactivate_key = url_split[url_split.length - 1] //få det sidste element fra array
+
+    const frm = event.target.form
+    const conn = await fetch(`/confirm-self-deactivate-profile/${deactivate_key}`, {
+        method: "POST",
+        body: new FormData(frm)
+    })
+    const data = await conn.json()
+    console.log(data)
+
+    if(conn.ok && data.info == "ok") {
+        console.log("ok")
+        // redirect to login
+    } else {
+        console.log("data ikke ok")
+    }
+}

@@ -4,17 +4,20 @@ import x
 @get("/change-password/<user_key>")
 def _(user_key):
     try :
+        # Åben forbindelse til DB
         db = x.db()
 
-        user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
+        # Set default info tekst
+        info_text = "Enter your new password"
 
-        if user_cookie :
-            response.status = 303
-            response.set_header("Location", "/")
-            return
-        else:
-            print("user_cookie eksisterer ikke")
-            return template("change_password_page")
+        # Tjek om change_password_user_key ligger i tabellen
+        user_in_reset_password_table = db.execute("SELECT * FROM accounts_to_reset_password WHERE change_password_user_key = ?",(user_key,)).fetchone()
+
+        # Hvis ikke den findes i tabellen, opdater info tekst
+        if user_in_reset_password_table is None:
+            info_text = "This key is no longer valid"
+
+        return template("change_password_page", INFO_TEXT=info_text)
 
 
     except Exception as ex :

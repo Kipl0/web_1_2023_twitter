@@ -12,22 +12,25 @@ def _():
 
     user_cookie = request.get_cookie("user_cookie", secret="my-secret")
 
-    uploaded_tweet_image = request.files.get("uploaded_tweet_image")
-    name, ext = os.path.splitext(uploaded_tweet_image.filename)
+    uploaded_tweet_image = request.files.get("uploaded_create_tweet_img_input")
 
-    if ext == "":
-      uploaded_tweet_image_name = ""
-      # print("No picture chosen")
+    if uploaded_tweet_image != None:
+      name, ext = os.path.splitext(uploaded_tweet_image.filename)
+
+      if ext == "":
+        uploaded_tweet_image_name = ""
+        # print("No picture chosen")
+      else:
+        if ext not in (".jpg", ".jpeg", ".png"):
+          response.status = 400
+          print(ext)
+          return "Picture not allowed"
+        uploaded_tweet_image_name = str(uuid.uuid4().hex)
+        uploaded_tweet_image_name = uploaded_tweet_image_name + ext
+        uploaded_tweet_image.save(f"tweet_images/{uploaded_tweet_image_name}")
+        # return "Picture uploaded"
     else:
-      if ext not in (".jpg", ".jpeg", ".png"):
-        response.status = 400
-        print(ext)
-        return "Picture not allowed"
-      uploaded_tweet_image_name = str(uuid.uuid4().hex)
-      uploaded_tweet_image_name = uploaded_tweet_image_name + ext
-      uploaded_tweet_image.save(f"tweet_images/{uploaded_tweet_image_name}")
-      # return "Picture uploaded"
-
+      uploaded_tweet_image_name = ""
     tweet_id = str(uuid.uuid4().hex)
     tweet_user_fk = user_cookie["user_id"]
     tweet_created_at = int(time.time())

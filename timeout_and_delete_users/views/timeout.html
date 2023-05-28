@@ -22,7 +22,7 @@
         //Hvordan tjekker man så hvilke tweets der er nye og hvilke der er gamle - se næste linjer 
         let tweet_id = 0
 
-        setInterval(get_latest_tweets, 1000) //intervallet
+        //setInterval(get_latest_tweets, 1000) //intervallet
 
         async function get_latest_tweets() {
             const conn = await fetch("api-get-latest-tweets", {
