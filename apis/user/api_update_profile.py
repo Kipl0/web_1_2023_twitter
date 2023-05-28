@@ -23,39 +23,45 @@ def _():
 
         # Upload avatar
         uploaded_avatar = request.files.get("uploaded_avatar_input")
-        name, ext = os.path.splitext(uploaded_avatar.filename)
-        if ext == "":
-            # No file uploaded, set default avatar
-            picture_name_avatar = user_cookie["user_avatar"]
-        else:
-            if ext not in (".jpg", ".jpeg", ".png"):
-                response.status = 400
-                return "Picture not allowed"
-            picture_name_avatar = str(uuid.uuid4().hex) + ext
-            uploaded_avatar.save(f"{rootdir}avatar/{picture_name_avatar}")
+        if uploaded_avatar != None :
+            name, ext = os.path.splitext(uploaded_avatar.filename)
+            if ext == "":
+                # No file uploaded, set default avatar
+                picture_name_avatar = user_cookie["user_avatar"]
+            else:
+                if ext not in (".jpg", ".jpeg", ".png"):
+                    response.status = 400
+                    return "Picture not allowed"
+                picture_name_avatar = str(uuid.uuid4().hex) + ext
+                uploaded_avatar.save(f"{rootdir}avatar/{picture_name_avatar}")
 
-            if user_cookie["user_avatar"] not in x.images_not_to_be_deleted :
-                user_cookie_avatar = user_cookie["user_avatar"]
-                myfile = f"avatar/{user_cookie_avatar}"
-                os.remove(myfile)
+                if user_cookie["user_avatar"] not in x.images_not_to_be_deleted :
+                    user_cookie_avatar = user_cookie["user_avatar"]
+                    myfile = f"avatar/{user_cookie_avatar}"
+                    os.remove(myfile)
+        else :
+            picture_name_avatar = user_cookie["user_avatar"]
 
         # Upload banner
         uploaded_banner = request.files.get("uploaded_banner_input")
-        name, ext = os.path.splitext(uploaded_banner.filename)
-        if ext == "":
-            # No file uploaded, set default banner
-            picture_name_banner = user_cookie["user_banner"]
-        else:
-            if ext not in (".jpg", ".jpeg", ".png"):
-                response.status = 400
-                return "Picture not allowed"
-            picture_name_banner = str(uuid.uuid4().hex) + ext
-            uploaded_banner.save(f"{rootdir}banner/{picture_name_banner}")
+        if uploaded_banner != None :
+            name, ext = os.path.splitext(uploaded_banner.filename)
+            if ext == "":
+                # No file uploaded, set default banner
+                picture_name_banner = user_cookie["user_banner"]
+            else:
+                if ext not in (".jpg", ".jpeg", ".png"):
+                    response.status = 400
+                    return "Picture not allowed"
+                picture_name_banner = str(uuid.uuid4().hex) + ext
+                uploaded_banner.save(f"{rootdir}banner/{picture_name_banner}")
 
-            if user_cookie["user_banner"] not in x.images_not_to_be_deleted :
-                user_cookie_banner = user_cookie["user_banner"]
-                myfile = f"banner/{user_cookie_banner}"
-                os.remove(myfile)
+                if user_cookie["user_banner"] not in x.images_not_to_be_deleted :
+                    user_cookie_banner = user_cookie["user_banner"]
+                    myfile = f"banner/{user_cookie_banner}"
+                    os.remove(myfile)
+        else : 
+            picture_name_banner = user_cookie["user_banner"]
 
         db.execute(
             "UPDATE users SET user_first_name = ?, user_last_name = ?, user_caption = ?, user_location = ?, user_link = ?, user_avatar = ?, user_banner = ? WHERE user_id = ?",
