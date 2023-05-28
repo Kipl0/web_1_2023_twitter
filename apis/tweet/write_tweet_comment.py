@@ -47,17 +47,20 @@ def _():
 
          # Upload image to tweet comment
         uploaded_comment_img_input = request.files.get("uploaded_comment_img_input")
-        name, ext = os.path.splitext(uploaded_comment_img_input.filename)
-        if ext == "":
-            # No file uploaded, man må gerne ikke uploade et billede
+        if uploaded_comment_img_input != None :
+            name, ext = os.path.splitext(uploaded_comment_img_input.filename)
+            if ext == "":
+                # No file uploaded, man må gerne ikke uploade et billede
+                uploaded_comment_img_to_save = ""
+                print("no file chosen")
+            else:
+                if ext not in (".jpg", ".jpeg", ".png"):
+                    response.status = 400
+                    return "Picture not allowed"
+                uploaded_comment_img_to_save = str(uuid.uuid4().hex) + ext
+                uploaded_comment_img_input.save(f"comment_images/{uploaded_comment_img_to_save}")
+        else :
             uploaded_comment_img_to_save = ""
-            print("no file chosen")
-        else:
-            if ext not in (".jpg", ".jpeg", ".png"):
-                response.status = 400
-                return "Picture not allowed"
-            uploaded_comment_img_to_save = str(uuid.uuid4().hex) + ext
-            uploaded_comment_img_input.save(f"comment_images/{uploaded_comment_img_to_save}")
 
         # Der skal enten være text eller billede eller begge
 
