@@ -28,36 +28,40 @@ def _():
 
         #Upload avatar
         uploaded_avatar = request.files.get("uploaded_avatar") #files i formen
-        name, ext = os.path.splitext(uploaded_avatar.filename)
-        if ext == "" : 
-            #Because of enctype the uploaded picture is not "none", but the extension is - so if there's no upload ext will be an empty string or just none
+        if uploaded_avatar.filename != "empty" :
+            name, ext = os.path.splitext(uploaded_avatar.filename)
+            if ext == "" : 
+                #Because of enctype the uploaded picture is not "none", but the extension is - so if there's no upload ext will be an empty string or just none
+                picture_name_avatar = "default_avatar.jpg"
+            else:
+                if ext not in(".jpg", ".jpeg", ".png"):
+                    response.status = 400
+                    print(ext)
+                    return "Picture not allowed"
+                picture_name_avatar = str(uuid.uuid4().hex)
+                picture_name_avatar = picture_name_avatar + ext
+                uploaded_avatar.save(f"avatar/{picture_name_avatar}")
+                # return "Picture uploaded"
+        else :
             picture_name_avatar = "default_avatar.jpg"
-        else:
-            if ext not in(".jpg", ".jpeg", ".png"):
-                response.status = 400
-                print(ext)
-                return "Picture not allowed"
-            picture_name_avatar = str(uuid.uuid4().hex)
-            picture_name_avatar = picture_name_avatar + ext
-            uploaded_avatar.save(f"avatar/{picture_name_avatar}")
-            # return "Picture uploaded"
-
 
         #Upload banner
         uploaded_banner = request.files.get("uploaded_banner") #files i formen
-        name, ext = os.path.splitext(uploaded_banner.filename)
-        if ext == "" : 
-            #Because of enctype the uploaded picture is not "none", but the extension is - so if there's no upload ext will be an empty string or just none
+        if uploaded_banner.filename != "empty" :
+            name, ext = os.path.splitext(uploaded_banner.filename)
+            if ext == "" : 
+                #Because of enctype the uploaded picture is not "none", but the extension is - so if there's no upload ext will be an empty string or just none
+                picture_name_banner = "default_banner.png"
+            else:
+                if ext not in(".jpg", ".jpeg", ".png"):
+                    response.status = 400
+                    raise Exception("Picture not allowed")
+                picture_name_banner = str(uuid.uuid4().hex)
+                picture_name_banner = picture_name_banner + ext
+                uploaded_banner.save(f"banner/{picture_name_banner}")
+                # return "Picture uploaded"
+        else :
             picture_name_banner = "default_banner.png"
-        else:
-            if ext not in(".jpg", ".jpeg", ".png"):
-                response.status = 400
-                raise Exception("Picture not allowed")
-            picture_name_banner = str(uuid.uuid4().hex)
-            picture_name_banner = picture_name_banner + ext
-            uploaded_banner.save(f"banner/{picture_name_banner}")
-            # return "Picture uploaded"
-
 
         user_id = str(uuid.uuid4()).replace("-","")
         user = {
