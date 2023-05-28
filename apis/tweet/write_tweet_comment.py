@@ -32,6 +32,12 @@ def _(tweet_id):
 @post("/write-tweet-comment")
 def _():
     try:
+        import production #If this production is found, the next line should run
+        rootdir = "/home/Kipl0/mysite/"     
+    except Exception as ex:    
+        rootdir = "C:/Users/maalm/Documents/kea/web_1_2023_twitter/"
+
+    try:
         db = x.db()
 
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
@@ -58,7 +64,7 @@ def _():
                     response.status = 400
                     return "Picture not allowed"
                 uploaded_comment_img_to_save = str(uuid.uuid4().hex) + ext
-                uploaded_comment_img_input.save(f"comment_images/{uploaded_comment_img_to_save}")
+                uploaded_comment_img_input.save(f"{rootdir}comment_images/{uploaded_comment_img_to_save}")
         else :
             uploaded_comment_img_to_save = ""
 

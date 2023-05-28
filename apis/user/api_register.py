@@ -9,6 +9,12 @@ from apis.messages_to_users.send_verification_email import send_verification_ema
 @post("/register")
 def _():
     try:
+        import production #If this production is found, the next line should run
+        rootdir = "/home/Kipl0/mysite/"     
+    except Exception as ex:    
+        rootdir = "C:/Users/maalm/Documents/kea/web_1_2023_twitter/"
+
+    try:
         db = x.db()
 
         #get data validated data from form.
@@ -41,7 +47,7 @@ def _():
                     return "Picture not allowed"
                 picture_name_avatar = str(uuid.uuid4().hex)
                 picture_name_avatar = picture_name_avatar + ext
-                uploaded_avatar.save(f"avatar/{picture_name_avatar}")
+                uploaded_avatar.save(f"{rootdir}avatar/{picture_name_avatar}")
                 # return "Picture uploaded"
         else :
             picture_name_avatar = "default_avatar.jpg"
@@ -59,7 +65,7 @@ def _():
                     raise Exception("Picture not allowed")
                 picture_name_banner = str(uuid.uuid4().hex)
                 picture_name_banner = picture_name_banner + ext
-                uploaded_banner.save(f"banner/{picture_name_banner}")
+                uploaded_banner.save(f"{rootdir}banner/{picture_name_banner}")
                 # return "Picture uploaded"
         else :
             picture_name_banner = "default_banner.png"

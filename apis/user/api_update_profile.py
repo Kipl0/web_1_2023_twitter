@@ -6,6 +6,12 @@ import uuid
 @put("/profile")
 def _():
     try:
+        import production #If this production is found, the next line should run
+        rootdir = "/home/Kipl0/mysite/"     
+    except Exception as ex:    
+        rootdir = "C:/Users/maalm/Documents/kea/web_1_2023_twitter/"
+
+    try:
         db = x.db()
         user_cookie = request.get_cookie("user_cookie", secret="my-secret")
 
@@ -26,7 +32,7 @@ def _():
                 response.status = 400
                 return "Picture not allowed"
             picture_name_avatar = str(uuid.uuid4().hex) + ext
-            uploaded_avatar.save(f"avatar/{picture_name_avatar}")
+            uploaded_avatar.save(f"{rootdir}avatar/{picture_name_avatar}")
 
             if user_cookie["user_avatar"] not in x.images_not_to_be_deleted :
                 user_cookie_avatar = user_cookie["user_avatar"]
@@ -44,7 +50,7 @@ def _():
                 response.status = 400
                 return "Picture not allowed"
             picture_name_banner = str(uuid.uuid4().hex) + ext
-            uploaded_banner.save(f"banner/{picture_name_banner}")
+            uploaded_banner.save(f"{rootdir}banner/{picture_name_banner}")
 
             if user_cookie["user_banner"] not in x.images_not_to_be_deleted :
                 user_cookie_banner = user_cookie["user_banner"]
