@@ -27,7 +27,7 @@ def deactivate_own_profile(deactivate_key,reciever_email) :
         <body>
             <h2>Hi!</h2>
             <p>To deactivate your profile click the link below</p>
-            <p>Deactivate profile --> <a href="https://kipl0.eu.pythonanywhere.com/self-deactivate-profile/{deactivate_key}">reset password!</a></p>
+            <p>Click this link to --> <a href="https://kipl0.eu.pythonanywhere.com/self-deactivate-profile/{deactivate_key}">deactivate profile!</a></p>
             </p>
         </body>
     </html>

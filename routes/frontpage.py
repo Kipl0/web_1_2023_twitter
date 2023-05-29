@@ -15,10 +15,15 @@ def render_frontpage():
     response.add_header("Expires",0)
 
     user_cookie = request.get_cookie("user_cookie", secret="my-secret") #vi vil gerne have fat i en cookie fra browseren der hedder "user_cookie" det har vi defineret i login.py
+    
+    if user_cookie == None:
+      response.status = 303
+      response.set_header("Location", "/login")
+      return
+      #return template("login",  USER_NAME_MIN=x.USER_NAME_MIN, USER_NAME_MAX=x.USER_NAME_MAX, PASSWORD_MIN=x.PASSWORD_MIN, PASSWORD_MAX=x.PASSWORD_MAX)
 
     who_to_follow = []
-    if user_cookie != None:
-      who_to_follow = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ? LIMIT 3",(user_cookie["user_username"],"Admin"))
+    who_to_follow = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ? LIMIT 3",(user_cookie["user_username"],"Admin"))
 
     trends = db.execute("SELECT * FROM trends")
 
@@ -30,14 +35,12 @@ def render_frontpage():
     # Key value pair, der sepererer retweet_tweets fra originale tweets - så begge to kan få grøn ikon og grøn tekst
     for tweet_original in tweets_and_user_data :
       tweet_original['original_tweet'] = 1
+      tweet_original['retweeted_by'] = ""
     for tweet_retweeted in retweets_and_user_data :
       retweeted_by = db.execute("SELECT user_username FROM users WHERE user_id = ?",(tweet_retweeted['user_fk'],)).fetchone() # loop igennem alle retweets og sæt retweeted by
       tweet_retweeted['retweeted_by'] = retweeted_by['user_username'] # tilføj den som key-value par til hver retweet i tabellen
       tweet_retweeted['original_tweet'] = 0
-
-
-
-
+      print(tweet_retweeted)
 
     # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
     if user_cookie != None : 
@@ -45,7 +48,7 @@ def render_frontpage():
       # Retweets
       for tweet in tweets_and_user_data :
         tweet_retweeted_by_user_record = db.execute("SELECT * FROM tweets_retweeted_by_users WHERE user_fk = ? AND tweet_fk = ?",(user_cookie["user_id"], tweet["tweet_id"])).fetchone()
-          # Hvis den er lig 1 betyder det at user har liket tweet  # Hvis ikke tweet_liked_by_user_record eksisterer i db, så har user hverken set eller liket opslaget før
+        # Hvis den er lig 1 betyder det at user har liket tweet  # Hvis ikke tweet_liked_by_user_record eksisterer i db, så har user hverken set eller liket opslaget før
         if tweet_retweeted_by_user_record == None : 
           tweet["retweeted"] = 0
           continue
@@ -56,7 +59,7 @@ def render_frontpage():
           continue
         tweet["retweeted"] = 1
 
-
+      
       # merch tweets_and_user_data with retweets_and_user_data
       combined_data = tweets_and_user_data + retweets_and_user_data
       tweets_and_user_data = sorted(combined_data, key=lambda x: x.get("retweeted_at", x["tweet_created_at"]), reverse=True)

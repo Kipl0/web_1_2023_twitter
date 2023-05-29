@@ -79,11 +79,11 @@
                     </form>
                     <form method="DELETE" action="">
                         <input type="text" name="delete_user_{{deleted_user['deleted_user_id']}}" class="hidden">
-                        <button onclick="show_confirm_button(); return false" id="delete_user_button" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-b-md" >
+                        <button onclick="show_confirm_button(this); return false" id="delete_user_button_{{deleted_user['deleted_user_id']}}" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-b-md" >
                             Delete user
                         </button>
-                        <section id="show_confirm_buttons" class="hidden ">
-                            <button type="button" id="cancel_delete_user_btn" class="flex justify-center items-center w-full h-full hover:cursor-pointer py-2 px-12 rounded-bl-md  bg-red-400 hover:bg-red-500" >
+                        <section id="show_confirm_buttons_admin_{{deleted_user['deleted_user_id']}}" class="hidden ">
+                            <button onclick="hide_confirm_button(this)" type="button" id="cancel_delete_user_btn_{{deleted_user['deleted_user_id']}}" class="flex justify-center items-center w-full h-full hover:cursor-pointer py-2 px-12 rounded-bl-md  bg-red-400 hover:bg-red-500" >
                                 Cancel 
                             </button>
                             <button onclick="delete_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:cursor-pointer py-2 px-12 rounded-br-md bg-[#49b265] hover:bg-[#159947] whitespace-nowrap" >

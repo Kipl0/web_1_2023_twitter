@@ -6,7 +6,6 @@ async function write_tweet_pop_up() {
         // Hent event target som i vores tilfælde er en form
         const frm = event.target
 
-
         // Det her er det samme som "request.forms.get("tweet_id")" i python.
         // Vi gør dette da et GET request ikke må have en body, som er der hvor vi normalt sender form_data til python
         // Vi er nødt til at have en body med da vi skal finde ud af hvilken tweet vi har klikket på 
@@ -38,10 +37,10 @@ async function write_tweet_pop_up() {
     }
 }
 
-
-// --------------------------------------
-//        Skriv og send komment
-// --------------------------------------
+/**
+ * Skriv og send komment
+ * @param {boolean} show_pop_up - Indikere om popup elementet skal vises eller ej.
+ */
 async function write_tweet_comment(show_pop_up) {
     try {
         // Hent event target som i vores tilfælde er en form
@@ -73,6 +72,7 @@ async function write_tweet_comment(show_pop_up) {
             open_close_comment_container()
         }
         else {
+            // Reload siden
             location.reload()
         }
     } 
@@ -82,9 +82,16 @@ async function write_tweet_comment(show_pop_up) {
     }
 }
 
+
 // --------------------------------------
 //        Hjælper funktioner
 // --------------------------------------
+
+/**
+ * Opdater kommentar popup elementet
+ * @param {string} tweet_id - Indeholder et id for et tweet.
+ * @param {object} tweets_and_user_data_data - Inderholder for tweets samt de bruger der oprettet dem.
+ */
 function update_comment_pop_up_form(tweet_id, tweets_and_user_data_data){
     const tweet_comment_textarea = document.getElementById("tweet_comment_textarea")
     tweet_comment_textarea.value = ""
@@ -134,6 +141,10 @@ function update_comment_pop_up_form(tweet_id, tweets_and_user_data_data){
 
 }
 
+/**
+ * Skriv og send komment
+ * @param {object} data - Indeholder data for comment tweet.
+ */
 function update_comment_icon(data){
     // Definer farver for like og unlike 
      const buttonColorClasses = ["fill-[#1D9BF0]", "text-[#1D9BF0]", "fill-gray-500", "text-gray-500"] 
@@ -155,6 +166,10 @@ function update_comment_icon(data){
     }
 }
 
+/**
+ * Skriv og send komment
+ * @param {Event} event - event der kommer fra en onClick funtion i html.
+ */
 function closeOverlay(event) {
     // Skal bruges til at tjekke, om bruger klikker på div hvor id sidder på eller på svg, path og span der sidder inde i den div contains(event.target)
     const close_tweet_x = document.getElementById("close_tweet_x")
@@ -167,6 +182,9 @@ function closeOverlay(event) {
     }
 }
 
+/**
+ * Åben & Luk kommentar kontainer
+ */
 function open_close_comment_container(){
      const write_tweet_form_container = document.getElementById("write_tweet_form_container")
     // Open close

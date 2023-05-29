@@ -26,6 +26,30 @@ def _(tweet_id):
             tweet_comment_and_user_data = db.execute("SELECT * FROM tweet_comments, users WHERE tweet_comments.comment_user_fk = users.user_id AND comment_tweet_fk=? ORDER BY comment_created_at DESC",(tweet_id,)).fetchall()
 
 
+
+            tweet_retweeted_by_user_record = db.execute("SELECT * FROM tweets_retweeted_by_users WHERE user_fk = ? AND tweet_fk = ?",(user_cookie["user_id"], tweet_and_user_data["tweet_id"])).fetchone()
+                # Hvis den er lig 1 betyder det at user har liket tweet  # Hvis ikke tweet_liked_by_user_record eksisterer i db, så har user hverken set eller liket opslaget før
+            
+            print(tweet_retweeted_by_user_record)
+            if tweet_retweeted_by_user_record == None : 
+                tweet_and_user_data["retweeted"] = 0
+                tweet_and_user_data["retweeted_by"] = ""
+                tweet_and_user_data["original_tweet"] = 1
+                
+            elif tweet_retweeted_by_user_record["retweeted"] == 1 :
+                # Add the key "liked_viewed" to the dict so that it will be: # {'tweet_id': '1', 'tweet_text': 'mit tweet', 'total_likes': '11', 'liked': 1}
+                tweet_and_user_data["retweeted"] = 1 
+                retweeted_by = db.execute("SELECT user_username FROM users WHERE user_id = ?",(tweet_retweeted_by_user_record['user_fk'],)).fetchone() # loop igennem alle retweets og sæt retweeted by
+                tweet_and_user_data["retweeted_by"] = retweeted_by['user_username']
+                tweet_and_user_data["original_tweet"] = 0
+            else :
+                tweet_and_user_data["retweeted"] = 1
+                retweeted_by = db.execute("SELECT user_username FROM users WHERE user_id = ?",( ['user_fk'],)).fetchone() # loop igennem alle retweets og sæt retweeted by
+                tweet_and_user_data["retweeted_by"] = retweeted_by['user_username']
+                tweet_and_user_data["original_tweet"] = 0
+                
+            
+
             # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
             tweet_liked_by_user_record = db.execute("SELECT * FROM tweets_liked_by_users WHERE user_id = ? AND tweet_id = ?",(user_cookie["user_id"], tweet_and_user_data["tweet_id"])).fetchone()
 

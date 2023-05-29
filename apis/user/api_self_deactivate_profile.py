@@ -24,7 +24,7 @@ def _(user_username):
         reciever_email = user_cookie['user_email']
 
         deactivate_own_profile(deactivate_key=deactivate_key,reciever_email=reciever_email)
-
+        
         return {"info":"ok"}
 
     except Exception as ex :

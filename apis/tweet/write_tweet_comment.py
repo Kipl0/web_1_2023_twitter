@@ -11,10 +11,13 @@ def _(tweet_id):
         db = x.db()
 
         tweets_and_user_data = db.execute("SELECT * FROM tweets, users WHERE tweets.tweet_user_fk = users.user_id AND tweet_id = ?", (tweet_id,)).fetchone()
-        
         # Man kan ikke returnere en dictionary i en dictionary som json (den hentes som json i js) - derfor bruges json.dumps i python og parse i js
         # fordi password er hashed er det et byte objekt og derfor ikke validt json, så det bliver decoded til string her.
         tweets_and_user_data['user_password'] = tweets_and_user_data['user_password'].decode('utf-8')
+        # Denne linje fejler, fordi hvis den allerede er en string, kan den ikke decodes - vi tjekker derfor om det er en byte først
+        # if isinstance(tweets_and_user_data['user_password'], bytes):
+        #     tweets_and_user_data['user_password'] = tweets_and_user_data['user_password'].decode('utf-8')
+
         
         ## når bruger 
 
@@ -32,6 +35,12 @@ def _(tweet_id):
 @post("/write-tweet-comment")
 def _():
     try:
+        import production #If this production is found, the next line should run
+        rootdir = "/home/Kipl0/mysite/"     
+    except Exception as ex:    
+        rootdir = "C:/Users/maalm/Documents/kea/web_1_2023_twitter/"
+
+    try:
         db = x.db()
 
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
@@ -47,17 +56,20 @@ def _():
 
          # Upload image to tweet comment
         uploaded_comment_img_input = request.files.get("uploaded_comment_img_input")
-        name, ext = os.path.splitext(uploaded_comment_img_input.filename)
-        if ext == "":
-            # No file uploaded, man må gerne ikke uploade et billede
+        if uploaded_comment_img_input != None :
+            name, ext = os.path.splitext(uploaded_comment_img_input.filename)
+            if ext == "":
+                # No file uploaded, man må gerne ikke uploade et billede
+                uploaded_comment_img_to_save = ""
+                print("no file chosen")
+            else:
+                if ext not in (".jpg", ".jpeg", ".png"):
+                    response.status = 400
+                    return "Picture not allowed"
+                uploaded_comment_img_to_save = str(uuid.uuid4().hex) + ext
+                uploaded_comment_img_input.save(f"{rootdir}comment_images/{uploaded_comment_img_to_save}")
+        else :
             uploaded_comment_img_to_save = ""
-            print("no file chosen")
-        else:
-            if ext not in (".jpg", ".jpeg", ".png"):
-                response.status = 400
-                return "Picture not allowed"
-            uploaded_comment_img_to_save = str(uuid.uuid4().hex) + ext
-            uploaded_comment_img_input.save(f"comment_images/{uploaded_comment_img_to_save}")
 
         # Der skal enten være text eller billede eller begge
 

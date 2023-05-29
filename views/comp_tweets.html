@@ -124,7 +124,7 @@
         <!-- Total retweet -->
         <form onsubmit="retweet_tweet(); return false" class="flex items-center group cursor-pointer"> <!--group container-->
           <input type="text" name="tweet_to_retweet_id" value="{{tweet['tweet_id']}}" class="hidden">
-          % if tweet["retweeted"] == 1 :
+          % if tweet["original_tweet"] == 1 and tweet["retweeted"] == 1 or tweet["retweeted"] == 1 and tweet["retweeted_by"] == user_cookie["user_username"]:
             <button type="submit" class="flex items-center group cursor-pointer"> <!-- hvis retweeted-->
               <span class="p-2 rounded-full group-hover:bg-[#1D9BF0]/[0.20] transition ease-in-out"> <!-- Circle -->
                 <svg id="total_retweets_heart_{{tweet['tweet_id']}}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" class="fill-emerald-500 transition ease-in-out" width="20" height="20">

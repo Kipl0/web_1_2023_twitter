@@ -1,10 +1,12 @@
-
-
-
+// Definer globale variabler
 let active_profile_pop_up = null;
 let profile_options_btn_g 
 let profile_options_btn
 
+/**
+ * Denne funktion bliver kaldt en gang når js filen bliver importeret
+ * - Formålet med dette er at lave kun en eventlistener.
+ */
 function initialize() {
     // Luk popup når user klikker udenfor knap, popup eller på andre knapper
     document.addEventListener("click", (e) => {
@@ -17,28 +19,30 @@ function initialize() {
     });
 }
 
+// Kald når js filen bliver importeret
 initialize();
 
-
-// åbn og luk pop up til logud i ... navbar
-
+/**
+ * Åbn & Luk pop up til logud i navbar
+ * @param {HTMLElement} profile_options_btn - Inderholder profil muligheder knappen.
+ */
 function open_profile_option_btn(profile_options_btn) {
     profile_options_btn_g = profile_options_btn
     let profile_option_popup = document.getElementById("profile_option_popup")    
 
-    // Show eller hide popup
+    // Hvis eller skjul popup
     if (active_profile_pop_up && active_profile_pop_up.popup !== profile_option_popup) {
         active_profile_pop_up.popup.classList.remove("flex");
         active_profile_pop_up.popup.classList.add("hidden");
         active_profile_pop_up = null;
     }
 
-    // skjul pop up
+    // Skjul pop up
     if(profile_option_popup.classList.contains("flex")) {
         profile_option_popup.classList.add("hidden")
         profile_option_popup.classList.remove("flex")
         active_profile_pop_up = null;
-    // åbn pop up
+    // Åbn pop up
     } else { 
         profile_option_popup.classList.add("flex")
         profile_option_popup.classList.remove("hidden")

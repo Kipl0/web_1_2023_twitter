@@ -43,7 +43,8 @@ def _(username=None):
                     "deleted_user_total_dislikes" : user_to_deactivate["user_total_dislikes"],
                     "deleted_user_total_followers" : user_to_deactivate["user_total_followers"],
                     "deleted_user_total_following" : user_to_deactivate["user_total_following"],
-                    "deleted_user_active" : user_to_deactivate["user_active"]
+                    "deleted_user_active" : user_to_deactivate["user_active"],
+                    "deleted_user_twitter_gold" : user_to_deactivate["user_twitter_gold"]
                 }
 
                 values = ""
@@ -75,7 +76,8 @@ def _(username=None):
 
     except Exception as ex:
         response.status = 401
-        return str(ex)
+        print(ex)
+        return {"info": str(ex)}
 
 
     finally:

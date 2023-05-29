@@ -31,19 +31,18 @@ def _():
                     "message" : "user deactivated"
                 }
            
-            else : raise Exception
+            else : 
+                raise Exception
 
         else:
             # Unauthorized access
             response.status = 401  # Forbidden
             raise Exception
 
-
-
     except Exception as ex:
         response.status = 401
-        return str(ex)
-
+        print(ex)
+        return {"info": str(ex)}
 
     finally:
         if "db" in locals(): db.close()     

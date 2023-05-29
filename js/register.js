@@ -1,3 +1,6 @@
+/**
+ * Registere brugeren i systemet og sender dem en verification mail
+ */
 async function register(){
     try {
         // Hent event target som i vores tilfælde er en form
@@ -20,7 +23,7 @@ async function register(){
 
         // Tjek om requestet gik igennem og kast en error hvis ikke det skete
         else if( !conn.ok || data.info != "ok" ) {
-            throw new TypeError("Something went wrong. Cannot write comment to tweet");
+            throw new TypeError("Something went wrong");
         }
         const infoText = document.getElementById("infoText")
         infoText.innerHTML = "A verification mail has been set to you!"

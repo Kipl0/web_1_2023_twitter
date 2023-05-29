@@ -9,6 +9,12 @@ from apis.messages_to_users.send_verification_email import send_verification_ema
 @post("/register")
 def _():
     try:
+        import production #If this production is found, the next line should run
+        rootdir = "/home/Kipl0/mysite/"     
+    except Exception as ex:    
+        rootdir = "C:/Users/maalm/Documents/kea/web_1_2023_twitter/"
+
+    try:
         db = x.db()
 
         #get data validated data from form.
@@ -26,38 +32,43 @@ def _():
         hashed_password = bcrypt.hashpw(user_input_password, salt)
 
 
+
         #Upload avatar
         uploaded_avatar = request.files.get("uploaded_avatar") #files i formen
-        name, ext = os.path.splitext(uploaded_avatar.filename)
-        if ext == "" : 
-            #Because of enctype the uploaded picture is not "none", but the extension is - so if there's no upload ext will be an empty string or just none
+        if uploaded_avatar != None :
+            name, ext = os.path.splitext(uploaded_avatar.filename)
+            if ext == "" : 
+                #Because of enctype the uploaded picture is not "none", but the extension is - so if there's no upload ext will be an empty string or just none
+                picture_name_avatar = "default_avatar.jpg"
+            else:
+                if ext not in(".jpg", ".jpeg", ".png"):
+                    response.status = 400
+                    print(ext)
+                    return "Picture not allowed"
+                picture_name_avatar = str(uuid.uuid4().hex)
+                picture_name_avatar = picture_name_avatar + ext
+                uploaded_avatar.save(f"{rootdir}avatar/{picture_name_avatar}")
+                # return "Picture uploaded"
+        else :
             picture_name_avatar = "default_avatar.jpg"
-        else:
-            if ext not in(".jpg", ".jpeg", ".png"):
-                response.status = 400
-                print(ext)
-                return "Picture not allowed"
-            picture_name_avatar = str(uuid.uuid4().hex)
-            picture_name_avatar = picture_name_avatar + ext
-            uploaded_avatar.save(f"avatar/{picture_name_avatar}")
-            # return "Picture uploaded"
-
 
         #Upload banner
         uploaded_banner = request.files.get("uploaded_banner") #files i formen
-        name, ext = os.path.splitext(uploaded_banner.filename)
-        if ext == "" : 
-            #Because of enctype the uploaded picture is not "none", but the extension is - so if there's no upload ext will be an empty string or just none
+        if uploaded_banner != None :
+            name, ext = os.path.splitext(uploaded_banner.filename)
+            if ext == "" : 
+                #Because of enctype the uploaded picture is not "none", but the extension is - so if there's no upload ext will be an empty string or just none
+                picture_name_banner = "default_banner.png"
+            else:
+                if ext not in(".jpg", ".jpeg", ".png"):
+                    response.status = 400
+                    raise Exception("Picture not allowed")
+                picture_name_banner = str(uuid.uuid4().hex)
+                picture_name_banner = picture_name_banner + ext
+                uploaded_banner.save(f"{rootdir}banner/{picture_name_banner}")
+                # return "Picture uploaded"
+        else :
             picture_name_banner = "default_banner.png"
-        else:
-            if ext not in(".jpg", ".jpeg", ".png"):
-                response.status = 400
-                raise Exception("Picture not allowed")
-            picture_name_banner = str(uuid.uuid4().hex)
-            picture_name_banner = picture_name_banner + ext
-            uploaded_banner.save(f"banner/{picture_name_banner}")
-            # return "Picture uploaded"
-
 
         user_id = str(uuid.uuid4()).replace("-","")
         user = {
@@ -105,7 +116,7 @@ def _():
 
 
         # Send email to user if registered, "reciever_email = " øger bare læsbarhed - kan undværes
-        #send_verification_email(reciever_email=user_email, verification_key=verification_key)
+        send_verification_email(reciever_email=user_email, verification_key=verification_key)
 
 
 

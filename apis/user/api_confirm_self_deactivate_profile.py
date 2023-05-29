@@ -50,8 +50,6 @@ def _(deactivate_key):
             total_rows_inserted = db.execute(f"INSERT INTO deleted_users VALUES({values})", user_to_deleted_users).rowcount
             db.commit()
 
-            print("forbi")
-
             if total_rows_inserted != 1 : raise Exception("Please try again")
 
             db.execute("DELETE FROM users WHERE user_id = ?",(user_and_key_to_deactivate['user_fk'],))
@@ -59,6 +57,8 @@ def _(deactivate_key):
 
             db.execute("DELETE FROM accounts_to_self_deactivate WHERE user_fk = ?",(user_and_key_to_deactivate['user_fk'],))
             db.commit()
+
+            response.set_cookie("user_cookie", "", expires=0)
 
         else: #den eksisterer ikke i db
             print("Verification_key does not exist in the database")

@@ -43,7 +43,8 @@ def _(username=None):
                     "user_total_dislikes" : user_to_activate["deleted_user_total_dislikes"],
                     "user_total_followers" : user_to_activate["deleted_user_total_followers"],
                     "user_total_following" : user_to_activate["deleted_user_total_following"],
-                    "user_active" : user_to_activate["deleted_user_active"]
+                    "user_active" : user_to_activate["deleted_user_active"],
+                    "user_twitter_gold" : user_to_activate["deleted_user_twitter_gold"]
                 }
 
                 values = ""
@@ -72,12 +73,10 @@ def _(username=None):
             # Unauthorized access
             response.status = 401  # Forbidden
 
-
     except Exception as ex:
         response.status = 401
-        return str(ex)
-
-
+        print(ex)
+        return {"info": str(ex)}
 
     finally:
         if "db" in locals(): db.close()     

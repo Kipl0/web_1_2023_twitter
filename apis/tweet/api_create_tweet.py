@@ -7,6 +7,12 @@ import json
 
 @post("/tweet")
 def _():
+  try:
+    import production #If this production is found, the next line should run
+    rootdir = "/home/Kipl0/mysite/"     
+  except Exception as ex:    
+    rootdir = "C:/Users/maalm/Documents/kea/web_1_2023_twitter/"
+
   try:  # SUCCESS
     db = x.db()  # a function that gives access to db
 
@@ -27,7 +33,9 @@ def _():
           return "Picture not allowed"
         uploaded_tweet_image_name = str(uuid.uuid4().hex)
         uploaded_tweet_image_name = uploaded_tweet_image_name + ext
-        uploaded_tweet_image.save(f"tweet_images/{uploaded_tweet_image_name}")
+        print("Saving image")
+        uploaded_tweet_image.save(f"{rootdir}tweet_images/{uploaded_tweet_image_name}")
+        print("Image saved")
         # return "Picture uploaded"
     else:
       uploaded_tweet_image_name = ""
