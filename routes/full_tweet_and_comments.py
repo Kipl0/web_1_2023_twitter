@@ -19,18 +19,11 @@ def _(tweet_id):
             who_to_follow = []
             who_to_follow = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ? LIMIT 3",(user_cookie["user_username"],"Admin")).fetchall()
 
-
             tweet_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id AND tweet_id=? COLLATE NOCASE",(tweet_id,)).fetchone()
-   
-
             tweet_comment_and_user_data = db.execute("SELECT * FROM tweet_comments, users WHERE tweet_comments.comment_user_fk = users.user_id AND comment_tweet_fk=? ORDER BY comment_created_at DESC",(tweet_id,)).fetchall()
-
-
-
             tweet_retweeted_by_user_record = db.execute("SELECT * FROM tweets_retweeted_by_users WHERE user_fk = ? AND tweet_fk = ?",(user_cookie["user_id"], tweet_and_user_data["tweet_id"])).fetchone()
-                # Hvis den er lig 1 betyder det at user har liket tweet  # Hvis ikke tweet_liked_by_user_record eksisterer i db, så har user hverken set eller liket opslaget før
             
-            print(tweet_retweeted_by_user_record)
+            # Hvis den er lig 1 betyder det at user har liket tweet  # Hvis ikke tweet_liked_by_user_record eksisterer i db, så har user hverken set eller liket opslaget før
             if tweet_retweeted_by_user_record == None : 
                 tweet_and_user_data["retweeted"] = 0
                 tweet_and_user_data["retweeted_by"] = ""
@@ -48,11 +41,8 @@ def _(tweet_id):
                 tweet_and_user_data["retweeted_by"] = retweeted_by['user_username']
                 tweet_and_user_data["original_tweet"] = 0
                 
-            
-
             # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
             tweet_liked_by_user_record = db.execute("SELECT * FROM tweets_liked_by_users WHERE user_id = ? AND tweet_id = ?",(user_cookie["user_id"], tweet_and_user_data["tweet_id"])).fetchone()
-
 
             # Når man klikker ind på siden, så har man set tweet (hvis man har liket, har man allerede set 0/1 bool)
             # Hvis den er lig 1 betyder det at user har liket tweet # Hvis ikke tweet_liked_by_user_record eksisterer i db, så har user hverken set eller liket opslaget før
@@ -72,10 +62,7 @@ def _(tweet_id):
                 tweet_and_user_data["liked_viewed"] = 0
 
 
-
-
             # Hvs bruger har kommenteret på tweet, så hvis blå aktiv farve ved load
-            
             tweet_comments = db.execute("SELECT * FROM tweet_comments WHERE comment_user_fk = ? AND comment_tweet_fk = ?",(user_cookie["user_id"], tweet_and_user_data["tweet_id"])).fetchone()
             # Hvis den findes betyder det at user har kommenteret på tweet # laver nyt key-value pair hvor den er 0 eller 1
             if tweet_comments == None : 

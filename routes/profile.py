@@ -3,7 +3,6 @@ import sqlite3
 import pathlib
 import x
 
-
 ##############################
 @get("/<user_username>")
 def _(user_username):
@@ -16,14 +15,12 @@ def _(user_username):
 
     user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET) #vi vil gerne have fat i en cookie fra browseren der hedder "login" det har vi defineret i login.py
 
-
     user = db.execute("SELECT * FROM users WHERE user_username=? COLLATE NOCASE",(user_username,)).fetchall()[0]
     user_id = user["user_id"]    
 
     # Den matcher user_id med tweet_user_fk, så den filtrer hvem der har tweetet hvad - så hp user sidder sammen med hp tweets AND der hvor user_username er lige url'en 
     tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id AND user_username=? COLLATE NOCASE ORDER BY tweet_created_at DESC LIMIT 10",(user_username,)).fetchall()
     
-
     retweets_and_user_data = db.execute("SELECT * FROM tweets,users,tweets_retweeted_by_users WHERE tweets.tweet_user_fk = users.user_id AND tweets_retweeted_by_users.tweet_fk = tweets.tweet_id AND tweets_retweeted_by_users.user_fk=?  COLLATE NOCASE ORDER BY tweet_created_at DESC LIMIT 10",(user_id,)).fetchall()
 
     # Key value pair, der sepererer retweet_tweets fra originale tweets - så begge to kan få grøn ikon og grøn tekst
@@ -33,7 +30,6 @@ def _(user_username):
       retweeted_by = db.execute("SELECT user_username FROM users WHERE user_id = ?",(tweet_retweeted['user_fk'],)).fetchone() # loop igennem alle retweets og sæt retweeted by
       tweet_retweeted['retweeted_by'] = retweeted_by['user_username'] # tilføj den som key-value par til hver retweet i tabellen
       tweet_retweeted['original_tweet'] = 0
-
 
 
     trends = db.execute("SELECT * FROM trends")

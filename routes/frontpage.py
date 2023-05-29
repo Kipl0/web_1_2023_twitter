@@ -20,17 +20,13 @@ def render_frontpage():
       response.status = 303
       response.set_header("Location", "/login")
       return
-      #return template("login",  USER_NAME_MIN=x.USER_NAME_MIN, USER_NAME_MAX=x.USER_NAME_MAX, PASSWORD_MIN=x.PASSWORD_MIN, PASSWORD_MAX=x.PASSWORD_MAX)
 
     who_to_follow = []
     who_to_follow = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ? LIMIT 3",(user_cookie["user_username"],"Admin"))
 
     trends = db.execute("SELECT * FROM trends")
 
-
-    
     tweets_and_user_data = db.execute("SELECT * FROM tweets INNER JOIN users ON tweets.tweet_user_fk = users.user_id ORDER BY tweet_created_at DESC").fetchall()
-
     retweets_and_user_data = db.execute("SELECT * FROM tweets,users,tweets_retweeted_by_users WHERE tweets.tweet_user_fk = users.user_id AND tweets_retweeted_by_users.tweet_fk = tweets.tweet_id COLLATE NOCASE ORDER BY tweet_created_at DESC").fetchall()
 
 
@@ -46,7 +42,6 @@ def render_frontpage():
 
     # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
     if user_cookie != None : 
-      ###############################
       # Retweets
       for tweet in tweets_and_user_data :
         tweet_retweeted_by_user_record = db.execute("SELECT * FROM tweets_retweeted_by_users WHERE user_fk = ? AND tweet_fk = ?",(user_cookie["user_id"], tweet["tweet_id"])).fetchone()
