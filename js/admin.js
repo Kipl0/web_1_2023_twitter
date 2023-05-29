@@ -5,7 +5,7 @@ async function deactivate_user() {
     try {
         // Hent event target som i vores tilfælde er en form
         const frm = event.target.form
-
+        
         // Lav reqeust til vores API om at deactivate-user
         const conn = await fetch("/deactivate-user", {
             method : "POST",
@@ -80,7 +80,7 @@ async function activate_user() {
     try {
         // Hent event target som i vores tilfælde er en form
         const frm = event.target.form
-
+       
         // Lav reqeust til vores API om at activate-user
         const conn = await fetch("/activate-user", {
             method : "POST",

@@ -1,5 +1,6 @@
 from bottle import request, response, post
 import x
+from apis.messages_to_users.send_info_email import send_info_email
 
 @post("/deactivate-user/<username>")
 @post("/deactivate-user")  # Route without a specific username for admin access
@@ -63,6 +64,8 @@ def _(username=None):
                 db.execute("DELETE FROM users WHERE user_id = ?",(user_to_deactivate["user_id"],))
                 db.commit()
 
+                create_and_send_info_email(reciever_email=user_to_deactivate["user_email"])
+
                 return {
                     "info" : "ok",
                     "message" : "user deactivated"
@@ -83,3 +86,19 @@ def _(username=None):
     finally:
         if "db" in locals(): db.close()     
 
+
+def create_and_send_info_email(reciever_email: str):
+    text = f"""\
+        Hi!
+        We regret to inform you, that your accound has been deactivated.
+    """
+    html = f"""\
+    <html>
+        <body>
+            <h2> Hi! </h2>
+            <p>We regret to inform you, that your accound has been deactivated.</p>
+        </body>
+    </html>
+    """
+
+    send_info_email(reciever_email=reciever_email, message_plain_text=text, message_html=html)

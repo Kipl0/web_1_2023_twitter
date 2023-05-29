@@ -1,5 +1,6 @@
 from bottle import request, response, post
 import x
+from apis.messages_to_users.send_info_email import send_info_email
 
 # @post("/activate-user/<username>") Tjekkes ikke i javascript?
 @post("/activate-user")
@@ -63,7 +64,8 @@ def _(username=None):
                 db.execute("DELETE FROM deleted_users WHERE deleted_user_id = ?",(user_to_activate["deleted_user_id"],))
                 db.commit()
 
-
+                create_and_send_info_email(reciever_email=user_to_activate["deleted_user_email"])
+                
                 return {
                     "info" : "ok",
                     "message" : "user activated"
@@ -82,12 +84,18 @@ def _(username=None):
         if "db" in locals(): db.close()     
 
 
+def create_and_send_info_email(reciever_email: str):
+    text = f"""\
+        Hi!
+        You account has been activated again! 
+    """
+    html = f"""\
+    <html>
+        <body>
+            <h2> Hi! </h2>
+            <p>You account has been activated again!</p>
+        </body>
+    </html>
+    """
 
-
-
-
-
-
-
-
-
+    send_info_email(reciever_email=reciever_email, message_plain_text=text, message_html=html)
