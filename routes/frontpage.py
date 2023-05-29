@@ -27,7 +27,9 @@ def render_frontpage():
 
     trends = db.execute("SELECT * FROM trends")
 
-    tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id ORDER BY tweet_created_at DESC").fetchall()
+
+    
+    tweets_and_user_data = db.execute("SELECT * FROM tweets INNER JOIN users ON tweets.tweet_user_fk = users.user_id ORDER BY tweet_created_at DESC").fetchall()
 
     retweets_and_user_data = db.execute("SELECT * FROM tweets,users,tweets_retweeted_by_users WHERE tweets.tweet_user_fk = users.user_id AND tweets_retweeted_by_users.tweet_fk = tweets.tweet_id COLLATE NOCASE ORDER BY tweet_created_at DESC").fetchall()
 
