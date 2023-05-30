@@ -5,7 +5,7 @@
 function showTip(message){
     const tip_id = Math.random()
     let tip = `
-    <div data-tip-id="${tip_id}" class="flex justify-center w-fit px-8 lg:w-1/3 mx-auto py-4 text-white bg-purple-500 rounded-md">
+    <div data-tip-id="${tip_id}" class="flex justify-center w-fit px-8 lg:w-1/3 mx-auto py-4 text-white bg-red-400 rounded-md">
        ${message}
     </div>
     `

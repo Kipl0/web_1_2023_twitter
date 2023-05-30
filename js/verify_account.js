@@ -8,12 +8,6 @@ async function verify_account() {
         url_split = url.split("/")
         verification_key = url_split[url_split.length - 1] // Få det sidste element fra array
 
-        //TODO
-        // hent id fra h1, p og spinner
-        // gør h1 til succes text
-        // gør p tag til login knap 
-        // gør spinner til succes ikon
-
         // Lav reqeust til vores API om at verify email
         const conn = await fetch(`/verify-email/${verification_key}`,{
             method: "POST"

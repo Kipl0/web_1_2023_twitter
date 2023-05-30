@@ -41,7 +41,6 @@ def _(username=None):
                     "user_total_retweets" : user_to_activate["deleted_user_total_retweets"],
                     "user_total_comments" : user_to_activate["deleted_user_total_comments"],
                     "user_total_likes" : user_to_activate["deleted_user_total_likes"],
-                    "user_total_dislikes" : user_to_activate["deleted_user_total_dislikes"],
                     "user_total_followers" : user_to_activate["deleted_user_total_followers"],
                     "user_total_following" : user_to_activate["deleted_user_total_following"],
                     "user_active" : user_to_activate["deleted_user_active"],

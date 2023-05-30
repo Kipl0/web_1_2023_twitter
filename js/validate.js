@@ -14,7 +14,7 @@ function validate(callback){
     const validate_error = "rgba(253, 63, 100, 1)"
     form.querySelectorAll("[data-validate]").forEach(function(element){ 
       element.classList.remove("validate_error")
-      element.classList.remove("bg-orange-700")
+      element.classList.remove("bg-red-400")
       // element.style.backgroundColor = "white"
     })
     form.querySelectorAll("[data-validate]").forEach( function(element){
@@ -24,7 +24,7 @@ function validate(callback){
               element.value.length > parseInt(element.getAttribute("data-max")) 
           ){
             element.classList.add("validate_error")
-            element.classList.add("bg-orange-700")
+            element.classList.add("bg-red-400")
 
             //element.style.backgroundColor = validate_error
             infoText.innerHTML = `Field must contain between ${element.getAttribute("data-min")} and ${element.getAttribute("data-max")} characters`

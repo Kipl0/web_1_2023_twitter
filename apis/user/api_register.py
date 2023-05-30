@@ -88,7 +88,6 @@ def _():
             "user_total_retweets" : 0,
             "user_total_comments" : 0,
             "user_total_likes" : 0,
-            "user_total_dislikes" : 0,
             "user_total_followers" : 0,
             "user_total_following" : 0,
             "user_active" : 1,

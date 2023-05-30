@@ -80,8 +80,8 @@ async function delete_tweet(){
             throw new TypeError("Something went wrong. Cannot like tweet");
         }
     
-        const testertester = document.getElementById(`${data.tweet_to_delete_id}`)
-        testertester.style.display="none"
+        const tweet_to_delete_id = document.getElementById(`${data.tweet_to_delete_id}`)
+        tweet_to_delete_id.style.display="none"
     } 
     catch ({ name, message }) {
         console.log(name); 

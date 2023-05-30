@@ -34,7 +34,6 @@ def _(deactivate_key):
                 "deleted_user_total_retweets" : user_to_deactivate['user_total_retweets'],
                 "deleted_user_total_comments" : user_to_deactivate['user_total_comments'],
                 "deleted_user_total_likes" : user_to_deactivate['user_total_likes'],
-                "deleted_user_total_dislikes" : user_to_deactivate['user_total_dislikes'],
                 "deleted_user_total_followers" : user_to_deactivate['user_total_followers'],
                 "deleted_user_total_following" : user_to_deactivate['user_total_following'],
                 "deleted_user_active" : user_to_deactivate['user_active'],
