@@ -38,7 +38,8 @@ def _():
                 if user_cookie["user_avatar"] not in x.images_not_to_be_deleted :
                     user_cookie_avatar = user_cookie["user_avatar"]
                     myfile = f"avatar/{user_cookie_avatar}"
-                    os.remove(myfile)
+                    if user_cookie_avatar != "default_avatar.jpg" :
+                        os.remove(myfile)
         else :
             picture_name_avatar = user_cookie["user_avatar"]
 
@@ -59,7 +60,8 @@ def _():
                 if user_cookie["user_banner"] not in x.images_not_to_be_deleted :
                     user_cookie_banner = user_cookie["user_banner"]
                     myfile = f"banner/{user_cookie_banner}"
-                    os.remove(myfile)
+                    if user_cookie_avatar != "default_banner.png" :
+                        os.remove(myfile)
         else : 
             picture_name_banner = user_cookie["user_banner"]
 
@@ -85,6 +87,7 @@ def _():
         return {"info": "ok"}
 
     except Exception as ex:
+        print(ex)
         response.status = 400
         return {"info": str(ex)}
 
