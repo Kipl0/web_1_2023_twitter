@@ -5,63 +5,52 @@
 ----------------------->
 % include("comp_header_navbar", title="Forside", contact_active='class="active"')
 
-<!------------------------
-          center 
-------------------------->
-<div class="w-full lg:w-5/12">
-  <div class="min-h-screen h-full border-x border-gray-600">
-    %if user_cookie != None :
-      <!-- Home-top section -->
-      % include("comp_home_navbar")
+<div class="flex w-full">
+  <!------------------------
+            center 
+  ------------------------->
+  <div class="w-full ">
+    <div class="min-h-screen h-full border-x border-gray-600">
+      %if user_cookie != None :
+        <!-- Home-top section -->
+        % include("comp_home_navbar")
 
-      <!-- Create new tweet -->
-      % include("comp_create_tweet")
+        <!-- Create new tweet -->
+        % include("comp_create_tweet")
 
-      <!-- TWEETS-->
-      % include("comp_tweets")
+        <!-- TWEETS-->
+        % include("comp_tweets")
 
-    % else :
-      <!-- TRENDS -->
-      % include("comp_trends", show_latest_tweets="False")
+      % else :
+        <!-- TRENDS -->
+        % include("comp_trends", show_latest_tweets="False")
 
-    % end
+      % end
+    </div>
+    <!-- end center -->
   </div>
-  <!-- end center -->
+
+  <!----------------------
+            right 
+  ----------------------->
+  <div class="top-1 hidden lg:flex flex-col pl-6 min-w-[300px] max-w-[400px] pr-4 gap-4 pt-4 h-full ">
+      % if user_cookie != None :
+        <!-- SEARCH -->
+        % include("comp_search")
+
+        <!-- TRENDS -->
+        % include("comp_trends", show_latest_tweets="False")
+
+        <!-- WHO TO FOLLOW -->
+        % include("comp_who_to_follow")
+
+      % else :
+        <!-- Login box -->
+        % include("comp_login_box")
+      %end
+  </div>
+  <!-- end right -->
 </div>
-
-
-
-
-
-
-<!----------------------
-          right 
------------------------>
-<div class="sticky top-1 hidden lg:flex flex-col pl-6 min-w-[300px] max-w-[400px] pr-4 gap-4 pt-4  h-fit">
-    % if user_cookie != None :
-      % include("comp_search")
-
-      <!-- TRENDS -->
-      % include("comp_trends", show_latest_tweets="False")
-
-      <!-- WHO TO FOLLOW -->
-      % include("comp_who_to_follow")
-
-    % else :
-      <!-- Login box -->
-      % include("comp_login_box")
-    %end
-    <section class="text-zinc-500 text-sm">
-      Terms of Service
-      Privacy Policy
-      Cookie Policy
-      Accessibility
-      Ads info
-      More
-      © 2023 X Corp.
-  </section>
-</div>
-<!-- end right -->
 
 
 

@@ -1,31 +1,42 @@
   <!-- who to follow -->
-  <div class="top-20 flex flex-col gap-6 w-full  py-4 px-4 mt-4 bg-zinc-900 rounded-2xl">
-    <div class="text-2xl font-semibold">
-      Who to follow
+  <div class="sticky top-20 gap-6 w-full mt-4 ">
+    <div class="flex flex-col gap-6 w-full  py-4 px-4 bg-zinc-900 rounded-2xl">
+      <div class="text-2xl font-semibold">
+        Who to follow
 
-    </div>
+      </div>
 
-    <!-- Who to follow -->
-    % for who_to_follow_suggestion in who_to_follow:
-      <a href="/{{who_to_follow_suggestion['user_username']}}" class="flex items-center gap-3">
-        % if "user_avatar" in who_to_follow_suggestion:  
-        <img src="/avatar/{{who_to_follow_suggestion['user_avatar']}}" class="w-12 h-12 rounded-full">
-        % end
-        <div class="">
-          <div class="text-gray-200 font-semibold text-sm">
-            {{who_to_follow_suggestion["user_username"]}} 
+      <!-- Who to follow -->
+      % for who_to_follow_suggestion in who_to_follow:
+        <a href="/{{who_to_follow_suggestion['user_username']}}" class="flex items-center gap-3">
+          % if "user_avatar" in who_to_follow_suggestion:  
+          <img src="/avatar/{{who_to_follow_suggestion['user_avatar']}}" class="w-12 h-12 rounded-full">
+          % end
+          <div class="">
+            <div class="text-gray-200 font-semibold text-sm">
+              {{who_to_follow_suggestion["user_username"]}} 
+            </div>
+            <div class="text-zinc-500 text-sm">
+              <strong>@</strong>{{who_to_follow_suggestion["user_username"]}}
+            </div>
           </div>
-          <div class="text-zinc-500 text-sm">
-            <strong>@</strong>{{who_to_follow_suggestion["user_username"]}}
-          </div>
-        </div>
-        <button class="ml-auto px-3 py-2 text-black text-sm font-medium bg-gray-200 rounded-full">
-          Follow
-        </button>
+          <button class="ml-auto px-3 py-2 text-black text-sm font-medium bg-gray-200 rounded-full">
+            Follow
+          </button>
+        </a>
+      % end
+      <a href="/" class="text-sky-500">
+        Show more
       </a>
-    % end
-    <a href="/" class="text-sky-500">
-      Show more
-    </a>
-  </div>
+    </div>
+    <section class="flex w-full justify-center flex-wrap text-zinc-500 text-center gap-2 pt-2 text-sm">
+      <p class="hover:underline cursor-pointer">Terms of Service</p>
+      <p class="hover:underline cursor-pointer">Privacy Policy</p>
+      <p class="hover:underline cursor-pointer">Cookie Policy</p>
+      <p class="hover:underline cursor-pointer">Accessibility</p>
+      <p class="hover:underline cursor-pointer">Ads info</p>
+      <p class="hover:underline cursor-pointer">More</p>
+      <p class="hover:underline cursor-pointer">© 2023 X Corp.</p>
+  </section>
+</div>
   <!-- end who to follow  -->

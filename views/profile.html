@@ -5,100 +5,108 @@
 ----------------------->
 % include("comp_header_navbar", title="Profile", contact_active='class="active"')
 
+<div class="flex w-full">
+  <!------------------------
+            center 
+  ------------------------->
+  <!-- Center and right container -->
+  <div class="w-full ">
+    <div class="min-h-screen h-full border-x border-gray-600">
 
-<!------------------------
-          center 
-------------------------->
-<!-- Center and right container -->
-<div class="w-full lg:w-5/12">
-  <div class="min-h-screen h-full border-x border-gray-600">
-
-    <div class="sticky w-full z-20 top-0 py-2 border-b border-zinc-600 bg-black/[.80] backdrop-blur-sm"><!--top - go back -->
-      <a href="/" class="flex items-center pl-4  gap-9" >
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
-        <div>
-          <p class="text-xl font-bold">{{user["user_first_name"]}} {{user["user_last_name"]}}</p>
-          <p class="text-xs text-neutral-500">{{user["user_total_tweets"]}} Tweets</p>
-        </div>
-      </a>
-    </div>
-    <div class="flex flex-col w-full "> <!--image section-->
-        <div class="relative w-full h-0" style="padding-bottom: 33.33%">
-          <img  src="/banner/{{user['user_banner']}}" class="absolute inset-0 object-cover object-center w-full h-full">
-        </div>
-        <div class="relative flex justify-end px-4"> <!--container under banner-->
-          <img src="/avatar/{{user['user_avatar']}}" class="flex absolute max-w-[25%] h-auto aspect-square left-4 z-9 translate-y-[-50%] rounded-full border-2 border-black">
-        </div>
-      <section class="flex w-full p-4">
-        <!-- Så man ikke kan follow sig selv -->
-        % if user_cookie["user_id"] != user["user_id"] :
-          <form class="ml-auto" onsubmit="follow_unfollow(); return false">
-            <input type="text" name="user_id" value="{{user['user_id']}}" class="hidden">
-            % if user["follows"] == 0 :
-                <button id="follow_btn_{{user['user_id']}}" type="submit" class="bg-white py-2 px-4 rounded-full text-sm text-black">Follow</button>
-            % else :
-                <button id="follow_btn_{{user['user_id']}}" type="submit" class="bg-black border-2 border-white text-white py-2 px-4 rounded-full text-sm">Unfollow</button>
-            % end
-          </form>
-        <!-- Vis Edit profile knap-->
-        % else : 
-          <button id="" onclick="open_edit_profile(this); return false" class="bg-black ml-auto border-2 border-white text-white py-2 px-4 rounded-full text-sm">Edit profile</button>
-        % end
-      </section>
-    </div>
-
-
-    <!-- Logged info -->
-    <div class="p-4 flex flex-col gap-2">
-      <div class="flex flex-col">
-        <h2 class="font-bold text-2xl">{{user["user_first_name"]}} {{user["user_last_name"]}}</h2>
-        <p class="text-zinc-500 text-sm font-normal">@{{user["user_username"]}}</p>
+      <div class="sticky w-full z-20 top-0 py-2 border-b border-zinc-600 bg-black/[.80] backdrop-blur-sm"><!--top - go back -->
+        <a href="/" class="flex items-center pl-4  gap-9" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12 20l-8-8l8-8l1.425 1.4l-5.6 5.6H20v2H7.825l5.6 5.6Z"/></svg>
+          <div>
+            <p class="text-xl font-bold">{{user["user_first_name"]}} {{user["user_last_name"]}}</p>
+            <p class="text-xs text-neutral-500">{{user["user_total_tweets"]}} Tweets</p>
+          </div>
+        </a>
       </div>
-      <p class="flex flex-initial text-zinc-500 items-center gap-2 text-sm font-normal">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-2V3a1 1 0 0 0-2 0v1H9V3a1 1 0 0 0-2 0v1H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm1 15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7h16Zm0-9H4V7a1 1 0 0 1 1-1h2v1a1 1 0 0 0 2 0V6h6v1a1 1 0 0 0 2 0V6h2a1 1 0 0 1 1 1Z"/></svg>
-        {{user["user_first_name"]}} {{user["user_last_name"]}}
-      </p>
-      <section class="flex gap-4"> <!--Follows and followers-->
-          <div class="flex gap-1">
-            <p class="font-bold text-sm">{{user["user_total_following"]}}</p>
-            <p class="text-zinc-500 text-sm font-normal"> Follows</p>
+      <div class="flex flex-col w-full "> <!--image section-->
+          <div class="relative w-full h-0" style="padding-bottom: 33.33%">
+            <img  src="/banner/{{user['user_banner']}}" class="absolute inset-0 object-cover object-center w-full h-full">
           </div>
-          <div class="flex gap-1">
-            <p id="{{user['user_id']}}" class="font-bold text-sm text-white">{{user["user_total_followers"]}} </p>
-            <p class="text-zinc-500 text-sm font-normal">Followers</p>
+          <div class="relative flex justify-end px-4"> <!--container under banner-->
+            <img src="/avatar/{{user['user_avatar']}}" class="flex absolute max-w-[25%] h-auto aspect-square left-4 z-9 translate-y-[-50%] rounded-full border-2 border-black">
           </div>
-      </section>
+        <section class="flex w-full p-4">
+          <!-- Så man ikke kan follow sig selv -->
+          % if user_cookie["user_id"] != user["user_id"] :
+            <form class="ml-auto" onsubmit="follow_unfollow(); return false">
+              <input type="text" name="user_id" value="{{user['user_id']}}" class="hidden">
+              % if user["follows"] == 0 :
+                  <button id="follow_btn_{{user['user_id']}}" type="submit" class="bg-white py-2 px-4 rounded-full text-sm text-black">Follow</button>
+              % else :
+                  <button id="follow_btn_{{user['user_id']}}" type="submit" class="bg-black border-2 border-white text-white py-2 px-4 rounded-full text-sm">Unfollow</button>
+              % end
+            </form>
+          <!-- Vis Edit profile knap-->
+          % else : 
+            <button id="" onclick="open_edit_profile(this); return false" class="bg-black ml-auto border-2 border-white text-white py-2 px-4 rounded-full text-sm">Edit profile</button>
+          % end
+        </section>
+      </div>
+
+
+      <!-- Logged info -->
+      <div class="p-4 flex flex-col gap-2">
+        <div class="flex flex-col">
+          <h2 class="font-bold text-2xl">{{user["user_first_name"]}} {{user["user_last_name"]}}</h2>
+          <p class="text-zinc-500 text-sm font-normal">@{{user["user_username"]}}</p>
+        </div>
+        <p class="flex flex-initial text-zinc-500 items-center gap-2 text-sm font-normal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-2V3a1 1 0 0 0-2 0v1H9V3a1 1 0 0 0-2 0v1H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm1 15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7h16Zm0-9H4V7a1 1 0 0 1 1-1h2v1a1 1 0 0 0 2 0V6h6v1a1 1 0 0 0 2 0V6h2a1 1 0 0 1 1 1Z"/></svg>
+          {{user["user_first_name"]}} {{user["user_last_name"]}}
+        </p>
+        <section class="flex gap-4"> <!--Follows and followers-->
+            <div class="flex gap-1">
+              <p class="font-bold text-sm">{{user["user_total_following"]}}</p>
+              <p class="text-zinc-500 text-sm font-normal"> Follows</p>
+            </div>
+            <div class="flex gap-1">
+              <p id="{{user['user_id']}}" class="font-bold text-sm text-white">{{user["user_total_followers"]}} </p>
+              <p class="text-zinc-500 text-sm font-normal">Followers</p>
+            </div>
+        </section>
+      </div>
+
+
+      <!--Logged in Navbar-->
+      <div class="flex w-full font-semibold"> 
+        <a href="#" class="w-3/12 text-center py-4 hover:bg-zinc-900 "><span class="pb-4 border-b-4 border-[#4A99E9] font-bold">Tweets</span></a>
+        <a href="#" class="w-4/12 text-center py-4 hover:bg-zinc-900"><span class="text-zinc-500">Tweets and answers</span></a>
+        <a href="#" class="w-3/12 text-center py-4 hover:bg-zinc-900"><span class="text-zinc-500">Media</span></a>
+        <a href="#" class="w-3/12 text-center py-4 hover:bg-zinc-900"><span class="text-zinc-500">Likes</span></a>
+      </div>
+
+      % include("comp_tweets")
     </div>
-
-
-    <!--Logged in Navbar-->
-    <div class="flex w-full font-semibold"> 
-      <a href="#" class="w-3/12 text-center py-4 hover:bg-zinc-900 "><span class="pb-4 border-b-4 border-[#4A99E9] font-bold">Tweets</span></a>
-      <a href="#" class="w-4/12 text-center py-4 hover:bg-zinc-900"><span class="text-zinc-500">Tweets and answers</span></a>
-      <a href="#" class="w-3/12 text-center py-4 hover:bg-zinc-900"><span class="text-zinc-500">Media</span></a>
-      <a href="#" class="w-3/12 text-center py-4 hover:bg-zinc-900"><span class="text-zinc-500">Likes</span></a>
-    </div>
-
-    % include("comp_tweets")
-  </div>
-  <!-- end center -->
-
-</div>
-
-
-
-
-<!----------------------
-        right 
------------------------>
-<div class="col-span-1 hidden lg:block pl-6 pr-4 pt-4">
-  <div class="min-w-[300px] sticky top-1">
-    % include("comp_search")
-    % include("comp_trends", show_latest_tweets="True", tweets_and_user_data=tweets_and_user_data)
+    <!-- end center -->
 
   </div>
+
+
+
+
+  <!----------------------
+          right 
+  ----------------------->
+  <div class="top-1 hidden lg:flex flex-col pl-6 min-w-[300px] max-w-[400px] pr-4 gap-4 pt-4 h-full">
+      % if user_cookie != None :
+        <!-- SEARCH -->
+        % include("comp_search")
+
+        <!-- TRENDS -->
+        % include("comp_trends", show_latest_tweets="True", tweets_and_user_data=tweets_and_user_data)
+
+        <!-- WHO TO FOLLOW -->
+        % include("comp_who_to_follow")
+
+      % end
+    <!-- </div> -->
+  </div>
+  <!-- end right -->
 </div>
-<!-- end right -->
 
 
 
