@@ -32,7 +32,7 @@ async function change_password_confirm() {
             const infoText = document.getElementById("infoText")
             infoText.innerHTML = data.info
             infoText.classList.remove("hidden")
-            throw new TypeError(400, "Something went wrong. Cannot write comment to tweet");
+            throw new TypeError(400, "Something went wrong. Cannot change password");
         }
 
         // Redirect til login siden
