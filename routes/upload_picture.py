@@ -4,7 +4,3 @@ from bottle import get, template
 def _():
     return template("upload_files")
 
-
-@get("/tester-css")
-def _():
-    return template("tester-css")
