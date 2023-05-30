@@ -15,7 +15,11 @@ def _():
 
             deleted_users = db.execute("SELECT * FROM deleted_users").fetchall()
 
-            return template("admin", users=users, user_cookie = user_cookie, trends = trends, deleted_users = deleted_users)
+            who_to_follow = []
+            who_to_follow = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ? LIMIT 3",(user_cookie["user_username"],"Admin"))
+
+
+            return template("admin", users=users, user_cookie = user_cookie, trends = trends, who_to_follow=who_to_follow, deleted_users = deleted_users)
 
         return template("/")
 

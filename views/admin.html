@@ -5,129 +5,135 @@
 ----------------------->
 % include("comp_header_navbar", title="Profile", contact_active='class="active"')
 
-
+<div class="flex w-full">
 <!------------------------
           center 
 ------------------------->
-<!-- Center and right container -->
-<div class="w-full lg:w-5/12">
-  <div class="min-h-screen h-full border-x border-gray-600">
+    <!-- Center and right container -->
+    <div class="w-full ">
+        <div class="min-h-screen h-full border-x border-gray-600">
 
-    <div class="w-full py-4 pb-4 bg-black">
-        <h1 class="py-5 text-center text-xl font-semibold">All active users</h1>
-        % for user in users :
-        <div class="flex items-center relative gap-4 text-white p-4">
-            <div>
-                <img src="/avatar/{{user['user_avatar']}}" class="flex w-10 h-auto aspect-square rounded-full">
-            </div>
-            <div class="">
-                <p>{{user["user_username"]}}</p>
-                <p>{{user["user_first_name"]}} {{user["user_last_name"]}}</p>
-                <p></p>
-            </div>
-            <button onclick="open_user_options(this); return false" id="user_option_btn_{{user['user_id']}}" class="ml-auto">
-                <div class="flex items-center group cursor-pointer"> <!--group container-->
-                    <svg  width="26" height="26" viewBox="0 0 24 24" >
-                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                        d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Z" />
-                    </svg>
-                </div>
-            </button>
-            <div id="user_option_popup_{{user['user_id']}}" class="hidden absolute right-0 top-[60%] z-40 flex-col bg-black border border-gray-600 rounded-md w-fit ">
-                <a href="/{{user['user_username']}}" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md">Go to profile</a>
-
-                <form id="deactivate_user_form" method="POST" action="">
-                    <input id="deactivate_user_{{user['user_id']}}" type="text" name="deactivate_user_{{user['user_id']}}" class="hidden">
-                    <button onclick="deactivate_user(); return false;" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-b-md" >
-                        Deactivate user
-                    </button>
-                </form>
-            </div>
-        </div>
-        % end
-
-        <div class="w-full py-4 pb-4 gap-4 border-t border-gray-600">
-            <h1 class="py-5 w-full text-center text-xl font-semibold">All inactive users</h1>
-
-            % for deleted_user in deleted_users :
-            <div class="flex items-center relative gap-4 text-white p-4">
-
-                <div>
-                    <img src="/avatar/{{deleted_user['deleted_user_avatar']}}" class="flex w-10 h-auto aspect-square rounded-full">
-                </div>
-                <div class="">
-                    <p>{{deleted_user["deleted_user_username"]}}</p>
-                    <p>{{deleted_user["deleted_user_first_name"]}} {{deleted_user["deleted_user_last_name"]}}</p>
-                    <p></p>
-                </div>
-
-                <button onclick="open_user_options(this); return false" id="user_option_btn_{{deleted_user['deleted_user_id']}}" class="ml-auto">
-                    <div class="flex items-center group cursor-pointer"> <!--group container-->
-                        <svg  width="26" height="26" viewBox="0 0 24 24" >
-                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Z" />
-                        </svg>
+            <div class="w-full py-4 pb-4 bg-black">
+                <h1 class="py-5 text-center text-xl font-semibold">All active users</h1>
+                % for user in users :
+                <div class="flex items-center relative gap-4 text-white p-4">
+                    <div>
+                        <img src="/avatar/{{user['user_avatar']}}" class="flex w-10 h-auto aspect-square rounded-full">
                     </div>
-                </button>
-                <div id="user_option_popup_{{deleted_user['deleted_user_id']}}" class="hidden absolute right-0 top-[60%] z-40 flex-col bg-black border border-gray-600 rounded-md w-fit ">
+                    <div class="">
+                        <p>{{user["user_username"]}}</p>
+                        <p>{{user["user_first_name"]}} {{user["user_last_name"]}}</p>
+                        <p></p>
+                    </div>
+                    <button onclick="open_user_options(this); return false" id="user_option_btn_{{user['user_id']}}" class="ml-auto">
+                        <div class="flex items-center group cursor-pointer"> <!--group container-->
+                            <svg  width="26" height="26" viewBox="0 0 24 24" >
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Z" />
+                            </svg>
+                        </div>
+                    </button>
+                    <div id="user_option_popup_{{user['user_id']}}" class="hidden absolute right-0 top-[60%] z-40 flex-col bg-black border border-gray-600 rounded-md w-fit ">
+                        <a href="/{{user['user_username']}}" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md">Go to profile</a>
 
-                    <form method="POST" action="">
-                        <input type="text" name="activate_user_{{deleted_user['deleted_user_id']}}" class="hidden">
-                        <button onclick="activate_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" >
-                            Activate user
-                        </button>
-                    </form>
-                    <form method="DELETE" action="">
-                        <input type="text" name="delete_user_{{deleted_user['deleted_user_id']}}" class="hidden">
-                        <button onclick="show_confirm_button(this); return false" id="delete_user_button_{{deleted_user['deleted_user_id']}}" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-b-md" >
-                            Delete user
-                        </button>
-                        <section id="show_confirm_buttons_admin_{{deleted_user['deleted_user_id']}}" class="hidden ">
-                            <button onclick="hide_confirm_button(this)" type="button" id="cancel_delete_user_btn_{{deleted_user['deleted_user_id']}}" class="flex justify-center items-center w-full h-full hover:cursor-pointer py-2 px-12 rounded-bl-md  bg-red-400 hover:bg-red-500" >
-                                Cancel 
+                        <form id="deactivate_user_form" method="POST" action="">
+                            <input id="deactivate_user_{{user['user_id']}}" type="text" name="deactivate_user_{{user['user_id']}}" class="hidden">
+                            <button onclick="deactivate_user(); return false;" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-b-md" >
+                                Deactivate user
                             </button>
-                            <button onclick="delete_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:cursor-pointer py-2 px-12 rounded-br-md bg-[#49b265] hover:bg-[#159947] whitespace-nowrap" >
-                                Delete 
-                            </button>
-                        </section>
-                    </form>
+                        </form>
+                    </div>
+                </div>
+                % end
 
-                    <section id="show_confirm_buttons" class="hidden w-full justify-center">
-                        <button onclick="show_confirm_button(); return false" type="button" id="cancel_deactivate_profile_btn" class="flex justify-center items-center w-fit h-full hover:cursor-pointer py-2 px-4 mx-2 rounded-bl-md text-black bg-red-400 hover:bg-red-500" >
-                            Cancel deactivate
-                        </button>
-                        <button onclick="deactivate_own_profile(); return false;" type="submit" class="flex justify-center items-center w-fit h-full hover:cursor-pointer py-2 px-4 mx-2 rounded-br-md text-black bg-[#49b265] hover:bg-[#159947] whitespace-nowrap" >
-                            Deactivate profile 
-                        </button>
-                    </section>
+                <div class="w-full py-4 pb-4 gap-4 border-t border-gray-600">
+                    <h1 class="py-5 w-full text-center text-xl font-semibold">All inactive users</h1>
 
+                    % for deleted_user in deleted_users :
+                    <div class="flex items-center relative gap-4 text-white p-4">
+
+                        <div>
+                            <img src="/avatar/{{deleted_user['deleted_user_avatar']}}" class="flex w-10 h-auto aspect-square rounded-full">
+                        </div>
+                        <div class="">
+                            <p>{{deleted_user["deleted_user_username"]}}</p>
+                            <p>{{deleted_user["deleted_user_first_name"]}} {{deleted_user["deleted_user_last_name"]}}</p>
+                            <p></p>
+                        </div>
+
+                        <button onclick="open_user_options(this); return false" id="user_option_btn_{{deleted_user['deleted_user_id']}}" class="ml-auto">
+                            <div class="flex items-center group cursor-pointer"> <!--group container-->
+                                <svg  width="26" height="26" viewBox="0 0 24 24" >
+                                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M6.75 12a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Zm6 0a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0Z" />
+                                </svg>
+                            </div>
+                        </button>
+                        <div id="user_option_popup_{{deleted_user['deleted_user_id']}}" class="hidden absolute right-0 top-[60%] z-40 flex-col bg-black border border-gray-600 rounded-md w-fit ">
+
+                            <form method="POST" action="">
+                                <input type="text" name="activate_user_{{deleted_user['deleted_user_id']}}" class="hidden">
+                                <button onclick="activate_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-t-md" >
+                                    Activate user
+                                </button>
+                            </form>
+                            <form method="DELETE" action="">
+                                <input type="text" name="delete_user_{{deleted_user['deleted_user_id']}}" class="hidden">
+                                <button onclick="show_confirm_button(this); return false" id="delete_user_button_{{deleted_user['deleted_user_id']}}" class="flex justify-center items-center w-full h-full hover:bg-zinc-900 hover:cursor-pointer py-2 px-12 rounded-b-md" >
+                                    Delete user
+                                </button>
+                                <section id="show_confirm_buttons_admin_{{deleted_user['deleted_user_id']}}" class="hidden ">
+                                    <button onclick="hide_confirm_button(this)" type="button" id="cancel_delete_user_btn_{{deleted_user['deleted_user_id']}}" class="flex justify-center items-center w-full h-full hover:cursor-pointer py-2 px-12 rounded-bl-md  bg-red-400 hover:bg-red-500" >
+                                        Cancel 
+                                    </button>
+                                    <button onclick="delete_user(); return false" type="submit" class="flex justify-center items-center w-full h-full hover:cursor-pointer py-2 px-12 rounded-br-md bg-[#49b265] hover:bg-[#159947] whitespace-nowrap" >
+                                        Delete 
+                                    </button>
+                                </section>
+                            </form>
+
+                            <section id="show_confirm_buttons" class="hidden w-full justify-center">
+                                <button onclick="show_confirm_button(); return false" type="button" id="cancel_deactivate_profile_btn" class="flex justify-center items-center w-fit h-full hover:cursor-pointer py-2 px-4 mx-2 rounded-bl-md text-black bg-red-400 hover:bg-red-500" >
+                                    Cancel deactivate
+                                </button>
+                                <button onclick="deactivate_own_profile(); return false;" type="submit" class="flex justify-center items-center w-fit h-full hover:cursor-pointer py-2 px-4 mx-2 rounded-br-md text-black bg-[#49b265] hover:bg-[#159947] whitespace-nowrap" >
+                                    Deactivate profile 
+                                </button>
+                            </section>
+
+                        </div>
+                    </div>
+                    % end
                 </div>
             </div>
-            % end
+
         </div>
+    <!-- end center -->
     </div>
 
+
+
+  <!----------------------
+            right 
+  ----------------------->
+  <div class="top-1 hidden lg:flex flex-col pl-6 min-w-[300px] max-w-[400px] pr-4 gap-4 pt-4 h-full ">
+      % if user_cookie != None :
+        <!-- SEARCH -->
+        % include("comp_search")
+
+        <!-- TRENDS -->
+        % include("comp_trends", show_latest_tweets="False")
+
+        <!-- WHO TO FOLLOW -->
+        % include("comp_who_to_follow")
+
+      % else :
+        <!-- Login box -->
+        % include("comp_login_box")
+      %end
   </div>
-  <!-- end center -->
-
+  <!-- end right -->
 </div>
-
-
-
-
-<!----------------------
-        right 
------------------------>
-<div class="col-span-1 hidden lg:block pl-6 pr-4 pt-1">
-  <div class="min-w-[300px] sticky pt-4">
-    % include("comp_search")
-    % include("comp_trends", show_latest_tweets="False")
-
-  </div>
-</div>
-<!-- end right -->
-
-
 
 
 <script src="/js/admin.js"></script>

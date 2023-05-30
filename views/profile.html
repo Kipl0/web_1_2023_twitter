@@ -54,9 +54,12 @@
           <h2 class="font-bold text-2xl">{{user["user_first_name"]}} {{user["user_last_name"]}}</h2>
           <p class="text-zinc-500 text-sm font-normal">@{{user["user_username"]}}</p>
         </div>
+        % if user['user_caption'] != "" :
+          <p class="text-sm text-zinc-500">{{user['user_caption']}}</p>
+        % end
         <p class="flex flex-initial text-zinc-500 items-center gap-2 text-sm font-normal">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-2V3a1 1 0 0 0-2 0v1H9V3a1 1 0 0 0-2 0v1H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm1 15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7h16Zm0-9H4V7a1 1 0 0 1 1-1h2v1a1 1 0 0 0 2 0V6h6v1a1 1 0 0 0 2 0V6h2a1 1 0 0 1 1 1Z"/></svg>
-          {{user["user_first_name"]}} {{user["user_last_name"]}}
+          birthday
         </p>
         <section class="flex gap-4"> <!--Follows and followers-->
             <div class="flex gap-1">

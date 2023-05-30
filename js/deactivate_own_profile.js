@@ -28,6 +28,7 @@ async function deactivate_own_profile() {
         const infoText = document.getElementById("infoText")
         infoText.innerHTML = "A confirmation mail has been sent"
         infoText.classList.remove("hidden")
+        
     } 
     catch ({ name, message }) {
         console.log(name); 
@@ -61,6 +62,7 @@ async function confirm_deactivate_account() {
         if( !conn.ok || data.info != "ok" ) {
             throw new TypeError("Something went wrong. Cannot write comment to tweet");
         }
+        location.href = `/`
     } 
     catch ({ name, message }) {
         console.log(name); 
