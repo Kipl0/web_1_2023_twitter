@@ -23,7 +23,7 @@ async function change_password_confirm() {
         if (conn.status == 400){
             const infoText = document.getElementById("infoText")
             infoText.innerHTML = data.info
-            infoText.classList.remove("hidden")
+            infoText.classList.add("bg-red-400")
             return
         }
 
@@ -31,7 +31,7 @@ async function change_password_confirm() {
         if( !conn.ok || data.info != "ok" ) {
             const infoText = document.getElementById("infoText")
             infoText.innerHTML = data.info
-            infoText.classList.remove("hidden")
+            infoText.classList.add("bg-red-400")
             throw new TypeError(400, "Something went wrong. Cannot change password");
         }
 
