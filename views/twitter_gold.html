@@ -8,17 +8,17 @@
           center 
 ------------------------->
 <div class="w-full lg:w-5/12">
-  <div class="flex justify-center h-full border-x pt-[20%] border-gray-600">
+  <div class="flex flex-col items-center justify-center h-full border-x pt-[20%] border-gray-600">
+    <img src="/pictures/twitter-gold.png" alt="Twitter Gold" class="w-14">
+    <h1 class="text-xl">Sign up for twitter gold</h1>
     <form id="get_twitter_gold_form" onsubmit="check_user_exists_and_send_sms(); return false" action="" class="flex flex-col w-fit h-fit py-8 px-6 gap-7 justify-center items-center">
-        <img src="/pictures/twitter-gold.png" alt="Twitter Gold" class="w-14">
-        <h1 class="text-xl">Sign up for twitter gold</h1>
         <section class="flex flex-col gap-4">
             <input id="twitter_gold_email" type="text" name="twitter_gold_email" placeholder="Email" class="py-1 px-2 rounded-md text-black">
             <input id="twitter_gold_phone" type="text" name="twitter_gold_phone" placeholder="Telefon" class="py-1 px-2 rounded-md text-black">
         </section>
         <button type="submit" class="py-2 px-8 text-white bg-sky-500 rounded-full">Sign up via phone</button>
     </form>
-    <form id="confirm_digits_form" onsubmit="confirm_twitter_gold(); return false" action="" class="flex flex-col w-fit h-fit py-8 px-6 gap-7 justify-center items-center">
+    <form id="confirm_digits_form" onsubmit="confirm_twitter_gold(); return false" action="" class="hidden flex-col w-fit h-fit py-8 px-6 gap-7 justify-center items-center">
         <p id="twitter_gold_tip"></p>
         <input id="twitter_gold_confirm_number" type="text" name="twitter_gold_confirm_number" placeholder="Dine 4 cifre" class="py-1 px-2 rounded-md text-black">
         <button type="submit" class="py-2 px-8 text-white bg-sky-500 rounded-full">Confirm twitter gold</button>
@@ -49,15 +49,6 @@
       <!-- Login box -->
       % include("comp_login_box")
     %end
-    <section class="text-zinc-500 text-sm">
-      Terms of Service
-      Privacy Policy
-      Cookie Policy
-      Accessibility
-      Ads info
-      More
-      © 2023 X Corp.
-  </section>
 </div>
 <!-- end right -->
 

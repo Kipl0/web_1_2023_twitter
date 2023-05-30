@@ -23,14 +23,14 @@ async function check_user_exists_and_send_sms() {
         
         const sms_message = "Your verification numbers are : " + data.sms_confirm_digits
 
-        // const get_twitter_gold_form = document.getElementById("get_twitter_gold_form")
-        // const confirm_digits_form = document.getElementById("confirm_digits_form")
+        const get_twitter_gold_form = document.getElementById("get_twitter_gold_form")
+        const confirm_digits_form = document.getElementById("confirm_digits_form")
 
-        // get_twitter_gold_form.classList.remove("flex")
-        // get_twitter_gold_form.classList.add("hidden")
+        get_twitter_gold_form.classList.remove("flex")
+        get_twitter_gold_form.classList.add("hidden")
 
-        // confirm_digits_form.classList.add("flex")
-        // confirm_digits_form.classList.remove("hidden")
+        confirm_digits_form.classList.add("flex")
+        confirm_digits_form.classList.remove("hidden")
         
         send_sms(sms_message, frmData.get("twitter_gold_phone"))
     } 
