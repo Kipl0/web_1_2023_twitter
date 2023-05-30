@@ -62,7 +62,7 @@ def _():
                 if user_cookie["user_banner"] not in x.images_not_to_be_deleted :
                     user_cookie_banner = user_cookie["user_banner"]
                     myfile = f"{rootdir}banner/{user_cookie_banner}"
-                    if user_cookie_avatar != "default_banner.png" :
+                    if user_cookie_banner != "default_banner.png" :
                         os.remove(myfile)
         else : 
             picture_name_banner = user_cookie["user_banner"]
