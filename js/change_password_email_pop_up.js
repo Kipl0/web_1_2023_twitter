@@ -1,4 +1,19 @@
-
+/**
+ * Hvis tip til bruger med en besked der forsvinder efter x sekunder
+ * @param {string} message - Inderholder tip beskeden.
+ */
+function showTip(message){
+    const tip_id = Math.random()
+    let tip = `
+    <div data-tip-id="${tip_id}" class="flex justify-center w-fit px-8 lg:w-1/3 mx-auto py-4 text-white bg-red-400 rounded-md">
+       ${message}
+    </div>
+    `
+    document.querySelector("#tips").insertAdjacentHTML("afterbegin", tip)
+    setTimeout(function(){
+        document.querySelector(`[data-tip-id='${tip_id}']`).remove()
+    }, 6000)
+}
 
 /**
  * Åbn & Luk popup 
@@ -56,7 +71,7 @@ async function change_password_submit(){
             chanage_password_error_message.innerHTML = "Cannot send email to change password"
             throw new TypeError("Something went wrong. Cannot write comment to tweet");
         }
-
+        showTip("Email sent with reset password link")
         // Toggle popup
         open_change_password_pop_up()
     }
