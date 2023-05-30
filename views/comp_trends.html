@@ -1,7 +1,7 @@
 
 <!--kun True på profil sider - ikke på forsiden -->
   % if show_latest_tweets == "True": 
-    If tweet_image in latest tweet 
+    <!-- If tweet_image in latest tweet  -->
     <div class="min-w-sm max-w-sm grid grid-cols-3 grid-rows-2 gap-0.5 rounded-xl overflow-hidden my-6">
       % for tweet in [i for i in tweets_and_user_data if i['tweet_image']][:6]:
         %if tweet["tweet_image"] != "":  
