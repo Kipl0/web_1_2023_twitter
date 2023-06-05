@@ -2,6 +2,8 @@ from bottle import request, put, response
 import x
 import os
 import uuid
+import time
+import jwt
 
 @put("/profile")
 def _():
@@ -13,7 +15,9 @@ def _():
 
     try:
         db = x.db()
-        user_cookie = request.get_cookie("user_cookie", secret="my-secret")
+        user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
+        user_cookie = x.validate_jwt(user_cookie) #user_cookie bliver sat lig den decoded JWT - så de nedenstående linjer kan forsætte som de gjorde før JWT kom ind... - se x fil
+
 
         user_updated_first_name = request.forms.get("user_updated_first_name")
         user_updated_last_name = request.forms.get("user_updated_last_name")
@@ -82,9 +86,18 @@ def _():
         )
         db.commit()
 
+        # ----------------------------
+        #       cookie og jwt
+        # ----------------------------
+        # jwt
         updated_user = db.execute("SELECT * FROM users WHERE user_id = ?",(user_cookie["user_id"],)).fetchone()
 
-        response.set_cookie("user_cookie", updated_user, secret = x.COOKIE_SECRET, httponly=True)
+        updated_user["user_password"] = ""
+        user_jwt = jwt.encode(updated_user, x.JWT_SECRET, algorithm=x.JWT_ALGORITHM)
+
+        # user cookie
+        cookie_expiration_date = int(time.time()) + 7200
+        response.set_cookie("user_cookie", user_jwt, secret = x.COOKIE_SECRET, httponly=True, expires=cookie_expiration_date)
 
         return {"info": "ok"}
 

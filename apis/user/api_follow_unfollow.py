@@ -8,6 +8,7 @@ def _():
 
         # Simulerer user_cookie -- lig Maja user
         user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
+        user_cookie = x.validate_jwt(user_cookie) #user_cookie bliver sat lig den decoded JWT - så de nedenstående linjer kan forsætte som de gjorde før JWT kom ind... - se x fil
         user_cookie_id = user_cookie["user_id"]
 
         user_to_follow_id = request.forms.get("user_id")

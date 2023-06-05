@@ -3,7 +3,7 @@ import x
 import pathlib
 import bcrypt
 import sqlite3
-
+import jwt
 
 @post("/login")
 def _():
@@ -31,8 +31,19 @@ def _():
         if not bcrypt.checkpw(login_password, does_user_exist["user_password"]):
             raise Exception(400, "Cannot login")
 
-        response.set_cookie("user_cookie", does_user_exist, secret=x.COOKIE_SECRET, httponly=True)
+
+        # ----------------------------
+        #       cookie og jwt
+        # ----------------------------
+        # jwt
+        does_user_exist["user_password"] = ""
+        user_jwt = jwt.encode(does_user_exist, x.JWT_SECRET, algorithm=x.JWT_ALGORITHM)
+
+        # set cookie
         cookie_expiration_date = int(time.time()) + 7200
+        response.set_cookie("user_cookie", user_jwt, secret=x.COOKIE_SECRET, httponly=True, expires=cookie_expiration_date)
+
+        
         return {"info": "ok"}
     except Exception as ex:
         # Handle the exception or re-raise it if needed

@@ -5,8 +5,14 @@ import x
 def _():
 	# x.disable_cache()
 	# if user is logged, go to the profile page of that user
+
 	user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
+	user_cookie = x.validate_jwt(user_cookie) #user_cookie bliver sat lig den decoded JWT - så de nedenstående linjer kan forsætte som de gjorde før JWT kom ind... - se x fil
+
+	print(user_cookie)
 	if user_cookie:
+		user_cookie = x.validate_jwt(user_cookie) #user_cookie bliver sat lig den decoded JWT - så de nedenstående linjer kan forsætte som de gjorde før JWT kom ind... - se x fil
+		print(user_cookie)
 		response.status = 303
 		response.set_header("Location", f"/{user_cookie['user_username']}")
 		return

@@ -16,7 +16,8 @@ def _():
   try:  # SUCCESS
     db = x.db()  # a function that gives access to db
 
-    user_cookie = request.get_cookie("user_cookie", secret="my-secret")
+    user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
+    user_cookie = x.validate_jwt(user_cookie) #user_cookie bliver sat lig den decoded JWT - så de nedenstående linjer kan forsætte som de gjorde før JWT kom ind... - se x fil
 
     uploaded_tweet_image = request.files.get("uploaded_create_tweet_img_input")
 

@@ -2,8 +2,12 @@ from bottle import request, response
 import sqlite3
 import pathlib 
 import re #regular expression
+import jwt
 
 COOKIE_SECRET = "my-secret"
+
+JWT_SECRET = "jwt secret"
+JWT_ALGORITHM = "HS256"
 
 images_not_to_be_deleted = ["51602a9f7d82472b90ed1091248f6cb1.jpeg","a22da1effb3d4f03a0f77f9aa8320203.jpg", "6268331d012247539998d7664bd05cc1.jpg", "07578f6c49d84b7c94ce80e96c64ccc0.jpg","admin.png","ad1bfe9ce6e44a009b57a1a183ccb202.jpg","e130fd8b81d049a1b2fafbca9c5a15e3.png", "494e6a7fdadb4b3cae58d37a4fad879c.jpg","dd5582fff3ca4f7f9f97a911f3e77b22.jpg","default_banner.png"]
 
@@ -24,6 +28,19 @@ def db():
     print(ex)
   finally:
     pass
+
+
+# #############################
+# Validate jwt
+def validate_jwt(user_jwt):
+  try :
+    user_jwt_result = jwt.decode(user_jwt, JWT_SECRET, algorithms=JWT_ALGORITHM)
+    return user_jwt_result
+  except Exception as ex :
+    print("We cannot verify you")
+  finally:
+    if "db" in locals(): db.close()
+
 
 # ##############################
 TWEET_MIN_LEN = 0

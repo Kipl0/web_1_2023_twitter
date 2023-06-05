@@ -19,7 +19,7 @@ def _():
       myfile = f"tweet_images/{tweet_image}"
       os.remove(myfile)
 
-    user_cookie = request.get_cookie("user_cookie", secret="my-secret")
+    user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
     
     # dobbelt tjek at kun user kan slette sine egne tweets
     if tweet_to_delete["tweet_user_fk"] == user_cookie["user_id"] :
