@@ -2,7 +2,8 @@ from bottle import get, response, request, template
 import sqlite3
 import pathlib
 import x
-
+import time
+from datetime import datetime
 
 @get("/view-tweet/<tweet_id>")
 def _(tweet_id):
@@ -69,6 +70,22 @@ def _(tweet_id):
                 tweet_and_user_data["commented"] = 0
             else:
                 tweet_and_user_data["commented"] = 1
+
+
+
+            # ##########################
+            # Omskriv tweet_created_at Epoch til dato 
+            datetime_obj = datetime.fromtimestamp(int(tweet_and_user_data['tweet_created_at']))
+            datetime_string=datetime_obj.strftime( "%b-%d") # "%d-%m-%Y %H:%M:%S"
+            tweet_and_user_data['created_at_datetime'] = datetime_string
+
+
+
+            # Omskriv comment_created_at Epoch til dato 
+            for comment in tweet_comment_and_user_data : 
+                comment_datetime_obj = datetime.fromtimestamp(int(comment['comment_created_at']))
+                comment_datetime_string=comment_datetime_obj.strftime( "%b-%d") # "%d-%m-%Y %H:%M:%S"
+                comment['created_at_datetime'] = comment_datetime_string
 
 
         return template("full_tweet_and_comments", tweet_and_user_data = tweet_and_user_data, tweet_comment_and_user_data=tweet_comment_and_user_data, user_cookie=user_cookie, tweet_comments = tweet_comments, trends = trends, who_to_follow=who_to_follow, TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)

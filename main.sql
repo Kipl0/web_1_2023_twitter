@@ -189,16 +189,16 @@ CREATE TABLE accounts_to_self_deactivate(
 
 DROP TABLE IF EXISTS tweets;
 CREATE TABLE tweets(
-  tweet_id                  TEXT,
-  tweet_user_fk             TEXT,
-  tweet_created_at          TEXT,
+  tweet_id                  TEXT UNIQUE NOT NULL,
+  tweet_user_fk             TEXT NOT NULL,
+  tweet_created_at          TEXT NOT NULL,
   tweet_message             TEXT,
   tweet_image               TEXT,
   tweet_updated_at          TEXT, -- Empty at create
-  tweet_total_comments      TEXT,
-  tweet_total_retweets      TEXT,
-  tweet_total_likes         TEXT,
-  tweet_total_views         TEXT,
+  tweet_total_comments      TEXT DEFAULT 0,
+  tweet_total_retweets      TEXT DEFAULT 0,
+  tweet_total_likes         TEXT DEFAULT 0,
+  tweet_total_views         TEXT DEFAULT 0,
   PRIMARY KEY(tweet_id)
 ) WITHOUT ROWID;
 -- -- Majs503
@@ -383,7 +383,7 @@ INSERT INTO deleted_users VALUES("51602a9f7d82472b90ed1091248fa32b","deleted_use
 
 -- -----------Tweets--------------
 -- majs503
-INSERT INTO tweets VALUES("729ac281ba654300b23e5994e167ea6a", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953011", "Majas tweet 1 - Cupcakes", "472eadb53ab74fc68c471861044cda76.jpg", "", 0, 0, 0, 0);
+INSERT INTO tweets VALUES("729ac281ba654300b23e5994e167ea6a", "07578f6c49d84b7c94ce80e96c64ccc0", "1685903663", "Majas tweet 1 - Cupcakes", "472eadb53ab74fc68c471861044cda76.jpg", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("6847c48ca5f94332af3640c38efe83fe", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953010", "Majas tweet 2", "edb4903f23c94b1abbad0aeac336bc4c.jpg", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("7cf79d3612c249f4ab6d535aa8bb861d", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953009", "Majas tweet 3", "", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("d64a86e5648648cfbc292c20b54739b8", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953008", "Majas tweet 4", "", "", 0, 0, 0, 0);
@@ -397,7 +397,7 @@ INSERT INTO tweets VALUES("6c7dd325663141158eb8edd64321asfg", "07578f6c49d84b7c9
 
 
 -- Katy Perry
-INSERT INTO tweets VALUES("4dec156de56244bd96249f098e7e4bba", "6268331d012247539998d7664bd05cc1", "1680953011", "Katy Perry tweet 1", "", "", 0, 0, 0, 0);
+INSERT INTO tweets VALUES("4dec156de56244bd96249f098e7e4bba", "6268331d012247539998d7664bd05cc1", "1685903663", "Katy Perry tweet 1", "", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("d369d4ede3194999ae8eadcd265ca08d", "6268331d012247539998d7664bd05cc1", "1680953010", "Katy Perry tweet 2", "", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("51b6b1711a004ab09f2f938fd4083fc6", "6268331d012247539998d7664bd05cc1", "1680953009", "Katy Perry tweet 3", "", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("a6e66e6bcf6b479f8256199aa6f4ce90", "6268331d012247539998d7664bd05cc1", "1680953008", "Katy Perry tweet 4", "", "", 0, 0, 0, 0);

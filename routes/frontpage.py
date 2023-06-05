@@ -2,6 +2,8 @@ from bottle import get, response, request, template
 import sqlite3
 import pathlib
 import x
+import time
+from datetime import datetime
 
 
 # I want to display the index page, I want to pass the title, tweets and trends
@@ -29,7 +31,6 @@ def render_frontpage():
     tweets_and_user_data = db.execute("SELECT * FROM tweets INNER JOIN users ON tweets.tweet_user_fk = users.user_id ORDER BY tweet_created_at DESC").fetchall()
     retweets_and_user_data = db.execute("SELECT * FROM tweets,users,tweets_retweeted_by_users WHERE tweets.tweet_user_fk = users.user_id AND tweets_retweeted_by_users.tweet_fk = tweets.tweet_id COLLATE NOCASE ORDER BY tweet_created_at DESC").fetchall()
 
-
     # Key value pair, der sepererer retweet_tweets fra originale tweets - så begge to kan få grøn ikon og grøn tekst
     for tweet_original in tweets_and_user_data :
       tweet_original['original_tweet'] = 1
@@ -38,13 +39,13 @@ def render_frontpage():
       retweeted_by = db.execute("SELECT user_username FROM users WHERE user_id = ?",(tweet_retweeted['user_fk'],)).fetchone() # loop igennem alle retweets og sæt retweeted by
       tweet_retweeted['retweeted_by'] = retweeted_by['user_username'] # tilføj den som key-value par til hver retweet i tabellen
       tweet_retweeted['original_tweet'] = 0
-      print(tweet_retweeted)
 
     # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
     if user_cookie != None : 
       # Retweets
       for tweet in tweets_and_user_data :
         tweet_retweeted_by_user_record = db.execute("SELECT * FROM tweets_retweeted_by_users WHERE user_fk = ? AND tweet_fk = ?",(user_cookie["user_id"], tweet["tweet_id"])).fetchone()
+
         # Hvis den er lig 1 betyder det at user har liket tweet  # Hvis ikke tweet_liked_by_user_record eksisterer i db, så har user hverken set eller liket opslaget før
         if tweet_retweeted_by_user_record == None : 
           tweet["retweeted"] = 0
@@ -85,6 +86,14 @@ def render_frontpage():
           continue
 
         tweet["commented"] = 1
+
+
+      # ##########################
+      # Omskriv til dato
+      for tweet in tweets_and_user_data : 
+        datetime_obj = datetime.fromtimestamp(int(tweet['tweet_created_at']))
+        datetime_string=datetime_obj.strftime( "%b-%d") # "%d-%m-%Y %H:%M:%S"
+        tweet['created_at_datetime'] = datetime_string
 
 
     return template("frontpage", title="Twitter", tweets_and_user_data=tweets_and_user_data, user_cookie=user_cookie, trends=trends, who_to_follow=who_to_follow, page="frontpage", TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)

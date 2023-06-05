@@ -2,6 +2,8 @@ from bottle import get, response, request, template
 import sqlite3
 import pathlib
 import x
+import time
+from datetime import datetime
 
 ##############################
 @get("/<user_username>")
@@ -96,6 +98,15 @@ def _(user_username):
       user["follows"] = 1
       if follower_following_record == None :
         user["follows"] = 0
+
+
+    # ##########################
+    # Omskriv til dato
+    for tweet in tweets_and_user_data : 
+      datetime_obj = datetime.fromtimestamp(int(tweet['tweet_created_at']))
+      datetime_string=datetime_obj.strftime( "%b-%d") # "%d-%m-%Y %H:%M:%S"
+      tweet['created_at_datetime'] = datetime_string
+
 
 
 
