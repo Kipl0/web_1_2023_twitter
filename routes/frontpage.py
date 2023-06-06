@@ -20,30 +20,34 @@ def render_frontpage():
     user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET) #vi vil gerne have fat i en cookie fra browseren der hedder "user_cookie" det har vi defineret i login.py
     user_cookie = x.validate_jwt(user_cookie) #user_cookie bliver sat lig den decoded JWT - så de nedenstående linjer kan forsætte som de gjorde før JWT kom ind... - se x fil
     
-    if user_cookie == None:
-      response.status = 303
-      response.set_header("Location", "/login")
-      return
-
-    who_to_follow = []
-    who_to_follow = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ? LIMIT 3",(user_cookie["user_username"],"Admin"))
-
     trends = db.execute("SELECT * FROM trends")
+    # Redirect til login, hvis ikke man har login
+    # if user_cookie == None:
+    #   response.status = 303
+    #   response.set_header("Location", "/login")
+    #   return
 
-    tweets_and_user_data = db.execute("SELECT * FROM tweets INNER JOIN users ON tweets.tweet_user_fk = users.user_id ORDER BY tweet_created_at DESC").fetchall()
-    retweets_and_user_data = db.execute("SELECT * FROM tweets,users,tweets_retweeted_by_users WHERE tweets.tweet_user_fk = users.user_id AND tweets_retweeted_by_users.tweet_fk = tweets.tweet_id COLLATE NOCASE ORDER BY tweet_created_at DESC").fetchall()
-
-    # Key value pair, der sepererer retweet_tweets fra originale tweets - så begge to kan få grøn ikon og grøn tekst
-    for tweet_original in tweets_and_user_data :
-      tweet_original['original_tweet'] = 1
-      tweet_original['retweeted_by'] = ""
-    for tweet_retweeted in retweets_and_user_data :
-      retweeted_by = db.execute("SELECT user_username FROM users WHERE user_id = ?",(tweet_retweeted['user_fk'],)).fetchone() # loop igennem alle retweets og sæt retweeted by
-      tweet_retweeted['retweeted_by'] = retweeted_by['user_username'] # tilføj den som key-value par til hver retweet i tabellen
-      tweet_retweeted['original_tweet'] = 0
 
     # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
     if user_cookie != None : 
+      who_to_follow = []
+      who_to_follow = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ? LIMIT 3",(user_cookie["user_username"],"Admin"))
+
+
+      tweets_and_user_data = db.execute("SELECT * FROM tweets INNER JOIN users ON tweets.tweet_user_fk = users.user_id ORDER BY tweet_created_at DESC").fetchall()
+      retweets_and_user_data = db.execute("SELECT * FROM tweets,users,tweets_retweeted_by_users WHERE tweets.tweet_user_fk = users.user_id AND tweets_retweeted_by_users.tweet_fk = tweets.tweet_id COLLATE NOCASE ORDER BY tweet_created_at DESC").fetchall()
+
+      # Key value pair, der sepererer retweet_tweets fra originale tweets - så begge to kan få grøn ikon og grøn tekst
+      for tweet_original in tweets_and_user_data :
+        tweet_original['original_tweet'] = 1
+        tweet_original['retweeted_by'] = ""
+      for tweet_retweeted in retweets_and_user_data :
+        retweeted_by = db.execute("SELECT user_username FROM users WHERE user_id = ?",(tweet_retweeted['user_fk'],)).fetchone() # loop igennem alle retweets og sæt retweeted by
+        tweet_retweeted['retweeted_by'] = retweeted_by['user_username'] # tilføj den som key-value par til hver retweet i tabellen
+        tweet_retweeted['original_tweet'] = 0
+
+
+
       # Retweets
       for tweet in tweets_and_user_data :
         tweet_retweeted_by_user_record = db.execute("SELECT * FROM tweets_retweeted_by_users WHERE user_fk = ? AND tweet_fk = ?",(user_cookie["user_id"], tweet["tweet_id"])).fetchone()
@@ -60,9 +64,9 @@ def render_frontpage():
         tweet["retweeted"] = 1
 
       
-      # merch tweets_and_user_data with retweets_and_user_data
-      combined_data = tweets_and_user_data + retweets_and_user_data
-      tweets_and_user_data = sorted(combined_data, key=lambda x: x.get("retweeted_at", x["tweet_created_at"]), reverse=True)
+        # merch tweets_and_user_data with retweets_and_user_data
+        combined_data = tweets_and_user_data + retweets_and_user_data
+        tweets_and_user_data = sorted(combined_data, key=lambda x: x.get("retweeted_at", x["tweet_created_at"]), reverse=True)
 
 
       for tweet in tweets_and_user_data :
@@ -96,9 +100,12 @@ def render_frontpage():
         datetime_obj = datetime.fromtimestamp(int(tweet['tweet_created_at']))
         datetime_string=datetime_obj.strftime( "%b-%d") # "%d-%m-%Y %H:%M:%S"
         tweet['created_at_datetime'] = datetime_string
+      
+      return template("frontpage", title="Twitter", tweets_and_user_data=tweets_and_user_data, user_cookie=user_cookie, trends=trends, who_to_follow=who_to_follow, page="frontpage", TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
 
 
-    return template("frontpage", title="Twitter", tweets_and_user_data=tweets_and_user_data, user_cookie=user_cookie, trends=trends, who_to_follow=who_to_follow, page="frontpage", TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
+
+    return template("frontpage", title="Twitter", trends=trends, user_cookie=user_cookie, page="frontpage", TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
     
 
   except Exception as ex:
