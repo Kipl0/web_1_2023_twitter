@@ -20,10 +20,10 @@ def render_frontpage():
     user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET) #vi vil gerne have fat i en cookie fra browseren der hedder "user_cookie" det har vi defineret i login.py
     user_cookie = x.validate_jwt(user_cookie) #user_cookie bliver sat lig den decoded JWT - så de nedenstående linjer kan forsætte som de gjorde før JWT kom ind... - se x fil
     
-    # if user_cookie == None:
-    #   response.status = 303
-    #   response.set_header("Location", "/login")
-    #   return
+    if user_cookie == None:
+      response.status = 303
+      response.set_header("Location", "/login")
+      return
 
     who_to_follow = []
     who_to_follow = db.execute("SELECT * FROM users WHERE user_username!=? AND user_username != ? LIMIT 3",(user_cookie["user_username"],"Admin"))
