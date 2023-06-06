@@ -132,7 +132,7 @@ def _():
                 response.status = 400 
                 return {"info":"user_email already exists"}
 
-            if "user_name" in str(e): 
+            if "user_username" in str(e): 
                 response.status = 400 
                 return {"info":"user_name already exists"}
 
