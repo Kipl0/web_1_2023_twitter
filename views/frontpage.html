@@ -53,12 +53,22 @@
 </div>
 
 
+%if user_cookie == None :
+  <div class="w-full absolute flex justify-center items-center gap-8 bottom-0 h-24 min-h-[50px] bg-[#1D9BF0]">
+    <section class="text-white">
+      <h2 class="font-bold text-xl">Don't miss what's happening</h2>
+      <p>People on Twitter are the first to know!</p>
+    </section>
+    <a class="px-8 py-2 cursor-pointer bg-white text-black rounded-full font-semibold" href="/login">Login</a>
+    <a class="px-6 py-2 cursor-pointer border border-white rounded-full font-semibold" href="/register">Sign up</a>
+  </div>
 
 
 <!-- ------------------------
       write tweet comment
 --------------------- ------>
-% include("comp_write_tweet_comment")
-
+% if user_cookie != None :
+  % include("comp_write_tweet_comment")
+% end
 
 % include("comp_footer")
