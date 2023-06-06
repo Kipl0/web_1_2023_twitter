@@ -19,6 +19,14 @@ def _(user_username):
     user_cookie = x.validate_jwt(user_cookie) #user_cookie bliver sat lig den decoded JWT - så de nedenstående linjer kan forsætte som de gjorde før JWT kom ind... - se x fil
 
 
+    # Redirect til login, hvis ikke man har login
+    if user_cookie == None:
+      response.status = 303
+      response.set_header("Location", "/login")
+      return
+
+
+
     user = db.execute("SELECT * FROM users WHERE user_username=? COLLATE NOCASE",(user_username,)).fetchall()[0]
     user_id = user["user_id"]    
 
