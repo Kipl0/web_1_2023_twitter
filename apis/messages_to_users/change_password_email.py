@@ -13,7 +13,7 @@ def send_change_password_email(reciever_email,change_key) :
     password = "eotfntjhmkiqzjof"
 
     message = MIMEMultipart("alternative")
-    message["Subject"] = "multipart test"
+    message["Subject"] = "Change password on Twitter!"
     message["From"] = sender_email
     message["To"] = reciever_email #hentes fra api_register ved registre
 

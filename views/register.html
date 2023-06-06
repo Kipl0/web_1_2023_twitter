@@ -15,11 +15,11 @@
         <p class=" hidden text-white p-3 rounded-lg text-center bg-red-400" id="infoText"></p> 
         <form enctype="multipart/form-data" class="flex flex-col gap-6 w-2/3 mt-8 lg:max-w-md" autocomplete="off">
           <input placeholder="Email *" name="user_email" type="text" class="py-1 px-4 rounded-md">
-          <input placeholder="Username *" name="user_name" type="text" class="py-1 px-4 rounded-md">
+          <input placeholder="Username *" name="user_name" type="text" class="py-1 px-4 rounded-md" data-min="{{USER_NAME_MIN}}" data-max="{{USER_NAME_MAX}}" data-validate="str">
           <input placeholder="First name *" name="user_first_name" type="text" class="py-1 px-4 rounded-md">
           <input placeholder="Last name" name="user_last_name" type="text" class="py-1 px-4 rounded-md">
-          <input placeholder="Password *" name="user_password" type="text" class="py-1 px-4 rounded-md">
-          <input placeholder="Repeat password *" name="user_confirm_password" type="text" class="py-1 px-4 rounded-md">
+          <input placeholder="Password *" name="user_password" type="text" class="py-1 px-4 rounded-md" data-min="{{PASSWORD_MIN}}" data-max="{{PASSWORD_MAX}}" data-validate="str">
+          <input placeholder="Repeat password *" name="user_confirm_password" type="text" class="py-1 px-4 rounded-md" data-min="{{PASSWORD_MIN}}" data-max="{{PASSWORD_MAX}}" data-validate="str">
 
           <!-- Upload avatar til profil -->
           <label for="uploaded_avatar" class="flex gap-4 cursor-pointer text-white" >

@@ -10,7 +10,7 @@ def send_info_email(reciever_email: str, message_plain_text: str, message_html: 
     password = "eotfntjhmkiqzjof"
 
     message = MIMEMultipart("alternative")
-    message["Subject"] = "multipart test"
+    message["Subject"] = "Profile status from twitter"
     message["From"] = sender_email
     message["To"] = reciever_email #hentes fra api_register ved registre
 

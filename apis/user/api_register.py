@@ -39,7 +39,7 @@ def _():
             name, ext = os.path.splitext(uploaded_avatar.filename)
             if ext == "" : 
                 #Because of enctype the uploaded picture is not "none", but the extension is - so if there's no upload ext will be an empty string or just none
-                picture_name_avatar = "default_avatar.jpg"
+                picture_name_avatar = "default_avatar.png"
             else:
                 if ext not in(".jpg", ".jpeg", ".png"):
                     response.status = 400
@@ -50,7 +50,7 @@ def _():
                 uploaded_avatar.save(f"{rootdir}avatar/{picture_name_avatar}")
                 # return "Picture uploaded"
         else :
-            picture_name_avatar = "default_avatar.jpg"
+            picture_name_avatar = "default_avatar.png"
 
         #Upload banner
         uploaded_banner = request.files.get("uploaded_banner") #files i formen

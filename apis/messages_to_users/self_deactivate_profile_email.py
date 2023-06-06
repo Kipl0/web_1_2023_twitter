@@ -11,7 +11,7 @@ def deactivate_own_profile(deactivate_key,reciever_email) :
     password = "eotfntjhmkiqzjof"
 
     message = MIMEMultipart("alternative")
-    message["Subject"] = "multipart test"
+    message["Subject"] = "Confirm deactivate your profile"
     message["From"] = sender_email
     message["To"] = reciever_email #hentes fra api_register ved registre
 

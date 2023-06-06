@@ -378,7 +378,7 @@ INSERT INTO users VALUES("16edc063917a4e589c4d6e7524df39ef","Admin","admin@twitt
 
 
 -- -----------Deleted Users--------------
-INSERT INTO deleted_users VALUES("51602a9f7d82472b90ed1091248fa32b","deleted_user","deleted_user@gmail.com","123","deleted", "User", "default_avatar.jpg", "default_banner.png", "1679402790","","","",0,0,0,0,0,0,1,0);
+INSERT INTO deleted_users VALUES("51602a9f7d82472b90ed1091248fa32b","deleted_user","deleted_user@gmail.com","123","deleted", "User", "default_avatar.png", "default_banner.png", "1679402790","","","",0,0,0,0,0,0,1,0);
 
 
 -- -----------Tweets--------------

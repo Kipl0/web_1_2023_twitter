@@ -13,7 +13,7 @@ def send_verification_email(reciever_email,verification_key) :
     password = "eotfntjhmkiqzjof"
 
     message = MIMEMultipart("alternative")
-    message["Subject"] = "multipart test"
+    message["Subject"] = "Verify your account"
     message["From"] = sender_email
     message["To"] = reciever_email #hentes fra api_register ved registre
 
