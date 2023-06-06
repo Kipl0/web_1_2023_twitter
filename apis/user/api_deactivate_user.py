@@ -91,13 +91,13 @@ def _(username=None):
 def create_and_send_info_email(reciever_email: str):
     text = f"""\
         Hi!
-        We regret to inform you, that your accound has been deactivated.
+        We regret to inform you, that your account has been deactivated.
     """
     html = f"""\
     <html>
         <body>
             <h2> Hi! </h2>
-            <p>We regret to inform you, that your accound has been deactivated.</p>
+            <p>We regret to inform you, that your account has been deactivated.</p>
         </body>
     </html>
     """
