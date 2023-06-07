@@ -6,7 +6,6 @@ import x
 def _(verification_key):
     try :
         db = x.db()
-        print("tester")
         # Få fat på user_fk OG tjek om den eksisterer - hvis den gør er der en række med data i tabel
         user_to_verify = db.execute("SELECT * FROM accounts_to_verify WHERE verify_user_key = ?", (verification_key,)).fetchone()
 
