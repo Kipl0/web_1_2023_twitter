@@ -1,9 +1,9 @@
-from bottle import post, request, response
+from bottle import put, request, response
 from apis.messages_to_users.change_password_email import send_change_password_email
 import uuid
 import x
 
-@post("/change-password-send-email")
+@put("/change-password-send-email")
 def _():
     try :
         db = x.db()

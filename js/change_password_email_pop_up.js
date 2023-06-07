@@ -58,7 +58,7 @@ async function change_password_submit(){
         const frm = event.target
         // Lav reqeust til vores API om at change-password-send-email
         const conn = await fetch("/change-password-send-email", {
-            method: "POST",
+            method: "PUT",
             body: new FormData(frm)
         })
 
