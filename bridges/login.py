@@ -11,7 +11,14 @@ def _():
         db = x.db()
 
         login_username = request.forms.get("login-username")
-        login_password = request.forms.get("login-password").encode("utf-8")
+        login_password = request.forms.get("login-password")
+
+        # Kun til thunder client 
+        if login_username == None : raise Exception(400, "No input in form data login-username")
+        if login_password == None : raise Exception(400, "No input in form data login-password")
+
+        # Hvis password er blevet udfyld -> encode
+        login_password = login_password.encode("utf-8")
 
         does_user_exist = db.execute("SELECT * FROM users WHERE user_username = ? LIMIT 1", (login_username,)).fetchone()
 

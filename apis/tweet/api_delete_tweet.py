@@ -10,16 +10,18 @@ def _():
     db = x.db()
 
     tweet_to_delete_id = request.forms.get("tweet_id")
+    
     tweet_to_delete = db.execute("SELECT * FROM tweets WHERE tweet_id = ?", (tweet_to_delete_id,)).fetchone()
-
+    
     tweet_image = tweet_to_delete["tweet_image"]
-
+    
     # Slet billede fra mappen, når tweet slettes
     if tweet_to_delete["tweet_image"] != "" :  
       myfile = f"tweet_images/{tweet_image}"
       os.remove(myfile)
-
+ 
     user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
+    user_cookie = x.validate_jwt(user_cookie) #user_cookie bliver sat lig den decoded JWT - så de nedenstående linjer kan forsætte som de gjorde før JWT kom ind... - se x fil
     
     # dobbelt tjek at kun user kan slette sine egne tweets
     if tweet_to_delete["tweet_user_fk"] == user_cookie["user_id"] :

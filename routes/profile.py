@@ -31,7 +31,7 @@ def _(user_username):
     user_id = user["user_id"]    
 
     # Den matcher user_id med tweet_user_fk, så den filtrer hvem der har tweetet hvad - så hp user sidder sammen med hp tweets AND der hvor user_username er lige url'en 
-    tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id AND user_username=? COLLATE NOCASE ORDER BY tweet_created_at DESC LIMIT 10",(user_username,)).fetchall()
+    tweets_and_user_data = db.execute("SELECT * FROM tweets,users WHERE tweets.tweet_user_fk = users.user_id AND user_username=? COLLATE NOCASE ORDER BY tweet_created_at DESC",(user_username,)).fetchall()
     
     retweets_and_user_data = db.execute("SELECT * FROM tweets,users,tweets_retweeted_by_users WHERE tweets.tweet_user_fk = users.user_id AND tweets_retweeted_by_users.tweet_fk = tweets.tweet_id AND tweets_retweeted_by_users.user_fk=?  COLLATE NOCASE ORDER BY tweet_created_at DESC LIMIT 10",(user_id,)).fetchall()
 
@@ -117,7 +117,8 @@ def _(user_username):
       datetime_string=datetime_obj.strftime( "%b-%d") # "%d-%m-%Y %H:%M:%S"
       tweet['created_at_datetime'] = datetime_string
 
-
+    # Looper igennem tweets_and_user_data og viser kun de første tweets
+    tweets_and_user_data = tweets_and_user_data[0:10]
 
 
     return template("profile", user=user, tweets_and_user_data=tweets_and_user_data, trends=trends, user_cookie=user_cookie, who_to_follow=who_to_follow, page="profile", TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN, USER_FIRST_NAME_MIN=x.USER_FIRST_NAME_MIN, USER_FIRST_NAME_MAX=x.USER_FIRST_NAME_MAX, USER_LAST_NAME_MIN=x.USER_LAST_NAME_MIN, USER_LAST_NAME_MAX=x.USER_LAST_NAME_MAX)

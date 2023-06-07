@@ -101,6 +101,9 @@ def render_frontpage():
         datetime_string=datetime_obj.strftime( "%b-%d") # "%d-%m-%Y %H:%M:%S"
         tweet['created_at_datetime'] = datetime_string
       
+      # Looper igennem tweets_and_user_data og viser kun de første tweets
+      tweets_and_user_data = tweets_and_user_data[0:10]
+
       return template("frontpage", title="Twitter", tweets_and_user_data=tweets_and_user_data, user_cookie=user_cookie, trends=trends, who_to_follow=who_to_follow, page="frontpage", TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
 
 

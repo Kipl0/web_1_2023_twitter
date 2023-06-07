@@ -57,7 +57,7 @@ def _():
         if uploaded_banner != None :
             name, ext = os.path.splitext(uploaded_banner.filename)
             if ext == "" : 
-                #På grund af enctype i html er uploaded_picture ikke none, men ext er - så hvis der ikke uploades et billede er ext en empty string og dermed ikke none
+                #På grund af enctype i html er uploaded_picture ikke "", men ext er - så hvis der ikke uploades et billede er ext en empty string og dermed ikke none
                 banner_to_upload = "default_banner.png"
             else:
                 if ext not in(".jpg", ".jpeg", ".png"):
