@@ -91,13 +91,14 @@ def validate_user_name():
 
 PASSWORD_MIN = 3
 PASSWORD_MAX = 15
-PASSWORD_REGEX = ""
+PASSWORD_REGEX = "^[a-zA-Z0-9_]*$"
 
 def validate_user_password():
   error = f"Password must be between {PASSWORD_MIN} and {PASSWORD_MAX} characters"
   request.forms.user_password = request.forms.user_password.strip()
   if len(request.forms.user_password) < PASSWORD_MIN : raise Exception(400, error)
   if len(request.forms.user_password) > PASSWORD_MAX : raise Exception(400, error)
+  if not re.match(PASSWORD_REGEX, request.forms.user_password) : raise Exception(error) #ikke tjekket om virker endnu
   return request.forms.user_password
 
 

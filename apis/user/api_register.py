@@ -39,36 +39,36 @@ def _():
             name, ext = os.path.splitext(uploaded_avatar.filename)
             if ext == "" : 
                 #Because of enctype the uploaded picture is not "none", but the extension is - so if there's no upload ext will be an empty string or just none
-                picture_name_avatar = "default_avatar.png"
+                avatar_to_upload = "default_avatar.png"
             else:
                 if ext not in(".jpg", ".jpeg", ".png"):
                     response.status = 400
                     print(ext)
                     return "Picture not allowed"
-                picture_name_avatar = str(uuid.uuid4().hex)
-                picture_name_avatar = picture_name_avatar + ext
-                uploaded_avatar.save(f"{rootdir}avatar/{picture_name_avatar}")
+                avatar_to_upload = str(uuid.uuid4().hex)
+                avatar_to_upload = avatar_to_upload + ext
+                uploaded_avatar.save(f"{rootdir}avatar/{avatar_to_upload}")
                 # return "Picture uploaded"
         else :
-            picture_name_avatar = "default_avatar.png"
+            avatar_to_upload = "default_avatar.png"
 
         #Upload banner
         uploaded_banner = request.files.get("uploaded_banner") #files i formen
         if uploaded_banner != None :
             name, ext = os.path.splitext(uploaded_banner.filename)
             if ext == "" : 
-                #Because of enctype the uploaded picture is not "none", but the extension is - so if there's no upload ext will be an empty string or just none
-                picture_name_banner = "default_banner.png"
+                #På grund af enctype i html er uploaded_picture ikke none, men ext er - så hvis der ikke uploades et billede er ext en empty string og dermed ikke none
+                banner_to_upload = "default_banner.png"
             else:
                 if ext not in(".jpg", ".jpeg", ".png"):
                     response.status = 400
                     raise Exception("Picture not allowed")
-                picture_name_banner = str(uuid.uuid4().hex)
-                picture_name_banner = picture_name_banner + ext
-                uploaded_banner.save(f"{rootdir}banner/{picture_name_banner}")
+                banner_to_upload = str(uuid.uuid4().hex)
+                banner_to_upload = banner_to_upload + ext
+                uploaded_banner.save(f"{rootdir}banner/{banner_to_upload}")
                 # return "Picture uploaded"
         else :
-            picture_name_banner = "default_banner.png"
+            banner_to_upload = "default_banner.png"
 
         user_id = str(uuid.uuid4()).replace("-","")
         user = {
@@ -78,8 +78,8 @@ def _():
             "user_password" : hashed_password,
             "user_first_name" : user_first_name,
             "user_last_name" : user_last_name,
-            "user_avatar" : picture_name_avatar,
-            "user_banner" : picture_name_banner,
+            "user_avatar" : avatar_to_upload,
+            "user_banner" : banner_to_upload,
             "user_link" : "",
             "user_caption" : "",
             "user_location" : "",
