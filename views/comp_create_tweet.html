@@ -7,6 +7,7 @@
       <form method="POST" action="" enctype="multipart/form-data" class="w-full"> <!-- prevents reload -->
         <input class="h-16 bg-black outline-none placeholder:text-zinc-400 text-white text-xl w-full" name="tweet_message" placeholder="What's happening?" type="text" data-validate="str" data-min="{{TWEET_MIN_LEN}}" data-max="{{TWEET_MAX_LEN}}">
         <div id="error-tip" class="hidden text-red-400 pt-2 pb-4"></div>
+        <p id="infoText" class="text-md text-white p-3 rounded-lg text-center "></p>
         <img src="" alt="" id="uploaded_create_tweet_img" class="w-full mt-4 max-h-96 rounded-lg object-contain">
         <div class="flex flex-wrap mt-4">
           <div class="flex text-[#1D9BF0] gap-3">

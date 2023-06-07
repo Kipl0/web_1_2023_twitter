@@ -11,7 +11,7 @@ async function write_tweet_pop_up() {
         // Vi er nødt til at have en body med da vi skal finde ud af hvilken tweet vi har klikket på 
         const form_data = new FormData(frm)
         const tweet_id = form_data.get("tweet_id");
-
+        
         // Lav reqeust til vores API om at get tweet comment for det valgte tweet
         // - id bliver passet ind til python instedet for hele formen
         const conn = await fetch(`/write-tweet-comment-pop-up/${tweet_id}`, {
@@ -28,6 +28,7 @@ async function write_tweet_pop_up() {
         }
 
         update_comment_pop_up_form(tweet_id, tweets_and_user_data_data)
+        
         open_close_comment_container();
 
     } 
@@ -93,7 +94,7 @@ async function write_tweet_comment(show_pop_up) {
  * @param {object} tweets_and_user_data_data - Inderholder for tweets samt de bruger der oprettet dem.
  */
 function update_comment_pop_up_form(tweet_id, tweets_and_user_data_data){
-    const tweet_comment_textarea = document.getElementById("tweet_comment_textarea")
+    let tweet_comment_textarea = document.getElementById("tweet_comment_textarea")
     tweet_comment_textarea.value = ""
     // Formen for at brugeren kan skrive sin kommentar har brug for tweet_id - her sættes det input felt der sidder i den form til tweet-id value
     const tweet_id_to_html = document.getElementById("tweet_id_to_html")
