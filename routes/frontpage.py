@@ -22,10 +22,10 @@ def render_frontpage():
     
     trends = db.execute("SELECT * FROM trends")
     # Redirect til login, hvis ikke man har login
-    # if user_cookie == None:
-    #   response.status = 303
-    #   response.set_header("Location", "/login")
-    #   return
+    if user_cookie == None:
+      response.status = 303
+      response.set_header("Location", "/login")
+      return
 
 
     # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
