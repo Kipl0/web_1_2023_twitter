@@ -22,10 +22,15 @@ def render_frontpage():
     
     trends = db.execute("SELECT * FROM trends")
     # Redirect til login, hvis ikke man har login
-    # if user_cookie == None:
-    #   response.status = 303
-    #   response.set_header("Location", "/login")
-    #   return
+    if user_cookie == None:
+      response.status = 303
+      response.set_header("Location", "/login")
+      return
+
+
+
+
+    
 
 
     # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
@@ -106,10 +111,8 @@ def render_frontpage():
 
       return template("frontpage", title="Twitter", tweets_and_user_data=tweets_and_user_data, user_cookie=user_cookie, trends=trends, who_to_follow=who_to_follow, page="frontpage", TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
 
-
-
     return template("frontpage", title="Twitter", trends=trends, user_cookie=user_cookie, page="frontpage", TWEET_MIN_LEN=x.TWEET_MIN_LEN, TWEET_MAX_LEN=x.TWEET_MAX_LEN)
-    
+
 
   except Exception as ex:
     print(ex)
