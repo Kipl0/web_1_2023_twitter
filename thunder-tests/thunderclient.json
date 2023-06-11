@@ -321,5 +321,45 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "c33c6a15-d0ed-4522-8014-32406a2c4cf1",
+    "colId": "a2608687-c927-453f-9b0e-7c04116255fc",
+    "containerId": "",
+    "name": "fiotext",
+    "url": "https://fiotext.com/send-sms",
+    "method": "POST",
+    "sortNum": 110000,
+    "created": "2023-06-08T07:28:29.464Z",
+    "modified": "2023-06-08T07:33:00.841Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "formdata",
+      "raw": "",
+      "form": [
+        {
+          "name": "user_email",
+          "value": "maalmaja@gmail.com"
+        },
+        {
+          "name": "user_password",
+          "value": "123456"
+        },
+        {
+          "name": "user_api_key",
+          "value": "c091d82de07d0413b9c0d6aa575c6123"
+        },
+        {
+          "name": "sms_message",
+          "value": "Hej!"
+        },
+        {
+          "name": "sms_to_phone",
+          "value": "21733961"
+        }
+      ]
+    },
+    "tests": []
   }
 ]
