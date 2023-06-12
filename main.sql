@@ -1,14 +1,5 @@
 
-
--- change internal structure and respect the linking between PK and FK
--- PRAGMA foreign_keys;
--- PRAGMA foreign_keys = ON;
--- PRAGMA foreign_keys;
-
--- Uden den linje, virker nedenstående link ikke
--- FOREIGN KEY(tweet_user_fk) REFERENCES users(user_id)
-
-
+PRAGMA foreign_keys = ON;
 
 -- -----------------------------------------------
 --                    TABELS
@@ -40,60 +31,17 @@ CREATE TABLE users(
   PRIMARY KEY(user_id)
 ) WITHOUT ROWID;
 
--- ----------- Virtual Users Table --------------
--- Create the users_search virtual table
-DROP TABLE IF EXISTS users_search;
-CREATE VIRTUAL TABLE users_search USING FTS5(
-  user_virtual_id,
-  user_username,
-  user_first_name,
-  user_last_name,
-  user_avatar
-);
 
 
--- Create a trigger to automatically update the users_search virtual table on INSERT
-DROP TRIGGER IF EXISTS insert_user_in_users_search;
-CREATE TRIGGER insert_user_in_users_search
-AFTER INSERT ON users
-BEGIN
-  INSERT INTO users_search (user_virtual_id, user_username, user_first_name, user_last_name, user_avatar)
-  VALUES (NEW.user_id, NEW.user_username, NEW.user_first_name, NEW.user_last_name, NEW.user_avatar);
-END;
-
-
--- Create a trigger to automatically update the users_search virtual table on UPDATE
-DROP TRIGGER IF EXISTS update_user_in_users_search;
-CREATE TRIGGER update_user_in_users_search
-AFTER UPDATE ON users
-BEGIN
-  UPDATE users_search
-  SET user_username = NEW.user_username,
-      user_first_name = NEW.user_first_name,
-      user_last_name = NEW.user_last_name,
-      user_avatar = NEW.user_avatar
-  WHERE user_virtual_id = NEW.user_id;
-END;
-
-
--- Create a trigger to automatically update the users_search virtual table on DELETE'
-DROP TRIGGER IF EXISTS delete_user_in_users_search;
-CREATE TRIGGER delete_user_in_users_search
-AFTER DELETE ON users
-BEGIN
-  DELETE FROM users_search WHERE user_virtual_id = OLD.user_id;
-END;
-
-
+-- ---------------------------------
 -- -----------Indexing--------------
+-- ---------------------------------
 CREATE UNIQUE INDEX idx_users_email ON users(user_email);
+
 CREATE UNIQUE INDEX idx_users_username ON users(user_username);
 
-
-
-
-
-
+-- Her kan man se, om den bruger indexet
+-- EXPLAIN QUERY PLAN SELECT * FROM users WHERE user_email = "maalmaja@gmail.com";
 
 
 -- ----------- Deleted Users --------------
@@ -175,15 +123,7 @@ CREATE TABLE accounts_to_self_deactivate(
 ) Without ROWID;
 
 
--- CREATE UNIQUE INDEX idx_users_ ON users(user_username);
 
--- CREATE INDEX idx_users_user_first_name ON users(user_first_name);
--- CREATE INDEX idx_users_user_last_name ON users(user_last_name);
--- CREATE INDEX idx_users_user_avatar ON users(user_avatar);
-
--- SELECT name FROM sqlite_master WHERE type = 'index';
--- SELECT name FROM sqlite_master WHERE type = 'trigger';
--- ##############################
 
 -- ----------- Tweets --------------
 
@@ -199,13 +139,10 @@ CREATE TABLE tweets(
   tweet_total_retweets      TEXT DEFAULT 0,
   tweet_total_likes         TEXT DEFAULT 0,
   tweet_total_views         TEXT DEFAULT 0,
-  PRIMARY KEY(tweet_id)
+  PRIMARY KEY(tweet_id),
+    FOREIGN KEY (tweet_user_fk) REFERENCES users(user_id)
+      ON DELETE CASCADE
 ) WITHOUT ROWID;
--- -- Majs503
--- I db browser kan man ikke indsætte en linje med en tweet_user_fk som ikke eksisterer som PK i users
--- Herinde kan man godt, men det skal man ikke kunne
--- INSERT INTO tweets VALUES("729ac281ba654300bd3e5994e167eaaa", "a", "1676283564", "a", "", "", "0", "0", "0", "0");
-
 
 
 
@@ -250,7 +187,6 @@ DROP TABLE IF EXISTS tweets_retweeted_by_users;
 CREATE TABLE tweets_retweeted_by_users (
     user_fk                         TEXT NOT NULL,
     tweet_fk                        TEXT NOT NULL,
-    -- retweeted_by_username           TEXT NOT NULL,
     retweeted                       BOOLEAN,
     retweeted_at                    TEXT NOT NULL,
     PRIMARY KEY (user_fk, tweet_fk),
@@ -280,7 +216,7 @@ CREATE TABLE trends(
 --                    Triggers
 -- ----------------------------------------------- 
 
--- Increate user_total_tweets when a tweet is inserted/created
+-- increment user_total_tweets when a tweet is inserted/created
 DROP TRIGGER IF EXISTS increment_user_total_tweets;
 CREATE TRIGGER increment_user_total_tweets AFTER INSERT ON tweets
 BEGIN
@@ -298,7 +234,7 @@ BEGIN
 END;
 
 
--- Increate tweet_total_comments when a tweet_comment is inserted
+-- increment tweet_total_comments when a tweet_comment is inserted
 DROP TRIGGER IF EXISTS increment_tweet_total_comments;
 CREATE TRIGGER increment_tweet_total_comments AFTER INSERT ON tweet_comments
 BEGIN
@@ -310,7 +246,7 @@ END;
 
 
 
--- Increate tweet_total_views when a tweets_liked_by_users is inserted/created
+-- increment tweet_total_views when a tweets_liked_by_users is inserted/created
 DROP TRIGGER IF EXISTS increment_tweet_total_views;
 CREATE TRIGGER increment_tweet_total_views AFTER INSERT ON tweets_liked_by_users
 BEGIN
@@ -323,7 +259,7 @@ END;
 
 
 
--- Increate tweet_total_retweets when a tweet_retweet is inserted/created
+-- increment tweet_total_retweets when a tweet_retweet is inserted/created
 DROP TRIGGER IF EXISTS increment_tweet_total_retweets;
 CREATE TRIGGER increment_tweet_total_retweets AFTER INSERT ON tweets_retweeted_by_users
 BEGIN
@@ -331,7 +267,7 @@ BEGIN
   SET tweet_total_retweets = tweet_total_retweets + 1 
   WHERE tweet_id = NEW.tweet_fk;
 END;
--- decreate tweet_total_retweets when a tweet_retweet is deleted
+-- decrement tweet_total_retweets when a tweet_retweet is deleted
 DROP TRIGGER IF EXISTS decrement_tweet_total_retweets;
 CREATE TRIGGER decrement_tweet_total_retweets AFTER DELETE ON tweets_retweeted_by_users
 BEGIN
@@ -341,7 +277,7 @@ BEGIN
 END;
 
 
--- Increate user_total_follows when a user_follows is inserted/created
+-- increment user_total_follows when a user_follows is inserted/created
 DROP TRIGGER IF EXISTS increment_user_total_follows;
 CREATE TRIGGER increment_user_total_follows AFTER INSERT ON follower_following
 BEGIN
@@ -352,7 +288,7 @@ BEGIN
   SET user_total_following = user_total_following + 1 
   WHERE user_id = NEW.follower_id;
 END;
--- decreate user_total_follows when a user_follows is deleted
+-- decrement user_total_follows when a user_follows is deleted
 DROP TRIGGER IF EXISTS decrement_user_total_follows;
 CREATE TRIGGER decrement_user_total_follows AFTER DELETE ON follower_following
 BEGIN
@@ -365,8 +301,61 @@ BEGIN
 END;
 
 
+
+
 -- -----------------------------------------------
---                    Insert dummy data
+--               Full Text Search
+-- -----------------------------------------------
+-- ----------- Virtual Users Table --------------
+-- Create the users_search virtual table
+DROP TABLE IF EXISTS users_search;
+CREATE VIRTUAL TABLE users_search USING FTS5(
+  user_virtual_id,
+  user_username,
+  user_first_name,
+  user_last_name,
+  user_avatar
+);
+
+
+-- Create a trigger to automatically update the users_search virtual table on INSERT
+DROP TRIGGER IF EXISTS insert_user_in_users_search;
+CREATE TRIGGER insert_user_in_users_search
+AFTER INSERT ON users
+BEGIN
+  INSERT INTO users_search (user_virtual_id, user_username, user_first_name, user_last_name, user_avatar)
+  VALUES (NEW.user_id, NEW.user_username, NEW.user_first_name, NEW.user_last_name, NEW.user_avatar);
+END;
+
+
+-- Create a trigger to automatically update the users_search virtual table on UPDATE
+DROP TRIGGER IF EXISTS update_user_in_users_search;
+CREATE TRIGGER update_user_in_users_search
+AFTER UPDATE ON users
+BEGIN
+  UPDATE users_search
+  SET user_username = NEW.user_username,
+      user_first_name = NEW.user_first_name,
+      user_last_name = NEW.user_last_name,
+      user_avatar = NEW.user_avatar
+  WHERE user_virtual_id = NEW.user_id;
+END;
+
+
+-- Create a trigger to automatically update the users_search virtual table on DELETE'
+DROP TRIGGER IF EXISTS delete_user_in_users_search;
+CREATE TRIGGER delete_user_in_users_search
+AFTER DELETE ON users
+BEGIN
+  DELETE FROM users_search WHERE user_virtual_id = OLD.user_id;
+END;
+
+
+
+
+
+-- -----------------------------------------------
+--            Insert dummy data
 -- -----------------------------------------------
 -- -----------Users--------------
 INSERT INTO users VALUES("51602a9f7d82472b90ed1091248f6cb1","HarryMemes","HarryMemes@gmail.com","123","Harry Potter", "Memes", "51602a9f7d82472b90ed1091248f6cb1.jpeg", "ad1bfe9ce6e44a009b57a1a183ccb202.jpg", "1679402780","","1684880883",1,11,0,0,0,0,0,1,1);
@@ -383,6 +372,7 @@ INSERT INTO deleted_users VALUES("51602a9f7d82472b90ed1091248fa32b","deleted_use
 
 -- -----------Tweets--------------
 -- majs503
+
 INSERT INTO tweets VALUES("729ac281ba654300b23e5994e167ea6a", "07578f6c49d84b7c94ce80e96c64ccc0", "1685903663", "Majas tweet 1 - Cupcakes", "472eadb53ab74fc68c471861044cda76.jpg", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("6847c48ca5f94332af3640c38efe83fe", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953010", "Majas tweet 2", "edb4903f23c94b1abbad0aeac336bc4c.jpg", "", 0, 0, 0, 0);
 INSERT INTO tweets VALUES("7cf79d3612c249f4ab6d535aa8bb861d", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953009", "Majas tweet 3", "", "", 0, 0, 3, 0);
@@ -394,6 +384,7 @@ INSERT INTO tweets VALUES("51fe5821b54548b68e93854dc98b06eb", "07578f6c49d84b7c9
 INSERT INTO tweets VALUES("ee96c197a75544ac8e1ab8f25243b53e", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953003", "Majas tweet 9", "", "", 0, 0, 1, 0);
 INSERT INTO tweets VALUES("6c7dd325663141158eb8edd64321b9d7", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953002", "Majas tweet 10", "", "", 0, 0, 6, 0);
 INSERT INTO tweets VALUES("6c7dd325663141158eb8edd64321asfg", "07578f6c49d84b7c94ce80e96c64ccc0", "1680953001", "tweet nr. 11", "", "", 0, 0, 2, 0); -- nr. 11
+
 
 
 -- Katy Perry

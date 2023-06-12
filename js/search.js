@@ -7,14 +7,6 @@ function hide_search_reults() {
     }, 700)
 }
 
-// // Show
-// function show_search_results() {
-//     document.querySelector("#search_results").classList.remove("hidden")
-//     // search_results.style.display = "flex"
-//   }
-// //   document.querySelector("#search_results").classList.add("hidden")
-
-
 function search() {
     clearTimeout(the_timer)
 
@@ -30,7 +22,7 @@ function search() {
         let results = ""
         
         document.querySelector("#search_results").innerHTML = ""
-        data.forEach( (item)=>{
+        data.forEach( (item)=>{ //Item er en variable der beskriver hver række i data elementet
             results += `<a href="/${item.user_username}" class="flex flex-col px-4 py-3 hover:bg-zinc-800">
                         <section class="flex items-center gap-6">
                             <img src="/avatar/${item.user_avatar}" alt="" class="w-10 rounded-full aspect-square">

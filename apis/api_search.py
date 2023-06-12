@@ -14,7 +14,7 @@ def _() :
         # search_results = db.execute(f"SELECT user_username, user_first_name, user_last_name, user_avatar FROM users WHERE user_username LIKE '%{search_input}%' OR user_first_name LIKE '%{search_input}%' OR user_last_name LIKE '%{search_input}%' OR user_first_name || ' ' || user_last_name  LIKE '%{search_input}%'").fetchall()
         search_results = db.execute(f"SELECT user_username, user_first_name, user_last_name, user_avatar FROM users_search WHERE users_search MATCH 'user_username:{search_input}* OR user_first_name:{search_input}* OR user_last_name:{search_input}*'").fetchall()
 
-        response.set_header("Content-type","application/json")
+        response.set_header("Content-type","application/json") #fortæller js at der returneres json - det bruges ikke endnu på js - før linje 20 kunne man lave et tjek om resultatet faktisk er json
         return json.dumps(search_results)
 
     except Exception as e :
