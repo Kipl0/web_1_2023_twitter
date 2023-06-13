@@ -30,7 +30,7 @@ def render_frontpage():
 
 
 
-    
+
 
 
     # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
