@@ -26,7 +26,7 @@ def _():
         x.validate_user_confirm_password()
         
         
-        #password bcrypt - hashing
+        #password bcrypt - kryptering
         user_input_password = user_password.encode('utf-8')
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(user_input_password, salt)

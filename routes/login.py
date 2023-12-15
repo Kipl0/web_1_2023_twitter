@@ -1,5 +1,6 @@
 from bottle import get, template, request, response
 import x
+
 ##############################
 @get("/login")
 def _():
@@ -9,6 +10,7 @@ def _():
 	user_cookie = request.get_cookie("user_cookie", secret=x.COOKIE_SECRET)
 
 	print(user_cookie)
+
 	if user_cookie:
 		user_cookie = x.validate_jwt(user_cookie) #user_cookie bliver sat lig den decoded JWT - så de nedenstående linjer kan forsætte som de gjorde før JWT kom ind... - se x fil
 		print(user_cookie)

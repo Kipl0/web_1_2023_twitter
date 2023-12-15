@@ -34,7 +34,7 @@ CREATE TABLE users(
 
 
 -- ---------------------------------
--- -----------Indexing--------------
+--       Indexing for users
 -- ---------------------------------
 CREATE UNIQUE INDEX idx_users_email ON users(user_email);
 
@@ -69,8 +69,6 @@ CREATE TABLE deleted_users(
   deleted_user_twitter_gold           INTEGER DEFAULT 0,
   PRIMARY KEY(deleted_user_id)
 ) WITHOUT ROWID;
-
-
 
 
 
@@ -126,7 +124,6 @@ CREATE TABLE accounts_to_self_deactivate(
 
 
 -- ----------- Tweets --------------
-
 DROP TABLE IF EXISTS tweets;
 CREATE TABLE tweets(
   tweet_id                  TEXT UNIQUE NOT NULL,
@@ -147,7 +144,6 @@ CREATE TABLE tweets(
 
 
 -- ----------- Tweet Comments --------------
-
 DROP TABLE IF EXISTS tweet_comments;
 CREATE TABLE tweet_comments(
   comment_id                  TEXT NOT NULL,
@@ -165,7 +161,6 @@ CREATE TABLE tweet_comments(
 
 
 -- ----------- Tweets Liked by Users --------------
-
 DROP TABLE IF EXISTS tweets_liked_by_users;
 CREATE TABLE tweets_liked_by_users (
     user_id               TEXT NOT NULL,
@@ -182,7 +177,6 @@ CREATE TABLE tweets_liked_by_users (
 
 
 -- -----------Tweets Retweeted by Users --------------
-
 DROP TABLE IF EXISTS tweets_retweeted_by_users;
 CREATE TABLE tweets_retweeted_by_users (
     user_fk                         TEXT NOT NULL,
@@ -199,7 +193,6 @@ CREATE TABLE tweets_retweeted_by_users (
 
 
 -- -----------Trends--------------
-
 DROP TABLE IF EXISTS trends;
 CREATE TABLE trends(
   trend_id            TEXT,
@@ -207,6 +200,14 @@ CREATE TABLE trends(
   trend_total_tweets  TEXT DEFAULT 0,
   PRIMARY KEY(trend_id)
 ) WITHOUT ROWID;
+
+
+
+
+
+
+
+
 
 
 
@@ -224,7 +225,7 @@ BEGIN
   SET user_total_tweets =  user_total_tweets + 1 
   WHERE user_id = NEW.tweet_user_fk;
 END;
-
+-- Decrement user_total_tweets when a tweet is inserted/created
 DROP TRIGGER IF EXISTS decrement_user_total_tweets;
 CREATE TRIGGER decrement_user_total_tweets AFTER DELETE ON tweets
 BEGIN
@@ -354,6 +355,11 @@ END;
 
 
 
+
+
+
+
+
 -- -----------------------------------------------
 --            Insert dummy data
 -- -----------------------------------------------
@@ -434,6 +440,16 @@ INSERT INTO trends VALUES("43ace034564c42788169ac18aaf601f5", "Ukraine", "698");
 INSERT INTO trends VALUES("2a9470bc61314187b19d7190b76cd535", "Netto", "32574");
 INSERT INTO trends VALUES("c9773e2bb68647039a7a40c2ee7d4716", "Politics", "4458796");
 
+
+
+
+
+
+
+
+
+
+
 -- -----------------------------------------------
 --                    Database
 -- -----------------------------------------------
@@ -483,6 +499,80 @@ GROUP BY user_username
 HAVING 10 < user_total_tweets;
 
 
+-- TRIGGER MED WHEN - TRIGGER MED IF condition
+DROP TRIGGER IF EXISTS update_product_color_heaviest;
+CREATE TRIGGER update_product_color_heaviest
+AFTER UPDATE ON products
+WHEN NEW.product_weight = (SELECT MAX(product_weight) FROM products)
+BEGIN
+  UPDATE products
+  SET product_color = "black"
+  WHERE product_id = NEW.product_id;
+END;
+
+INSERT INTO products VALUES("5","toy",45,"white",14000,"2");
+
+
+
+-- Joins til fremlæggelsen
+
+-- -- tshirt_logo, tshirt_price, color_name
+-- -- Inner Join tshirts og colors
+-- SELECT tshirt_logo, tshirt_price, color_name FROM tshirts
+-- INNER JOIN colors
+-- ON tshirts.tshirt_color_fk = colors.color_id;
+
+
+-- -- size_name, tshirt_logo, tshirt_price
+-- -- left Join sizes og tshirts
+-- SELECT size_name, tshirt_logo, tshirt_price FROM sizes
+-- LEFT JOIN tshirts
+-- ON sizes.size_id = tshirts.tshirt_size_fk;
+
+
+-- -- CROSS JOIN sizes - tshirts
+-- -- size_name, tshirt_logo, tshirt_price
+-- SELECT size_name, tshirt_logo, tshirt_price FROM sizes
+-- CROSS JOIN tshirts;
+
+
+-- -- THREE WAY JOIN tshirt - color - size
+-- -- tshirt_logo, tshirt_price, color_name, size_name
+-- SELECT tshirt_logo, tshirt_price, color_name, size_name FROM tshirts
+-- INNER JOIN colors ON tshirts.tshirt_color_fk = colors.color_id
+-- INNER JOIN sizes ON tshirts.tshirt_size_fk = sizes.size_id;
+
+
+-- SELECT tshirt_logo,tshirt_price,size_name, color_name FROM tshirts
+-- JOIN sizes ON tshirts.tshirt_size_fk = sizes.size_id
+-- JOIN colors ON tshirts.tshirt_color_fk = colors.color_id;
+
+-- SELECT tshirt_logo,tshirt_price,size_name, color_name FROM tshirts
+-- CROSS JOIN sizes
+-- CROSS JOIN colors;
+
+
+
+SELECT * FROM tshirts ORDER BY random();
+
+
+-- GROUP BY, HAVING og UNION
+
+SELECT COUNT(tshirt_id), tshirt_price
+FROM tshirts
+GROUP BY tshirt_price;
+
+SELECT COUNT(tshirt_id), tshirt_price
+FROM tshirts
+GROUP BY tshirt_price
+HAVING tshirt_price > 20;
+
+SELECT size_id, size_name FROM sizes
+UNION
+SELECT color_id, color_name FROM colors;
+
+
+PRAGMA foreign_keys = ON;
 
 
 
@@ -492,5 +582,93 @@ HAVING 10 < user_total_tweets;
 
 
 
+
+
+
+
+
+-- --------------------------------
+--          Fremlæggelse
+-- --------------------------------
+
+DROP TABLE IF EXISTS colors;
+CREATE TABLE colors(
+  color_id            TEXT NOT NULL UNIQUE,
+  color_name          TEXT NOT NULL UNIQUE,
+  PRIMARY KEY(color_id)
+)WITHOUT ROWID;
+
+DROP TABLE IF EXISTS sizes;
+CREATE TABLE sizes(
+  size_id            TEXT NOT NULL UNIQUE,
+  size_name          TEXT NOT NULL UNIQUE,
+  PRIMARY KEY(size_id)
+)WITHOUT ROWID;
+
+DROP TABLE IF EXISTS tshirts;
+CREATE TABLE tshirts(
+  tshirt_id           TEXT NOT NULL UNIQUE,
+  tshirt_logo         TEXT NOT NULL,
+  tshirt_price        INTEGER NOT NULL,
+  tshirt_color_fk     TEXT NOT NULL,
+  tshirt_size_fk      TEXT NOT NULL,
+  PRIMARY KEY(tshirt_id)
+)WITHOUT ROWID;
+
+INSERT INTO colors VALUES("1","red");
+INSERT INTO colors VALUES("2","green");
+INSERT INTO colors VALUES("3","blue");
+
+INSERT INTO sizes VALUES("1","s");
+INSERT INTO sizes VALUES("2","m");
+INSERT INTO sizes VALUES("3","l");
+INSERT INTO sizes VALUES("4","xl");
+
+INSERT INTO tshirts VALUES("1","nike","10","1","1");
+INSERT INTO tshirts VALUES("2","adidas","30","2","2");
+INSERT INTO tshirts VALUES("3","puma","30","3","3");
+INSERT INTO tshirts VALUES("4","hummel","40","3","2");
+
+SELECT * FROM colors;
+SELECT * FROM sizes;
+SELECT * FROM tshirts;
+
+
+DROP TABLE IF EXISTS tshirt_logos;
+CREATE TABLE tshirt_logos(
+  tshirt_logo_id        TEXT NOT NULL UNIQUE,
+  tshirt_logo_name      TEXT NOT NULL UNIQUE,
+  PRIMARY KEY(tshirt_logo_id,tshirt_logo_name)
+)WITHOUT ROWID;
+
+
+-- tshirt_logo, tshirt_price, color_name
+-- Inner Join tshirts og colors
+SELECT tshirt_logo, tshirt_price, color_name FROM tshirts
+INNER JOIN colors
+ON tshirts.tshirt_color_fk = colors.color_id;
+
+
+
+
+
+-- size_name, tshirt_logo, tshirt_price
+-- left Join sizes og tshirts
+SELECT size_name, tshirt_logo, tshirt_price FROM sizes
+LEFT JOIN tshirts
+ON tshirts.tshirt_size_fk = sizes.size_id;
+
+
+
+
+-- CROSS JOIN sizes - tshirts
+-- size_name, tshirt_logo, tshirt_price
+
+
+
+
+
+-- THREE WAY JOIN tshirt - color - size
+-- tshirt_logo, tshirt_price, color_name, size_name
 
 

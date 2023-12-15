@@ -28,11 +28,6 @@ def render_frontpage():
       return
 
 
-
-
-
-
-
     # Vis farverne på de tweets der er liket og dem der ikke er liket ved load af siden
     if user_cookie != None : 
       who_to_follow = []
